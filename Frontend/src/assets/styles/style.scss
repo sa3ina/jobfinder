@@ -348,8 +348,9 @@
   align-items: center;
   text-align: center;
   background-color: #161616;
+  flex-direction: column;
+  color: white;
   .aboutcont {
-    color: white;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -376,7 +377,7 @@
       border: none;
       cursor: pointer;
       font-family: "Work Sans";
-      margin-bottom: 5%;
+      margin-bottom: 10%;
     }
     button:hover {
       background-color: #1e1e1e;
@@ -395,6 +396,35 @@
     .aboutcont {
       .supposing {
         font-size: 26px;
+      }
+      button {
+        margin-bottom: 20%;
+      }
+    }
+  }
+  .grid {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 0 auto;
+    text-align: center;
+    img {
+      height: 80px;
+      margin-bottom: 5%;
+    }
+    .griditem {
+      padding: 0 3%;
+      .top {
+        font-weight: 600;
+        font-size: 22px;
+        font-family: "Outfit";
+        margin-bottom: 5%;
+      }
+      .bottom {
+        font-size: 18px;
+        font-family: "Work Sans";
+        padding-bottom: 100px;
       }
     }
   }
