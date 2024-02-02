@@ -3,6 +3,7 @@ import Hero from "../assets/components/Hero";
 import { Helmet } from "react-helmet";
 import AboutSection from "../assets/components/AboutSection";
 import FindJobSection from "../assets/components/FindJobSection";
+import Comment from "../assets/components/Comment";
 const Home = () => {
   return (
     <>
@@ -14,6 +15,7 @@ const Home = () => {
       <Hero />
       <AboutSection />
       <FindJobSection />
+      <Comment />
     </>
   );
 };

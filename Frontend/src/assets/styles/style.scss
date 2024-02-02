@@ -615,3 +615,251 @@
     }
   }
 }
+.comment {
+  background-color: #0e0e0e;
+  color: white;
+  padding: 13% 0 20% 3%;
+  position: relative;
+  .commentgrid {
+    .trusted {
+      font-weight: 600;
+      font-size: 60px;
+      font-family: "Outfit";
+      padding-bottom: 3%;
+    }
+    @media only screen and (max-width: 1100px) {
+      .trusted {
+        font-size: 45px;
+      }
+    }
+    @media only screen and (max-width: 500px) {
+      .trusted {
+        font-size: 37px;
+      }
+    }
+    .moonlight {
+      font-size: 18px;
+      font-family: "Work Sans";
+      padding-bottom: 6%;
+    }
+    .counts {
+      display: flex;
+      justify-content: space-between;
+      .item {
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+        .cont {
+          display: flex;
+          align-items: center;
+          .count {
+            font-size: 36px;
+            font-weight: 600;
+            font-family: "Outfit";
+          }
+          .plus {
+            font-size: 36px;
+            font-weight: 600;
+            font-family: "Outfit";
+            color: #284ee2;
+          }
+        }
+        .countname {
+          font-size: 18px;
+          font-family: "Work Sans";
+        }
+      }
+    }
+    @media only screen and (max-width: 385px) {
+      .counts {
+        display: flex;
+        gap: 20px;
+        flex-direction: column;
+      }
+    }
+    @media only screen and (max-width: 1200px) {
+      .counts {
+        padding-right: 20px;
+      }
+    }
+  }
+
+  .head {
+    max-height: 13%;
+    position: absolute;
+    bottom: 0;
+    max-width: 100%;
+  }
+  .head1 {
+    left: 0;
+  }
+  .head2 {
+    left: 8%;
+  }
+  .head3 {
+    left: 17%;
+  }
+  .head4 {
+    left: 24%;
+  }
+  .head5 {
+    left: 31%;
+  }
+  .head6 {
+    left: 58%;
+  }
+  .head7 {
+    right: 23%;
+  }
+  .head8 {
+    right: 14%;
+  }
+  .head9 {
+    right: 7%;
+  }
+  .head10 {
+    right: 0;
+  }
+
+  @media only screen and (max-width: 1190px) {
+    .head {
+      max-height: 8%;
+    }
+    .head1 {
+      left: 0;
+    }
+    .head2 {
+      left: 10%;
+    }
+    .head3 {
+      left: 20%;
+    }
+    .head4 {
+      left: 29%;
+    }
+    .head5 {
+      left: 38%;
+    }
+    .head6 {
+      left: 49%;
+    }
+    .head7 {
+      right: 30%;
+    }
+    .head8 {
+      right: 20%;
+    }
+    .head9 {
+      right: 10%;
+    }
+    .head10 {
+      right: 0;
+    }
+  }
+
+  @media only screen and (max-width: 800px) {
+    .head {
+      display: none;
+    }
+  }
+}
+.head {
+  position: absolute;
+  animation: jumpAnimation 1s;
+}
+
+@keyframes jumpAnimation {
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-30px);
+  }
+  60% {
+    transform: translateY(-15px);
+  }
+}
+
+.custom-prev {
+  height: 60px;
+  width: 60px;
+  border: 2px solid rgb(47, 46, 46);
+  padding: 13px;
+  cursor: pointer;
+  border-radius: 50%;
+  margin-right: 10px;
+
+  margin-top: 20px;
+}
+.custom-next {
+  height: 60px;
+  width: 60px;
+  border: 2px solid rgb(47, 46, 46);
+  padding: 13px;
+  cursor: pointer;
+  border-radius: 50%;
+}
+.swipercont {
+  background-color: #1e1e1e;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding: 40px 35px;
+  width: 400px;
+  border-radius: 4px;
+
+  .stars {
+    display: flex;
+    gap: 3px;
+    .star {
+      height: 16px;
+      width: 16px;
+    }
+  }
+  .moon {
+    font-size: 18px;
+    font-family: "Work Sans";
+  }
+  .information {
+    display: flex;
+    gap: 20px;
+    .info {
+      .name {
+        font-size: 22px;
+        font-weight: 600;
+        font-family: "Outfit";
+        margin-bottom: 5px;
+      }
+      .work {
+        font-size: 14px;
+        font-family: "Work Sans";
+        color: #284ee2;
+      }
+    }
+    .profile {
+      height: 60px;
+      width: 60px;
+      border-radius: 50%;
+    }
+  }
+}
+@media only screen and (max-width: 1320px) {
+  .swipercont {
+    width: 370px;
+  }
+}
+@media only screen and (max-width: 900px) {
+  .swipercont {
+    width: 350px;
+  }
+}
+@media only screen and (max-width: 735px) {
+  .swipercont {
+    width: 400px;
+  }
+}
+@media only screen and (max-width: 500px) {
+  .swipercont {
+    width: 300px;
+  }
+}
