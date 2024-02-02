@@ -2,6 +2,7 @@ import React from "react";
 import Hero from "../assets/components/Hero";
 import { Helmet } from "react-helmet";
 import AboutSection from "../assets/components/AboutSection";
+import FindJobSection from "../assets/components/FindJobSection";
 const Home = () => {
   return (
     <>
@@ -12,6 +13,7 @@ const Home = () => {
       </Helmet>
       <Hero />
       <AboutSection />
+      <FindJobSection />
     </>
   );
 };
