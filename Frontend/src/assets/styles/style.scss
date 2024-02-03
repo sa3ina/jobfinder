@@ -131,6 +131,46 @@
   color: white;
   text-decoration: none;
 }
+.pages {
+  position: relative;
+  .pageshover {
+    border: 2px solid rgb(47, 46, 46);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    width: 350px;
+    height: 300px;
+    text-align: left;
+    padding: 10px;
+    top: 40px;
+    left: 0;
+    z-index: 20;
+    background-color: #1e1e1e;
+    display: none;
+    .strong {
+      font-weight: 600;
+      font-family: "Outfit";
+      font-size: 22px;
+      padding-bottom: 10px;
+      padding-top: 30px;
+    }
+    .normal {
+      font-size: 16px;
+      margin-bottom: 15px;
+      font-family: "Work Sans";
+    }
+  }
+}
+.pageshover {
+  display: none;
+}
+
+.pageshover.show {
+  display: block;
+}
+
 .hero {
   .imgleft {
     position: absolute;

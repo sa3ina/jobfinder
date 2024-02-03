@@ -10,7 +10,7 @@ const CompanySection = () => {
       const scrollPosition = window.scrollY;
       setScrollPosition(scrollPosition);
     };
-    console.log(window.scrollY);
+
     window.addEventListener("scroll", handleScroll);
 
     return () => {
