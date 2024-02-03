@@ -5,6 +5,7 @@ import AboutSection from "../assets/components/AboutSection";
 import FindJobSection from "../assets/components/FindJobSection";
 import Comment from "../assets/components/Comment";
 import CompanySection from "../assets/components/CompanySection";
+import QuestionSection from "../assets/components/QuestionSection";
 const Home = () => {
   return (
     <>
@@ -18,6 +19,7 @@ const Home = () => {
       <FindJobSection />
       <Comment />
       <CompanySection />
+      <QuestionSection />
     </>
   );
 };

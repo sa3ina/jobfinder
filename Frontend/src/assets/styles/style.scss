@@ -1181,3 +1181,102 @@
     }
   }
 }
+.questions {
+  background-color: #161616;
+  color: white;
+  padding: 5% 3%;
+
+  .mobile {
+    position: absolute;
+    height: 600px;
+    max-width: 100%;
+    top: 200px;
+    right: 28%;
+    transform: rotate(60deg);
+  }
+  .questiongrid {
+    .images {
+      width: 100%;
+      max-width: 90%;
+      .download {
+        font-size: 48px;
+        font-weight: 600;
+        font-family: "Outfit";
+        margin-bottom: 30px;
+      }
+
+      .image {
+        display: flex;
+        justify-content: left;
+        gap: 20px;
+        padding-bottom: 340px;
+        .store {
+          width: 160px;
+          height: 50px;
+        }
+      }
+    }
+    .app {
+      background-color: #0e0e0e;
+      padding: 50px 50px 30px 50px;
+      border-radius: 6px;
+      position: relative;
+      overflow: hidden;
+    }
+    @media (max-width: 630px) {
+      .images {
+        .image {
+          display: flex;
+          flex-direction: column;
+        }
+        .download {
+          font-size: 30px;
+        }
+      }
+
+      .app {
+        padding: 30px 30px 20px 30px;
+      }
+    }
+  }
+
+  .most {
+    font-size: 48px;
+    font-weight: 600;
+    font-family: "Outfit";
+    padding: 1% 0 10% 0;
+  }
+  @media (max-width: 600px) {
+    .most {
+      padding: 1% 0 5% 0;
+    }
+  }
+}
+.accordioncont {
+  .accordion {
+    background-color: transparent !important;
+    color: white !important;
+    box-shadow: none !important;
+    margin-bottom: 20px;
+  }
+  .question {
+    font-family: "Outfit";
+    font-size: 22px;
+    font-weight: 600;
+  }
+  .answer {
+    font-family: "Work Sans";
+    font-size: 18px;
+    font-weight: 400;
+  }
+  .inc {
+    width: 15px;
+    margin-right: 20px;
+    transform: rotate(45deg);
+    transition: transform 0.3s ease;
+  }
+  .rotate {
+    transition: transform 0.3s ease;
+    transform: rotate(180deg);
+  }
+}
