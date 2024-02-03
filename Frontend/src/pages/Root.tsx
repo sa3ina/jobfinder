@@ -9,6 +9,7 @@ const Root = (props: Props) => {
     <>
       <Navbar />
       <Outlet />
+      <Footer />
     </>
   );
 };

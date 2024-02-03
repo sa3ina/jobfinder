@@ -469,6 +469,7 @@
     .find {
       font-size: 34px;
     }
+
     .leftside {
       display: flex;
       flex-flow: wrap;
@@ -904,6 +905,12 @@
     .find {
       font-size: 34px;
     }
+    .findfav {
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+      margin-bottom: 30px;
+    }
     .leftside {
       display: flex;
       flex-flow: wrap;
@@ -922,7 +929,7 @@
     position: absolute;
     top: 37%;
     right: 0;
-    transition: transform 0.5s ease;
+    transition: transform 0.2s ease;
     .rightside {
       text-align: left;
       .jobs {
@@ -1053,8 +1060,7 @@
     position: absolute;
     bottom: 7%;
     left: 0;
-    transition: transform 0.5s ease;
-
+    transition: transform 0.2s ease;
     .rightside {
       text-align: left;
       .jobs {
@@ -1185,7 +1191,7 @@
   background-color: #161616;
   color: white;
   padding: 5% 3%;
-
+  padding-bottom: 15%;
   .mobile {
     position: absolute;
     height: 600px;
@@ -1278,5 +1284,41 @@
   .rotate {
     transition: transform 0.3s ease;
     transform: rotate(180deg);
+  }
+}
+.footer {
+  padding: 5% 3%;
+  background-color: #161616;
+  color: white;
+  position: relative;
+  .background {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+  .background2 {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  .sect {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .strong {
+    font-weight: 600;
+    font-family: "Outfit";
+    font-size: 22px;
+    padding-bottom: 10px;
+    padding-top: 30px;
+  }
+  .normal {
+    font-size: 18px;
+    font-family: "Work Sans";
   }
 }

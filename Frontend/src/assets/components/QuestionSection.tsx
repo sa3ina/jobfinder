@@ -69,7 +69,6 @@ const QuestionSection = (props: Props) => {
               onChange={handleAccordionChange}
             >
               <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1-content"
                 id="panel1-header"
                 className="question"
@@ -93,7 +92,6 @@ const QuestionSection = (props: Props) => {
               onChange={handleAccordionChange2}
             >
               <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel2-content"
                 id="panel2-header"
                 className="question"
@@ -118,7 +116,6 @@ const QuestionSection = (props: Props) => {
               onChange={handleAccordionChange3}
             >
               <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel2-content"
                 id="panel2-header"
                 className="question"
@@ -143,7 +140,6 @@ const QuestionSection = (props: Props) => {
               onChange={handleAccordionChange4}
             >
               <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel2-content"
                 id="panel2-header"
                 className="question"
@@ -168,7 +164,6 @@ const QuestionSection = (props: Props) => {
               onChange={handleAccordionChange5}
             >
               <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel2-content"
                 id="panel2-header"
                 className="question"
@@ -193,7 +188,6 @@ const QuestionSection = (props: Props) => {
               onChange={handleAccordionChange6}
             >
               <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel2-content"
                 id="panel2-header"
                 className="question"

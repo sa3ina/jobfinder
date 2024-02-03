@@ -32,7 +32,7 @@ const CompanySection = () => {
           transform:
             scrollPosition > 3900
               ? `translateX(${Math.min(
-                  200,
+                  400,
                   Math.max(0, scrollPosition - 3900)
                 )}px)`
               : "translateX(0)",
@@ -82,7 +82,7 @@ const CompanySection = () => {
           transform:
             scrollPosition > 3900
               ? `translateX(${-Math.min(
-                  200,
+                  400,
                   Math.max(0, scrollPosition - 3900)
                 )}px)`
               : "translateX(0)",
