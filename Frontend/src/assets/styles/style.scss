@@ -863,3 +863,321 @@
     width: 300px;
   }
 }
+///
+.companysection {
+  background-color: #161616;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 6% 3% 25% 3%;
+  position: relative;
+  overflow: hidden;
+
+  button {
+    padding: 15px 35px;
+    background-color: #2c56fe;
+    color: white;
+    border: 2px solid rgb(47, 46, 46);
+    border-radius: 4px;
+    font-size: 18px;
+    font-family: "Work Sans";
+    cursor: pointer;
+  }
+  button:hover {
+    background-color: #1e1e1e;
+    transition: 0.5s;
+  }
+  .findfav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4%;
+  }
+  .find {
+    font-weight: 600;
+    font-size: 60px;
+    font-family: "Outfit";
+    margin-bottom: 7%;
+  }
+
+  @media only screen and (max-width: 900px) {
+    .find {
+      font-size: 34px;
+    }
+    .leftside {
+      display: flex;
+      flex-flow: wrap;
+      justify-content: center;
+      .category {
+        gap: 0%;
+        margin-bottom: 12px;
+        img {
+          margin: 0 7px;
+        }
+      }
+    }
+  }
+
+  .findcompany {
+    position: absolute;
+    top: 37%;
+    right: 0;
+    transition: transform 0.5s ease;
+    .rightside {
+      text-align: left;
+      .jobs {
+        background-color: #1e1e1e;
+        border: 2px solid rgb(47, 46, 46);
+        border-radius: 4px;
+        display: flex;
+        justify-content: space-between;
+        padding: 7%;
+        max-width: 100%;
+        margin-bottom: 4%;
+        flex-direction: column;
+        gap: 20px;
+        cursor: pointer;
+        .position {
+          display: flex;
+          justify-content: space-between;
+          .browsejob {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            img {
+              height: 20px;
+              width: 20px;
+            }
+            p {
+              font-size: 18px;
+              font-family: "Work Sans";
+              color: #284ee2;
+            }
+          }
+        }
+        @media (max-width: 770px) {
+          .position {
+            display: block;
+          }
+        }
+        img {
+          height: 40px;
+          width: 40px;
+        }
+        button {
+          padding: 15px 30px;
+          background-color: transparent;
+          color: white;
+          border: 2px solid rgb(47, 46, 46);
+          border-radius: 4px;
+          font-size: 18px;
+          font-family: "Work Sans";
+          cursor: pointer;
+        }
+        button:hover {
+          background-color: #2c56fe;
+          transition: 0.5s;
+        }
+
+        .type {
+          font-size: 18px;
+          font-family: "Work Sans";
+        }
+
+        .jobscont {
+          display: flex;
+          align-items: center;
+          gap: 15px;
+          .jobicon {
+            height: 60px;
+            width: 60px;
+          }
+          .inf {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            .jobname {
+              font-size: 18px;
+              font-family: "Outfit";
+              font-weight: 600;
+            }
+            @media only screen and (max-width: 1040px) {
+              .jobname {
+                font-size: 15px;
+              }
+            }
+            .place {
+              font-size: 16px;
+              font-family: "Work Sans";
+            }
+          }
+        }
+      }
+      @media only screen and (max-width: 770px) {
+        .jobs {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          .jobscont {
+            margin-bottom: 15px;
+          }
+          .type {
+            border: none;
+            margin-bottom: 5px;
+            padding: 2% 0;
+          }
+          button {
+            width: 100%;
+          }
+        }
+      }
+
+      .jobs:hover {
+        transform: translateY(-5px);
+        transition: transform 0.3s ease;
+      }
+      .jobs:not(:hover) {
+        transform: translateY(0);
+        transition: transform 0.3s ease;
+      }
+    }
+  }
+  @media (max-width: 1200px) {
+    .findcompany {
+      transform: none !important;
+      position: static;
+      transition: none;
+    }
+  }
+  .findcompany2 {
+    position: absolute;
+    bottom: 7%;
+    left: 0;
+    transition: transform 0.5s ease;
+
+    .rightside {
+      text-align: left;
+      .jobs {
+        background-color: #1e1e1e;
+        border: 2px solid rgb(47, 46, 46);
+        border-radius: 4px;
+        display: flex;
+        justify-content: space-between;
+        padding: 7%;
+        max-width: 100%;
+        margin-bottom: 4%;
+        flex-direction: column;
+        gap: 20px;
+        cursor: pointer;
+        .position {
+          display: flex;
+          justify-content: space-between;
+          .browsejob {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            img {
+              height: 20px;
+              width: 20px;
+            }
+            p {
+              font-size: 18px;
+              font-family: "Work Sans";
+              color: #284ee2;
+            }
+          }
+        }
+        @media (max-width: 770px) {
+          .position {
+            display: block;
+          }
+        }
+        img {
+          height: 40px;
+          width: 40px;
+        }
+        button {
+          padding: 15px 30px;
+          background-color: transparent;
+          color: white;
+          border: 2px solid rgb(47, 46, 46);
+          border-radius: 4px;
+          font-size: 18px;
+          font-family: "Work Sans";
+          cursor: pointer;
+        }
+        button:hover {
+          background-color: #2c56fe;
+          transition: 0.5s;
+        }
+
+        .type {
+          font-size: 18px;
+          font-family: "Work Sans";
+        }
+
+        .jobscont {
+          display: flex;
+          align-items: center;
+          gap: 15px;
+          .jobicon {
+            height: 60px;
+            width: 60px;
+          }
+          .inf {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            .jobname {
+              font-size: 18px;
+              font-family: "Outfit";
+              font-weight: 600;
+            }
+            @media only screen and (max-width: 1040px) {
+              .jobname {
+                font-size: 15px;
+              }
+            }
+            .place {
+              font-size: 16px;
+              font-family: "Work Sans";
+            }
+          }
+        }
+      }
+      @media only screen and (max-width: 770px) {
+        .jobs {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          .jobscont {
+            margin-bottom: 15px;
+          }
+          .type {
+            border: none;
+            margin-bottom: 5px;
+            padding: 2% 0;
+          }
+          button {
+            width: 100%;
+          }
+        }
+      }
+      .jobs:hover {
+        transform: translateY(-5px);
+        transition: transform 0.3s ease;
+      }
+      .jobs:not(:hover) {
+        transform: translateY(0);
+        transition: transform 0.3s ease;
+      }
+    }
+  }
+  @media (max-width: 1200px) {
+    .findcompany2 {
+      position: static;
+      transform: none !important;
+      transition: none;
+    }
+  }
+}

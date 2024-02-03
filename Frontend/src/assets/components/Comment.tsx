@@ -121,7 +121,7 @@ const Comment = (props: Props) => {
               })}
             </Swiper>
             <img
-              className="custom-prev"
+              className="custom-prev "
               src="https://assets-global.website-files.com/63b2816edd90444c9df54d80/63b3ef961c777477955a1055_arrow-left.svg"
             />
             <img
