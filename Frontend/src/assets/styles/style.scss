@@ -80,6 +80,10 @@
     }
     .hamburger {
       display: none;
+      z-index: 100;
+    }
+    .hamburger:active {
+      background-color: #284ee2;
     }
   }
 
@@ -122,6 +126,7 @@
     }
   }
 }
+
 @media only screen and (max-width: 543px) {
   .navbar {
     padding: 13px;
@@ -170,7 +175,15 @@
 .pageshover.show {
   display: block;
 }
-
+.drawer {
+  background-color: #0e0e0e;
+  color: white;
+  font-family: "Work Sans";
+  font-size: 18px;
+  p {
+    margin: 15px;
+  }
+}
 .hero {
   .imgleft {
     position: absolute;

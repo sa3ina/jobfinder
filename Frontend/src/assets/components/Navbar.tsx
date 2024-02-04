@@ -83,12 +83,45 @@ const Navbar = (props: Props) => {
           </Link>
         </div>
       </div>
-      <Drawer anchor="top" open={isMenuOpen} onClose={handleCloseMenu}>
-        <div>
-          <p>Pages</p>
-        </div>
-        <div>
-          <p>Find a job</p>
+      <Drawer
+        anchor="top"
+        open={isMenuOpen}
+        onClose={handleCloseMenu}
+        PaperProps={{
+          style: {
+            top: "100px",
+            position: "absolute",
+            marginTop: isMenuOpen ? "0" : "100px",
+            transition: "margin-top 225ms cubic-bezier(0, 0, 0.2, 1)",
+          },
+        }}
+        BackdropProps={{
+          invisible: true,
+        }}
+      >
+        <div className="drawer">
+          <Link to="/" className="link">
+            <p>Home</p>
+          </Link>
+
+          <Link to="/findjob" className="link">
+            <p>About Us</p>
+          </Link>
+          <Link to="/jobsgrid" className="link">
+            <p>Jobs Grid</p>
+          </Link>
+          <Link to="/jobslist" className="link">
+            <p>Jobs list</p>
+          </Link>
+          <Link to="/companies" className="link">
+            <p>Companies</p>
+          </Link>
+          <Link to="/login" className="link">
+            <p>Login</p>
+          </Link>
+          <Link to="/signup" className="link">
+            <p>Sign Up</p>
+          </Link>
         </div>
       </Drawer>
     </>
