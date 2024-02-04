@@ -54,20 +54,37 @@ const Navbar = (props: Props) => {
             <div className={`pageshover ${isPagesHovered ? "show" : ""}`}>
               <Grid container className="pagescont">
                 <Grid item lg={6} md={6} sm={6} xs={12} className="sect">
-                  <p className="strong">Pages</p>
-                  <p className="normal">Home</p>
-                  <p className="normal">About Us</p>
-                  <p className="normal">Jobs</p>
-                  <p className="normal">Blog</p>
-                  <p className="normal">Companies</p>
+                  <p className="strong">Pages</p>{" "}
+                  <Link to="/" className="link">
+                    <p className="normal">Home</p>
+                  </Link>
+                  <Link to="/findjob" className="link">
+                    <p className="normal">Find job</p>
+                  </Link>
+                  <Link to="/postjob" className="link">
+                    <p className="normal">Post job</p>
+                  </Link>
+                  <Link to="/jobsgrid" className="link">
+                    <p className="normal">Jobs Grid</p>
+                  </Link>
+                  <Link to="/jobslist" className="link">
+                    <p className="normal"> Jobs list</p>
+                  </Link>
+                  <Link to="/companies" className="link">
+                    <p className="normal">Companies</p>
+                  </Link>
                 </Grid>
                 <Grid item lg={6} md={6} sm={6} xs={12} className="sect">
                   <p className="strong">Style Guide</p>
                   <p className="normal">Licenses</p>
                   <p className="normal">Instructions</p>
                   <p className="normal">Changelog</p>
-                  <p className="normal">404 Not Found</p>
-                  <p className="normal">Protected Password</p>
+                  <Link to="/login" className="link">
+                    <p className="normal">Login</p>
+                  </Link>
+                  <Link to="/signup" className="link">
+                    <p className="normal">Sign Up</p>
+                  </Link>
                 </Grid>
               </Grid>
             </div>
@@ -105,7 +122,10 @@ const Navbar = (props: Props) => {
           </Link>
 
           <Link to="/findjob" className="link">
-            <p>About Us</p>
+            <p>Find job</p>
+          </Link>
+          <Link to="/postjob" className="link">
+            <p>Post job</p>
           </Link>
           <Link to="/jobsgrid" className="link">
             <p>Jobs Grid</p>
