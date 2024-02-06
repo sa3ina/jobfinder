@@ -75,7 +75,7 @@ const Navbar = (props: Props) => {
                   </Link>
                 </Grid>
                 <Grid item lg={6} md={6} sm={6} xs={12} className="sect">
-                  <p className="strong">Style Guide</p>
+                  <p className="strong">User Pages</p>
                   <p className="normal">Licenses</p>
                   <p className="normal">Instructions</p>
                   <p className="normal">Changelog</p>
