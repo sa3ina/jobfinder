@@ -59,7 +59,7 @@ const Login = (props: Props) => {
                 <button type="submit">Log In</button>
                 <div className="sign">
                   <p className="dont">Don't have an account? </p>
-                  <Link to="/signup" className="link">
+                  <Link to="/signupjobseeker" className="link">
                     <p className="normal">Sign Up</p>
                   </Link>
                 </div>

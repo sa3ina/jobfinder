@@ -4,7 +4,7 @@ import JobsGrid from "../pages/JobsGrid";
 import JobsList from "../pages/JobsList";
 import Login from "../pages/Login";
 import PostJob from "../pages/PostJob";
-import SignUp from "../pages/SignUp";
+import SignUpJobSeeker from "../pages/SignUpJobSeeker";
 import Root from "../pages/Root";
 import Detail from "../pages/Detail";
 export const routes = [
@@ -37,8 +37,8 @@ export const routes = [
         element: <PostJob />,
       },
       {
-        path: "/signup",
-        element: <SignUp />,
+        path: "/signupjobseeker",
+        element: <SignUpJobSeeker />,
       },
       {
         path: "/:id",

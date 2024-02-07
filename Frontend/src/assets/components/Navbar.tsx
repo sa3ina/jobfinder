@@ -82,7 +82,7 @@ const Navbar = (props: Props) => {
                   <Link to="/login" className="link">
                     <p className="normal">Log in</p>
                   </Link>
-                  <Link to="/signup" className="link">
+                  <Link to="/signupjobseeker" className="link">
                     <p className="normal">Sign Up</p>
                   </Link>
                 </Grid>
@@ -139,7 +139,7 @@ const Navbar = (props: Props) => {
           <Link to="/login" className="link">
             <p>Login</p>
           </Link>
-          <Link to="/signup" className="link">
+          <Link to="/signupjobseeker" className="link">
             <p>Sign Up</p>
           </Link>
         </div>

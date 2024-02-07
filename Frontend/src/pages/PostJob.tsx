@@ -103,7 +103,7 @@ const PostJob = (props: Props) => {
                 <p className="label">Job category</p>
                 <Field name="jobcategory" className="input" />
                 <p className="label">Description</p>
-                <Field name="description" className="input" />
+                <Field name="description" as="textarea" className="input" />
                 <p className="jobdetail">Company details</p>
                 <p className="label">Company name</p>
                 <Field name="companydetails" className="input" />
@@ -128,7 +128,7 @@ const PostJob = (props: Props) => {
                   </div>
                 </div>
                 <p className="label">Company Description</p>
-                <Field name="companydesc" className="input" />
+                <Field name="companydesc" as="textarea" className="input" />
                 <button type="submit">Submit for approval</button>
               </Form>
             </div>
