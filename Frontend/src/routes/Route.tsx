@@ -7,6 +7,7 @@ import Login from "../pages/Login";
 import PostJob from "../pages/PostJob";
 import SignUp from "../pages/SignUp";
 import Root from "../pages/Root";
+import Detail from "../pages/Detail";
 export const routes = [
   {
     path: "/",
@@ -43,6 +44,10 @@ export const routes = [
       {
         path: "/signup",
         element: <SignUp />,
+      },
+      {
+        path: "/:id",
+        element: <Detail />,
       },
     ],
   },

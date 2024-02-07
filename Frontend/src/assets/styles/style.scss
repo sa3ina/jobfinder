@@ -1957,3 +1957,476 @@
     }
   }
 }
+.detail {
+  padding: 0 3%;
+  background-color: #161616;
+  .image {
+    background-image: url("https://assets-global.website-files.com/63b3bf674632664abc613903/63b7ce63efdaa806be797fc6_job-single-01.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 42vh;
+  }
+  .of {
+    padding-top: 20%;
+  }
+  .detailpage {
+    background-color: #161616;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: left;
+    text-align: center;
+    padding-top: 4%;
+    padding-bottom: 20%;
+    .similarjob {
+      padding-bottom: 10%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .similar {
+        font-size: 48px;
+        font-family: "Outfit";
+        font-weight: 600;
+      }
+      .browsejob {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        img {
+          height: 20px;
+          width: 20px;
+        }
+        p {
+          font-size: 18px;
+          font-family: "Work Sans";
+          color: #284ee2;
+        }
+      }
+      .view {
+        color: #284ee2;
+        font-size: 18px;
+        font-family: "Work Sans";
+        border: none;
+        background-color: transparent;
+        margin-right: 5px;
+      }
+      @media (max-width: 750px) {
+        .similar {
+          font-size: 42px;
+        }
+      }
+      @media (max-width: 700px) {
+        .similar {
+          font-size: 36px;
+        }
+      }
+      @media (max-width: 700px) {
+        .similar {
+          font-size: 30px;
+        }
+      }
+    }
+    .jobsinfo {
+      display: flex;
+      align-items: center;
+      margin-bottom: 5%;
+      text-align: left;
+      .detailjob {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        .jobnamedetail {
+          font-family: "Outfit";
+          font-size: 36px;
+          font-weight: 600;
+        }
+        .companyname {
+          font-family: "Work Sans";
+          font-size: 18px;
+        }
+      }
+
+      .imagediv {
+        width: 100px;
+        height: 100px;
+        background-color: white;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 2%;
+        img {
+          width: 60px;
+          height: 60px;
+        }
+      }
+    }
+    .jobsgrid {
+      max-width: 45%;
+      .find {
+        font-weight: 600;
+        font-size: 72px;
+        font-family: "Outfit";
+        margin-bottom: 3%;
+      }
+      .yet {
+        margin-bottom: 15%;
+        font-size: 18px;
+        font-family: "Work Sans";
+      }
+    }
+
+    .leftside {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+      .jobdesc {
+        .heading {
+          font-weight: 600;
+          font-size: 28px;
+          font-family: "Outfit";
+          margin-bottom: 2%;
+        }
+        .text {
+          font-size: 18px;
+          font-family: "Work Sans";
+          margin-bottom: 7%;
+        }
+        .textwithbullet {
+          font-size: 18px;
+          font-family: "Work Sans";
+          margin-bottom: 2%;
+        }
+        .textwithbullet::before {
+          color: rgb(255, 255, 255);
+          font-size: 1.5em;
+          content: "• ";
+        }
+      }
+    }
+    @media only screen and (max-width: 900px) {
+      .jobsgrid {
+        max-width: 85%;
+      }
+    }
+    .jobs {
+      background-color: #1e1e1e;
+      border: 2px solid rgb(47, 46, 46);
+      border-radius: 4px;
+      display: flex;
+      align-items: start;
+      padding: 8%;
+      margin-bottom: 4%;
+      flex-direction: column;
+      cursor: pointer;
+      text-align: left;
+      .intern {
+        font-size: 16px;
+        font-family: "Work Sans";
+        background-color: #2c56fe;
+        padding: 1% 2%;
+        border-radius: 3px;
+        margin-bottom: 4%;
+      }
+
+      .jobname {
+        font-size: 28px;
+        font-family: "Outfit";
+        font-weight: 600;
+        margin-bottom: 4%;
+      }
+      .payment {
+        display: flex;
+        gap: 5%;
+        width: 100%;
+        font-size: 16px;
+        font-family: "Work Sans";
+        margin-bottom: 4%;
+        align-items: center;
+        div {
+          display: flex;
+          gap: 4%;
+        }
+        .dot {
+          font-size: 24px;
+          margin-bottom: 3%;
+        }
+      }
+      .jobscontainer {
+        margin-bottom: 5%;
+      }
+      img {
+        height: 40px;
+        width: 40px;
+      }
+      button {
+        padding: 15px 30px;
+        background-color: #161616;
+        color: white;
+        border: 2px solid rgb(47, 46, 46);
+        border-radius: 4px;
+        font-size: 18px;
+        font-family: "Work Sans";
+        cursor: pointer;
+        width: 100%;
+      }
+      button:hover {
+        background-color: #2c56fe;
+        transition: 0.5s;
+      }
+
+      @media only screen and (max-width: 1040px) {
+      }
+      .jobscontainer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+
+        .inf {
+          .jobname {
+            font-size: 18px;
+            font-family: "Outfit";
+            font-weight: 600;
+          }
+          @media only screen and (max-width: 1040px) {
+            .jobname {
+              font-size: 15px;
+            }
+          }
+          .location {
+            display: flex;
+            align-items: center;
+            padding-top: 3px;
+            p {
+              font-size: 12px;
+              font-family: "Work Sans";
+            }
+            img {
+              width: 16px;
+              height: 24px;
+            }
+          }
+        }
+      }
+    }
+    @media only screen and (max-width: 770px) {
+      .jobs {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        .jobscontainer {
+          margin-bottom: 15px;
+        }
+        .type {
+          border: none;
+          margin-bottom: 5px;
+          padding: 2% 0;
+        }
+        button {
+          width: 100%;
+        }
+      }
+    }
+    @media only screen and (max-width: 500px) {
+      .jobs {
+        .jobscontainer {
+          display: flex;
+          // flex-direction: column;
+          align-items: flex-start;
+        }
+      }
+    }
+    .jobs:hover {
+      transform: translateY(-5px);
+      transition: transform 0.3s ease;
+    }
+    .jobs:not(:hover) {
+      transform: translateY(0);
+      transition: transform 0.3s ease;
+    }
+    @media (max-width: 700px) {
+      .similarjob {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        .similar {
+          margin-bottom: 3%;
+        }
+      }
+    }
+  }
+  @media (max-width: 780px) {
+    .image {
+      height: 30vh;
+    }
+    .detailpage {
+      .jobsinfo {
+        .imagediv {
+          width: 80px;
+          height: 80px;
+          img {
+            width: 40px;
+            height: 40px;
+          }
+        }
+      }
+      .leftside {
+        .jobdesc {
+          .heading {
+            font-weight: 600;
+            font-size: 24px;
+            font-family: "Outfit";
+            margin-bottom: 2%;
+          }
+          .text {
+            font-size: 18px;
+            font-family: "Work Sans";
+            margin-bottom: 7%;
+          }
+          .textwithbullet {
+            font-size: 18px;
+            font-family: "Work Sans";
+            margin-bottom: 2%;
+          }
+          .textwithbullet::before {
+            color: rgb(255, 255, 255);
+            font-size: 1.5em;
+            content: "• ";
+          }
+        }
+      }
+    }
+  }
+  @media (max-width: 552px) {
+    .image {
+      height: 28vh;
+    }
+    .detailpage {
+      .jobsinfo {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        .imagediv {
+          width: 80px;
+          height: 80px;
+          img {
+            width: 40px;
+            height: 40px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.detailgrid {
+  padding-bottom: 11%;
+  .rightside {
+    text-align: left;
+    z-index: 30;
+    .jobinfo {
+      background-color: #1e1e1e;
+      border: 2px solid rgb(47, 46, 46);
+      border-radius: 4px;
+      display: flex;
+      align-items: start;
+      padding: 6%;
+      margin-bottom: 4%;
+      flex-direction: column;
+      cursor: pointer;
+
+      .overview {
+        font-size: 22px;
+        font-weight: 600;
+        font-family: "Outfit";
+        margin-bottom: 4%;
+      }
+      .list {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        .info {
+          display: flex;
+          gap: 10px;
+          margin-bottom: 5%;
+          img {
+            height: 16px;
+            width: 24px;
+          }
+          .question {
+            font-size: 18px;
+            font-family: "Work Sans";
+          }
+        }
+        .answer {
+          font-size: 18px;
+          font-family: "Work Sans";
+        }
+      }
+      button {
+        padding: 15px 30px;
+        background-color: #2c56fe;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 18px;
+        font-family: "Work Sans";
+        cursor: pointer;
+        width: 100%;
+      }
+      button:hover {
+        background-color: transparent;
+      }
+
+      @media only screen and (max-width: 1040px) {
+      }
+      .jobscontainer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+
+        .inf {
+          .jobname {
+            font-size: 18px;
+            font-family: "Outfit";
+            font-weight: 600;
+          }
+          @media only screen and (max-width: 1040px) {
+            .jobname {
+              font-size: 15px;
+            }
+          }
+          .location {
+            display: flex;
+            align-items: center;
+            padding-top: 3px;
+            p {
+              font-size: 12px;
+              font-family: "Work Sans";
+            }
+            img {
+              width: 16px;
+              height: 24px;
+            }
+          }
+        }
+      }
+    }
+    @media (max-width: 400px) {
+      .jobinfo {
+        .list {
+          display: flex;
+          flex-direction: column;
+          margin-bottom: 6%;
+          .info {
+            margin-bottom: 1%;
+          }
+        }
+      }
+    }
+  }
+}
