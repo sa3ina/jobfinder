@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 type Props = {};
 
-const Login = (props: Props) => {
+const SignUp = (props: Props) => {
   const SignupSchema = Yup.object().shape({
     firstName: Yup.string()
       .min(2, "Too Short!")
@@ -18,9 +18,9 @@ const Login = (props: Props) => {
     email: Yup.string().email("Invalid email").required("Required"),
   });
   return (
-    <div className="login">
-      <p className="log">Log in</p>
-      <p className="please">Please fill your email and password to login</p>
+    <div className="signup">
+      <p className="log">Welcome</p>
+      <p className="please">Ready for the next step?</p>
       <div className="form">
         <Formik
           initialValues={{
@@ -37,33 +37,24 @@ const Login = (props: Props) => {
           {({ errors, touched }) => (
             <div className="cont">
               <Form className="formik">
-                <p className="label">Email</p>
-                <Field
-                  name="email"
-                  type="email"
-                  className="input"
-                  placeholder="Email"
+                <img
+                  src="https://images.prismic.io/adamdotai-website-v4/3bc5eacd-ca27-4f1c-9717-0dfc846cc391_welcome-to-the-team-and-onboarding-meetings-1.png?ixlib=gatsbyFP&auto=compress%2Cformat&fit=max&q=50&w=1350&h=900"
+                  alt=""
                 />
-                {errors.email && touched.email ? (
-                  <div>{errors.email}</div>
-                ) : null}
-                <p className="label">Password</p>
-                <Field
-                  name="lastName"
-                  className="input"
-                  placeholder="Password"
-                />
-                {errors.lastName && touched.lastName ? (
-                  <div>{errors.lastName}</div>
-                ) : null}
-                <button type="submit">Log In</button>
+                <Link to="/signupjobseeker" className="link">
+                  <button type="submit">Job seeker</button>
+                </Link>
+                <Link to="/signupemployer" className="link">
+                  <button type="submit">Employer</button>
+                </Link>
+
                 <div className="sign">
-                  <p className="dont">Don't have an account? </p>
-                  <Link to="/signup" className="link">
-                    <p className="normal">Sign Up</p>
+                  <p className="dont">Have an account?</p>
+                  <Link to="/login" className="link">
+                    <p className="normal">Log In</p>
                   </Link>
                 </div>
-              </Form>
+              </Form>{" "}
             </div>
           )}
         </Formik>
@@ -72,4 +63,4 @@ const Login = (props: Props) => {
   );
 };
 
-export default Login;
+export default SignUp;

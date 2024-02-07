@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 type Props = {};
 
-const SignUpJobSeeker = (props: Props) => {
+const SignUpEmployer = (props: Props) => {
   const SignupSchema = Yup.object().shape({
     firstName: Yup.string()
       .min(2, "Too Short!")
@@ -84,60 +84,6 @@ const SignUpJobSeeker = (props: Props) => {
                 {/* {errors.email && touched.email ? (
                   <div>{errors.email}</div>
                 ) : null} */}{" "}
-                <p className="label ">Education</p>
-                <Field name="jobsalary" className="input" />
-                <p className="label">Desired job titles</p>
-                {inputs.map((input, index) => (
-                  <div key={index} className="jobtitles">
-                    <Field
-                      name="title"
-                      className="input title"
-                      value={input}
-                      onChange={(e) => handleInputChange(index, e.target.value)}
-                      placeholder="e.g Cashier, cook, nurse"
-                    />
-                    {index === inputs.length - 1 && ( // Show + button for the last input
-                      <button type="button" className="add" onClick={addInput}>
-                        +
-                      </button>
-                    )}
-                    {inputs.length > 1 && ( // Show - button for all inputs except the first one
-                      <button
-                        type="button"
-                        className="add"
-                        onClick={() => removeInput(index)}
-                      >
-                        -
-                      </button>
-                    )}
-                  </div>
-                ))}
-                <p className="label">City, State</p>
-                <Field
-                  name="location"
-                  className="input inputlocation"
-                  placeholder="e.g Mumbai"
-                />
-                <div className="remotecheck">
-                  <Field
-                    type="checkbox"
-                    name="remote"
-                    id="remote"
-                    className="checkbox"
-                  />
-                  <p className="select">I'm interested in remote work</p>
-                </div>
-                <p className="label">Job preferences</p>
-                <Field as="select" name="jobType" className="selectbox">
-                  <option value="1">Full time</option>
-                  <option value="2">Part time</option>
-                  <option value="3">Internship</option>
-                  <option value="4">Temporary</option>
-                </Field>
-                <p className="label">About skills, personal interests</p>
-                <Field name="description" as="textarea" className="input" />
-                <p className="label">Work experience</p>
-                <Field name="description" as="textarea" className="input" />
                 <p className="label">Password</p>
                 <Field name="jobcategory" className="input" />
                 <button type="submit" className="submit">
@@ -158,4 +104,4 @@ const SignUpJobSeeker = (props: Props) => {
   );
 };
 
-export default SignUpJobSeeker;
+export default SignUpEmployer;
