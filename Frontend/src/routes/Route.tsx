@@ -1,5 +1,4 @@
 import Companies from "../pages/Companies";
-import FindJob from "../pages/FindJob";
 import Home from "../pages/Home";
 import JobsGrid from "../pages/JobsGrid";
 import JobsList from "../pages/JobsList";
@@ -20,10 +19,6 @@ export const routes = [
       {
         path: "/companies",
         element: <Companies />,
-      },
-      {
-        path: "/findjob",
-        element: <FindJob />,
       },
       {
         path: "/jobsgrid",

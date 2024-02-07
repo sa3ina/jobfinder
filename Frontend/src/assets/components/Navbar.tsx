@@ -58,7 +58,7 @@ const Navbar = (props: Props) => {
                   <Link to="/" className="link">
                     <p className="normal">Home</p>
                   </Link>
-                  <Link to="/findjob" className="link">
+                  <Link to="/jobsgrid" className="link">
                     <p className="normal">Find job</p>
                   </Link>
                   <Link to="/postjob" className="link">
@@ -80,7 +80,7 @@ const Navbar = (props: Props) => {
                   <p className="normal">Instructions</p>
                   <p className="normal">Changelog</p>
                   <Link to="/login" className="link">
-                    <p className="normal">Login</p>
+                    <p className="normal">Log in</p>
                   </Link>
                   <Link to="/signup" className="link">
                     <p className="normal">Sign Up</p>
@@ -89,7 +89,7 @@ const Navbar = (props: Props) => {
               </Grid>
             </div>
           </div>
-          <Link to="/findjob" className="link findjob">
+          <Link to="/jobsgrid" className="link findjob">
             <p>Find a Job</p>
           </Link>
           <button className="link cart">

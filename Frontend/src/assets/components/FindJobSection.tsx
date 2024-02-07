@@ -1,5 +1,6 @@
 import React from "react";
 import Grid from "@mui/material/Grid";
+import { Link } from "react-router-dom";
 
 type Props = {};
 
@@ -89,11 +90,15 @@ const FindJobSection = (props: Props) => {
                   </div>
                 </div>
                 <p className="type">Internship</p>
-                <button>View job</button>
+                <Link to="/1">
+                  <button>View job</button>
+                </Link>
               </div>
             );
           })}
-          <button className="browse">Browse all jobs</button>
+          <Link to="/jobsgrid">
+            <button className="browse">Browse all jobs</button>
+          </Link>
         </Grid>
       </Grid>
     </div>

@@ -1,5 +1,7 @@
 import Grid from "@mui/material/Grid";
 import React, { useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
+
 type Props = {};
 
 const Detail = (props: Props) => {
@@ -169,7 +171,10 @@ const Detail = (props: Props) => {
         <div className="similarjob">
           <p className="similar">Similar job openings</p>
           <div className="viewall">
-            <button className="view">View all jobs</button>
+            <Link to="/jobsgrid" className="link">
+              <button className="view">View all jobs</button>
+            </Link>
+
             <img
               src="https://assets-global.website-files.com/63b2816edd90444c9df54d80/63ddf30d1693d1f9dae4820f_arrow-right-royal-blue.svg"
               alt=""

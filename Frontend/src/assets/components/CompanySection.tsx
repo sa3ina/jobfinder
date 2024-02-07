@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
+import { Link } from "react-router-dom";
 
 const CompanySection = () => {
   const arr = [1, 2, 3, 4];
@@ -22,7 +23,9 @@ const CompanySection = () => {
     <div className="companysection">
       <div className="findfav">
         <p className="find">Find your favorite job</p>
-        <button>View all</button>
+        <Link to="companies">
+          <button>View all</button>
+        </Link>
       </div>
       <Grid
         container

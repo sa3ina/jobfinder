@@ -1,5 +1,6 @@
 import React from "react";
 import Grid from "@mui/material/Grid";
+import { Link } from "react-router-dom";
 
 type Props = {};
 
@@ -114,8 +115,9 @@ const JobsGrid = (props: Props) => {
                         </div>
                       </div>
                     </div>
-
-                    <button>View job</button>
+                    <Link to="/1" className="link width">
+                      <button>View job</button>
+                    </Link>
                   </div>
                 </Grid>
               );
