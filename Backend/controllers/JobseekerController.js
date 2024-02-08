@@ -7,7 +7,6 @@ const getbyId = async (req, res) => {
   const posts = await Model.findOne({ id: req.params.id });
   res.send(posts);
 };
-
 const deleteByiD = async (req, res) => {
   await Model.deleteOne({ id: req.params.id });
   res.send();
