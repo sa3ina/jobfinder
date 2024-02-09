@@ -1,11 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { Link } from "react-router-dom";
-
+import type { RootState } from "../redux/store";
+import { v4 as uuidv4 } from "uuid";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchData } from "../../src/redux/slices/JobseekerSlice";
+import { postData } from "../../src/redux/slices/JobseekerSlice";
 type Props = {};
 
 const SignUpJobSeeker = (props: Props) => {
+  const { jobseekers, loading, error } = useSelector(
+    (state: RootState) => state.jobseekers
+  );
+  const dispatch = useDispatch();
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    dispatch(fetchData());
+  }, [dispatch]);
+  console.log("data", jobseekers);
   const SignupSchema = Yup.object().shape({
     firstName: Yup.string()
       .min(2, "Too Short!")
@@ -37,12 +51,12 @@ const SignUpJobSeeker = (props: Props) => {
     newInputs.splice(index, 1);
     setInputs(newInputs);
   };
-
-  // Function to handle form submission
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Handle form submission logic with the input values
-    console.log(inputs);
+  const handleSubmit = (values) => {
+    const formData = {
+      ...values,
+      desiredjob: inputs.filter((input) => input.trim() !== ""),
+    };
+    dispatch(postData(formData));
   };
   return (
     <div className="signuppage">
@@ -51,27 +65,32 @@ const SignUpJobSeeker = (props: Props) => {
       <div className="form">
         <Formik
           initialValues={{
-            firstName: "",
-            lastName: "",
+            id: uuidv4(),
+            firstname: "",
+            lastname: "",
             email: "",
+            education: "",
+            desiredjob: [],
+            city: "",
+            jobpreference: "",
+            remote: false,
+            about: "",
+            experience: "",
+            password: "",
           }}
-          validationSchema={SignupSchema}
-          onSubmit={(values) => {
-            // same shape as initial values
-            console.log(values);
-          }}
+          onSubmit={handleSubmit}
         >
-          {({ errors, touched }) => (
+          {({ errors, touched, handleSubmit }) => (
             <div className="cont">
-              <Form className="formik">
+              <Form className="formik" onSubmit={handleSubmit}>
                 <div className="grids">
                   <div className="griditem">
                     <p className="label gridlabel">First Name</p>
-                    <Field name="jobexperience" className="input" />
+                    <Field name="firstname" className="input" />
                   </div>
                   <div className="griditem">
                     <p className="label gridlabel">Last Name</p>
-                    <Field name="jobqualif" className="input" />
+                    <Field name="lastname" className="input" />
                   </div>
                 </div>
                 <p className="label">Your email</p>
@@ -85,12 +104,12 @@ const SignUpJobSeeker = (props: Props) => {
                   <div>{errors.email}</div>
                 ) : null} */}{" "}
                 <p className="label ">Education</p>
-                <Field name="jobsalary" className="input" />
+                <Field name="education" className="input" />
                 <p className="label">Desired job titles</p>
                 {inputs.map((input, index) => (
                   <div key={index} className="jobtitles">
                     <Field
-                      name="title"
+                      name="desiredjob"
                       className="input title"
                       value={input}
                       onChange={(e) => handleInputChange(index, e.target.value)}
@@ -114,7 +133,7 @@ const SignUpJobSeeker = (props: Props) => {
                 ))}
                 <p className="label">City, State</p>
                 <Field
-                  name="location"
+                  name="city"
                   className="input inputlocation"
                   placeholder="e.g Mumbai"
                 />
@@ -128,18 +147,18 @@ const SignUpJobSeeker = (props: Props) => {
                   <p className="select">I'm interested in remote work</p>
                 </div>
                 <p className="label">Job preferences</p>
-                <Field as="select" name="jobType" className="selectbox">
-                  <option value="1">Full time</option>
-                  <option value="2">Part time</option>
-                  <option value="3">Internship</option>
-                  <option value="4">Temporary</option>
+                <Field as="select" name="jobpreference" className="selectbox">
+                  <option value="Full time">Full time</option>
+                  <option value="Part time">Part time</option>
+                  <option value="Internship">Internship</option>
+                  <option value="Temporary">Temporary</option>
                 </Field>
                 <p className="label">About skills, personal interests</p>
-                <Field name="description" as="textarea" className="input" />
+                <Field name="about" as="textarea" className="input" />
                 <p className="label">Work experience</p>
-                <Field name="description" as="textarea" className="input" />
+                <Field name="experience" as="textarea" className="input" />
                 <p className="label">Password</p>
-                <Field name="jobcategory" className="input" />
+                <Field name="password" className="input" />
                 <button type="submit" className="submit">
                   Create account
                 </button>

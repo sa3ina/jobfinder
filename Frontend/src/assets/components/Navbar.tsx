@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -12,6 +12,8 @@ const Navbar = (props: Props) => {
   const [isPagesHovered, setIsPagesHovered] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [shouldLog, setShouldLog] = useState(false);
+  const [isJobseeker, setIsJobseeker] = useState(false);
+  const [isEmployer, setIsEmployer] = useState(false);
 
   const handlePagesClick = () => {
     setIsPagesHovered(!isPagesHovered);
@@ -25,7 +27,14 @@ const Navbar = (props: Props) => {
     setIsMenuOpen(true);
     setShouldLog(true);
   };
-
+  useEffect(() => {
+    const userRole = localStorage.getItem("userRole");
+    if (userRole === "jobseeker") {
+      setIsJobseeker(true);
+    } else if (userRole === "employer") {
+      setIsEmployer(true);
+    }
+  }, []);
   return (
     <>
       <div className="navbar">
@@ -89,14 +98,29 @@ const Navbar = (props: Props) => {
               </Grid>
             </div>
           </div>
-          <Link to="/jobsgrid" className="link findjob">
+          {/* <Link to="/jobsgrid" className="link findjob">
             <p>Find a Job</p>
           </Link>
           <button className="link cart">
             Cart <p>0</p>
           </button>
           <Link to="/postjob" className="link postjob">
-            <p>Post a Job</p>
+            <p>Log In</p>
+          </Link> */}
+          <Link
+            to={isEmployer ? "/postjob" : "/jobsgrid"}
+            className="link findjob"
+          >
+            <p>{isEmployer ? "Post a Job" : "Find a Job"}</p>
+          </Link>
+          <button className="link cart">
+            Cart <p>0</p>
+          </button>
+          <Link
+            to={isJobseeker || isEmployer ? "/myprofile" : "/login"}
+            className="link postjob"
+          >
+            <p>{isJobseeker || isEmployer ? "My Profile" : "Log In"}</p>
           </Link>
         </div>
       </div>
@@ -137,7 +161,7 @@ const Navbar = (props: Props) => {
             <p>Companies</p>
           </Link>
           <Link to="/login" className="link">
-            <p>Login</p>
+            <p>Log in</p>
           </Link>
           <Link to="/signup" className="link">
             <p>Sign Up</p>

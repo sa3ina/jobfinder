@@ -13,7 +13,6 @@ const schema = mongoose.Schema({
   about: String,
   experience: String,
   password: String,
-  cart: Object,
 });
 
 const Model = mongoose.model("jobseeker", schema);

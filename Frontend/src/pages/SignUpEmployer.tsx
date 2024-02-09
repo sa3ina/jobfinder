@@ -1,11 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { Link } from "react-router-dom";
-
+import type { RootState } from "../redux/store";
+import { useSelector, useDispatch } from "react-redux";
+import { v4 as uuidv4 } from "uuid";
+import { fetchDataa } from "../../src/redux/slices/EmployerSlice";
+import { postData } from "../../src/redux/slices/EmployerSlice";
 type Props = {};
 
 const SignUpEmployer = (props: Props) => {
+  const { employers, loading, error } = useSelector(
+    (state: RootState) => state.employers
+  );
+  const dispatch = useDispatch();
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    dispatch(fetchDataa());
+  }, [dispatch]);
+  console.log("data", employers);
   const SignupSchema = Yup.object().shape({
     firstName: Yup.string()
       .min(2, "Too Short!")
@@ -17,33 +31,7 @@ const SignUpEmployer = (props: Props) => {
       .required("Required"),
     email: Yup.string().email("Invalid email").required("Required"),
   });
-  const [inputs, setInputs] = useState([""]); // State to manage input fields
 
-  // Function to add more input fields
-  const addInput = () => {
-    setInputs([...inputs, ""]);
-  };
-
-  // Function to handle input changes
-  const handleInputChange = (index, value) => {
-    const newInputs = [...inputs];
-    newInputs[index] = value;
-    setInputs(newInputs);
-  };
-
-  // Function to remove input fields
-  const removeInput = (index) => {
-    const newInputs = [...inputs];
-    newInputs.splice(index, 1);
-    setInputs(newInputs);
-  };
-
-  // Function to handle form submission
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Handle form submission logic with the input values
-    console.log(inputs);
-  };
   return (
     <div className="signuppage">
       <p className="post">Create an account</p>
@@ -51,27 +39,30 @@ const SignUpEmployer = (props: Props) => {
       <div className="form">
         <Formik
           initialValues={{
-            firstName: "",
-            lastName: "",
+            id: uuidv4(),
+            firstname: "",
+            lastname: "",
             email: "",
+            password: "",
           }}
-          validationSchema={SignupSchema}
+          // validationSchema={SignupSchema}
           onSubmit={(values) => {
+            dispatch(postData(values));
             // same shape as initial values
             console.log(values);
           }}
         >
-          {({ errors, touched }) => (
+          {({ errors, touched, handleSubmit }) => (
             <div className="cont">
-              <Form className="formik">
+              <Form className="formik" onSubmit={handleSubmit}>
                 <div className="grids">
                   <div className="griditem">
                     <p className="label gridlabel">First Name</p>
-                    <Field name="jobexperience" className="input" />
+                    <Field name="firstname" className="input" />
                   </div>
                   <div className="griditem">
                     <p className="label gridlabel">Last Name</p>
-                    <Field name="jobqualif" className="input" />
+                    <Field name="lastname" className="input" />
                   </div>
                 </div>
                 <p className="label">Your email</p>
@@ -85,7 +76,7 @@ const SignUpEmployer = (props: Props) => {
                   <div>{errors.email}</div>
                 ) : null} */}{" "}
                 <p className="label">Password</p>
-                <Field name="jobcategory" className="input" />
+                <Field name="password" className="input" />
                 <button type="submit" className="submit">
                   Create account
                 </button>

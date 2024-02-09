@@ -1,11 +1,51 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { Link } from "react-router-dom";
-
+import type { RootState } from "../redux/store";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { fetchData } from "../redux/slices/JobseekerSlice";
+import { fetchDataa } from "../redux/slices/EmployerSlice";
 type Props = {};
 
 const Login = (props: Props) => {
+  const navigate = useNavigate();
+  const { employers, loading, error } = useSelector(
+    (state: RootState) => state.employers
+  );
+  const { jobseekers } = useSelector((state: RootState) => state.jobseekers);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchData());
+    dispatch(fetchDataa());
+  }, [dispatch]);
+  const handleSubmit = (values, { setSubmitting }) => {
+    let findJobseeker = jobseekers.find(
+      (elem) => elem.email === values.email && elem.password === values.password
+    );
+    let findEmployer = employers.find(
+      (elem) => elem.email === values.email && elem.password === values.password
+    );
+
+    if (findJobseeker || findEmployer) {
+      if (findJobseeker) {
+        localStorage.setItem("login", JSON.stringify(findJobseeker));
+        localStorage.setItem("userRole", "jobseeker");
+        navigate("/");
+      } else if (findEmployer) {
+        localStorage.setItem("login", JSON.stringify(findEmployer));
+        localStorage.setItem("userRole", "employer");
+        navigate("/");
+      }
+    } else {
+      console.log("not correct login info");
+    }
+    setSubmitting(false);
+    window.location.reload();
+  };
+
   const SignupSchema = Yup.object().shape({
     firstName: Yup.string()
       .min(2, "Too Short!")
@@ -24,15 +64,11 @@ const Login = (props: Props) => {
       <div className="form">
         <Formik
           initialValues={{
-            firstName: "",
-            lastName: "",
             email: "",
+            password: "",
           }}
-          validationSchema={SignupSchema}
-          onSubmit={(values) => {
-            // same shape as initial values
-            console.log(values);
-          }}
+          // validationSchema={SignupSchema}
+          onSubmit={handleSubmit}
         >
           {({ errors, touched }) => (
             <div className="cont">
@@ -49,13 +85,13 @@ const Login = (props: Props) => {
                 ) : null}
                 <p className="label">Password</p>
                 <Field
-                  name="lastName"
+                  name="password"
                   className="input"
                   placeholder="Password"
                 />
-                {errors.lastName && touched.lastName ? (
+                {/* {errors.lastName && touched.lastName ? (
                   <div>{errors.lastName}</div>
-                ) : null}
+                ) : null} */}
                 <button type="submit">Log In</button>
                 <div className="sign">
                   <p className="dont">Don't have an account? </p>
