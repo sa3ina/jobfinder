@@ -3,12 +3,14 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 interface job {
   id: String;
+  email: String;
   title: String;
   categories: String;
   company: String;
   salary: String;
   location: String;
   remote: Boolean;
+  benefits: Array<String>;
   type: String;
   experience: String;
   qualification: String;
@@ -39,10 +41,10 @@ export const fetchJobs = createAsyncThunk(
     return await response.data;
   }
 );
-// export const postData = createAsyncThunk("user/postData", async (newPers) => {
-//   const posted = await axios.post(`http://localhost:3000/jobseeker/`, newPers);
-//   return posted.data;
-// });
+export const postJob = createAsyncThunk("user/postData", async (newJob) => {
+  const posted = await axios.post(`http://localhost:3000/job/`, newJob);
+  return posted.data;
+});
 export const JobSlice = createSlice({
   name: "jobs",
   initialState,
@@ -68,16 +70,16 @@ export const JobSlice = createSlice({
     builder.addCase(fetchJobs.rejected, (state) => {
       state.loading = false;
     });
-    // builder.addCase(postData.pending, (state) => {
-    //   state.loading = true;
-    // });
-    // builder.addCase(postData.fulfilled, (state, action) => {
-    //   state.loading = false;
-    //   state.jobseekers = [...state.jobseekers, action.payload];
-    // });
-    // builder.addCase(postData.rejected, (state) => {
-    //   state.loading = false;
-    // });
+    builder.addCase(postJob.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(postJob.fulfilled, (state, action) => {
+      state.loading = false;
+      state.jobs = [...state.jobs, action.payload];
+    });
+    builder.addCase(postJob.rejected, (state) => {
+      state.loading = false;
+    });
   },
 });
 

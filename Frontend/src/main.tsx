@@ -4,8 +4,11 @@ import App from "./App.jsx";
 import "./index.css";
 import { store } from "../src/redux/store.ts";
 import { Provider } from "react-redux";
+import { SnackbarProvider } from "notistack";
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <Provider store={store}>
-    <App />
+    <SnackbarProvider maxSnack={3}>
+      <App />
+    </SnackbarProvider>
   </Provider>
 );

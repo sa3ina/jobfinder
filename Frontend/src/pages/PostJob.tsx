@@ -1,11 +1,50 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { Link } from "react-router-dom";
-
+import type { RootState } from "../redux/store";
+import { v4 as uuidv4 } from "uuid";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchJobs, postJob } from "../redux/slices/JobsSlice";
+import { SnackbarProvider, VariantType, useSnackbar } from "notistack";
 type Props = {};
 
 const PostJob = (props: Props) => {
+  const { jobs, loading, error } = useSelector(
+    (state: RootState) => state.jobs
+  );
+  const dispatch = useDispatch();
+  const userInfo = JSON.parse(localStorage.getItem("login") || "{}");
+  const email = userInfo.email;
+  useEffect(() => {
+    dispatch(fetchJobs());
+  }, [dispatch]);
+  console.log("jobs", jobs);
+  const [inputs, setInputs] = useState([""]);
+  const addInput = () => {
+    setInputs([...inputs, ""]);
+  };
+
+  const handleInputChange = (index, value) => {
+    const newInputs = [...inputs];
+    newInputs[index] = value;
+    setInputs(newInputs);
+  };
+
+  const removeInput = (index) => {
+    const newInputs = [...inputs];
+    newInputs.splice(index, 1);
+    setInputs(newInputs);
+  };
+  const { enqueueSnackbar } = useSnackbar();
+  const handleSubmit = (values) => {
+    const formData = {
+      ...values,
+      benefits: inputs.filter((input) => input.trim() !== ""),
+    };
+    dispatch(postJob(formData));
+    enqueueSnackbar("Job submitted for approval!", { variant: "success" });
+  };
   const SignupSchema = Yup.object().shape({
     firstName: Yup.string()
       .min(2, "Too Short!")
@@ -27,27 +66,34 @@ const PostJob = (props: Props) => {
       <div className="form">
         <Formik
           initialValues={{
-            firstName: "",
-            lastName: "",
-            email: "",
+            id: uuidv4(),
+            title: "",
+            email: email,
+            categories: "",
+            salary: "",
+            location: "",
+            remote: false,
+            type: "",
+            benefits: [],
+            experience: "",
+            qualification: "",
+            description: "",
+            companyname: "",
+            companywebsite: "",
+            companyemail: "",
+            companycontact: "",
+            companylocation: "",
+            companydescription: "",
+            companylogo: "",
           }}
-          validationSchema={SignupSchema}
-          onSubmit={(values) => {
-            // same shape as initial values
-            console.log(values);
-          }}
+          // validationSchema={SignupSchema}
+          onSubmit={handleSubmit}
         >
-          {({ errors, touched }) => (
+          {({ errors, touched, handleSubmit }) => (
             <div className="cont">
-              <Form className="formik">
+              <Form className="formik" onSubmit={handleSubmit}>
                 <p className="jobdetail">Job details</p>
-                <p className="label">Your email</p>
-                <Field
-                  name="email"
-                  type="email"
-                  className="input"
-                  placeholder="info@gmail.com"
-                />
+
                 {/* {errors.email && touched.email ? (
                   <div>{errors.email}</div>
                 ) : null} */}
@@ -78,35 +124,60 @@ const PostJob = (props: Props) => {
                 <div className="grids">
                   <div className="griditem">
                     <p className="label gridlabel">Job type</p>
-                    <Field as="select" name="jobType" className="selectbox">
-                      <option value="1">Full time</option>
-                      <option value="2">Part time</option>
-                      <option value="3">Internship</option>
-                      <option value="4">Temporary</option>
+                    <Field as="select" name="type" className="selectbox">
+                      <option value="Full time">Full time</option>
+                      <option value="Part time">Part time</option>
+                      <option value="Internship">Internship</option>
+                      <option value="Temporary">Temporary</option>
                     </Field>
                   </div>
                   <div className="griditem">
                     <p className="label gridlabel">Job Salary (optional)</p>
-                    <Field name="jobsalary" className="input" />
+                    <Field name="salary" className="input" />
                   </div>
                 </div>
                 <div className="grids">
                   <div className="griditem">
                     <p className="label gridlabel">Job Experience</p>
-                    <Field name="jobexperience" className="input" />
+                    <Field name="experience" className="input" />
                   </div>
                   <div className="griditem">
                     <p className="label gridlabel">Job Qualification</p>
-                    <Field name="jobqualif" className="input" />
+                    <Field name="qualification" className="input" />
                   </div>
                 </div>
                 <p className="label">Job category</p>
-                <Field name="jobcategory" className="input" />
+                <Field name="categories" className="input" />
+                <p className="label">Job benefits</p>
+                {inputs.map((input, index) => (
+                  <div key={index} className="jobtitles">
+                    <Field
+                      name="benefits"
+                      className="input title"
+                      value={input}
+                      onChange={(e) => handleInputChange(index, e.target.value)}
+                    />
+                    {index === inputs.length - 1 && ( // Show + button for the last input
+                      <button type="button" className="add" onClick={addInput}>
+                        +
+                      </button>
+                    )}
+                    {inputs.length > 1 && ( // Show - button for all inputs except the first one
+                      <button
+                        type="button"
+                        className="add"
+                        onClick={() => removeInput(index)}
+                      >
+                        -
+                      </button>
+                    )}
+                  </div>
+                ))}
                 <p className="label">Description</p>
                 <Field name="description" as="textarea" className="input" />
                 <p className="jobdetail">Company details</p>
                 <p className="label">Company name</p>
-                <Field name="companydetails" className="input" />
+                <Field name="companyname" className="input" />
                 <div className="grids">
                   <div className="griditem">
                     <p className="label gridlabel">Company Website</p>
@@ -129,12 +200,16 @@ const PostJob = (props: Props) => {
                 </div>
                 <p className="label">Company Logo</p>
                 <Field
-                  name="companylocation"
+                  name="companylogo"
                   className="input"
                   placeholder="enter link here"
                 />
                 <p className="label">Company Description</p>
-                <Field name="companydesc" as="textarea" className="input" />
+                <Field
+                  name="companydescription"
+                  as="textarea"
+                  className="input"
+                />
                 <button type="submit">Submit for approval</button>
               </Form>
             </div>

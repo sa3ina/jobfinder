@@ -31,21 +31,18 @@ const SignUpJobSeeker = (props: Props) => {
       .required("Required"),
     email: Yup.string().email("Invalid email").required("Required"),
   });
-  const [inputs, setInputs] = useState([""]); // State to manage input fields
+  const [inputs, setInputs] = useState([""]);
 
-  // Function to add more input fields
   const addInput = () => {
     setInputs([...inputs, ""]);
   };
 
-  // Function to handle input changes
   const handleInputChange = (index, value) => {
     const newInputs = [...inputs];
     newInputs[index] = value;
     setInputs(newInputs);
   };
 
-  // Function to remove input fields
   const removeInput = (index) => {
     const newInputs = [...inputs];
     newInputs.splice(index, 1);

@@ -2,9 +2,9 @@ const mongoose = require("mongoose");
 
 const schema = mongoose.Schema({
   id: String,
+  email: String,
   title: String,
   categories: String,
-  company: String,
   salary: String,
   location: String,
   remote: Boolean,
@@ -19,6 +19,7 @@ const schema = mongoose.Schema({
   companylocation: String,
   companydescription: String,
   companylogo: String,
+  benefits: Array,
 });
 
 const Model = mongoose.model("jobs", schema);
