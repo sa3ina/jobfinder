@@ -1,107 +1,60 @@
 import Grid from "@mui/material/Grid";
 import React, { useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
-
+import { Link, useParams } from "react-router-dom";
+import type { RootState } from "../redux/store";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { fetchJobs } from "../redux/slices/JobsSlice";
 type Props = {};
 
 const Detail = (props: Props) => {
+  const { id } = useParams();
   const arr = [1, 2, 3, 4, 5];
-  const rightSideRef = useRef(null);
-
-  //   useEffect(() => {
-  //     const handleScroll = () => {
-  //       const rightSide = rightSideRef.current;
-  //       const containerRect = rightSide.parentElement.getBoundingClientRect();
-  //       const rightSideRect = rightSide.getBoundingClientRect();
-
-  //       const containerTop = containerRect.top + window.scrollY;
-  //       const containerBottom = containerRect.bottom + window.scrollY;
-  //       const rightSideBottom = rightSideRect.bottom + window.scrollY;
-
-  //       if (
-  //         window.scrollY > containerTop &&
-  //         window.scrollY < containerBottom - rightSideRect.height
-  //       ) {
-  //         if (rightSideBottom > containerBottom) {
-  //           rightSide.style.position = "fixed";
-  //           rightSide.style.top = `${containerBottom - rightSideRect.height}px`;
-  //           rightSide.style.bottom = "";
-  //         } else {
-  //           rightSide.style.position = "fixed";
-  //           rightSide.style.top = "";
-  //           rightSide.style.bottom = "0";
-  //         }
-  //       } else {
-  //         rightSide.style.position = "static";
-  //       }
-  //     };
-
-  //     window.addEventListener("scroll", handleScroll);
-  //     return () => {
-  //       window.removeEventListener("scroll", handleScroll);
-  //     };
-  //   }, []);
-
+  const { jobs, loading, error } = useSelector(
+    (state: RootState) => state.jobs
+  );
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchJobs());
+  }, [dispatch]);
+  const job = jobs.find((elem) => elem.id === id);
   return (
     <div className="detail">
       <div className="image"></div>
       <div className="detailpage">
         <div className="jobsinfo">
           <div className="imagediv">
-            <img
-              src="https://assets-global.website-files.com/63b3bf674632664abc613903/63c7e048dbd85384ac3e7adf_skype.svg"
-              alt=""
-            />
+            <img src={job?.companylogo} alt="" />
           </div>
           <div className="detailjob">
-            <p className="jobnamedetail">Digital Marketing Manager</p>
-            <p className="companyname">Webflow</p>
+            <p className="jobnamedetail">{job?.title}</p>
+            <p className="companyname">{job?.companyname}</p>
           </div>
         </div>
         <Grid container className="detailgrid" spacing={5}>
           <Grid item lg={7} md={7} sm={12} xs={12} className="leftside">
             <div className="jobdesc">
               <p className="heading">Job Description</p>
-              <p className="text">
-                Two before narrow not relied how except moment myself Dejection
-                assurance mrs led certainly So gate at no only none open
-                Betrayed at properly it of graceful on Dinner abroad am depart
-                ye turned hearts as me wished Therefore allowance too perfectly
-                gentleman supposing man his now Families goodness all eat out
-                bed steepest servants Explained the incommode sir improving
-                northward immediate eat Man denoting received you possible you
-                Shew park own loud son door less yet.How promotion excellent
-                curiosity yet attempted happiness Gay prosperous impression had
-                conviction For every delay death ask style Me mean able my by in
-                they Extremity now strangers contained breakfast him discourse
-                additions Sincerity collected contented led now perpetual
-                extremely forfeited
-              </p>
-              <p className="heading">Key Responsibilities</p>
-              {arr.map((elem) => {
-                return (
-                  <p className="textwithbullet">
-                    Of resolve to gravity thought my prepare chamber so
-                    Unsatiable entreaties collecting may sympathize nay
-                    interested instrument If continue building numerous of at
-                    relation in margaret Lasted engage roused.
-                  </p>
-                );
-              })}
-              <p className="heading">Benefits</p>
-              <p className="text">
-                {arr.map((elem) => {
-                  return (
-                    <p className="textwithbullet">
-                      Post no so what deal evil rent by real in.
-                    </p>
-                  );
-                })}
+              <p className="text">{job?.description}</p>
+              <p className="heading">Qualification</p>
+              <p className="textwithbullet">{job?.qualification}</p>
+
+              <p className="heading">Company Email</p>
+              <p className="textwithbullet">{job?.companyemail}</p>
+              <p className="heading">Company Contact</p>
+              <p className="textwithbullet">{job?.companycontact}</p>
+              <p className="heading">Company Location</p>
+              <p className="textwithbullet">{job?.companylocation}</p>
+              <p className="heading">Company Description</p>
+              <p className="textwithbullet">{job?.description}</p>
+              <p className="heading">Company website</p>
+              <p className="textwithbullet">
+                <a href={job?.companywebsite}>{job?.companywebsite}</a>
               </p>
             </div>
           </Grid>
           <Grid item lg={5} md={5} sm={12} xs={12} className="rightside">
-            <div className="jobinfo" ref={rightSideRef}>
+            <div className="jobinfo">
               <p className="overview">Overview</p>
               <div className="list">
                 <div className="info">
@@ -122,7 +75,7 @@ const Detail = (props: Props) => {
                   />
                   <p className="question">Location:</p>
                 </div>
-                <p className="answer">Tokyo, Japan</p>
+                <p className="answer">{job?.location}</p>
               </div>
               <div className="list">
                 <div className="info">
@@ -132,7 +85,7 @@ const Detail = (props: Props) => {
                   />
                   <p className="question">Level:</p>
                 </div>
-                <p className="answer">Junior</p>
+                <p className="answer">{job?.experience}</p>
               </div>
               <div className="list">
                 <div className="info">
@@ -142,7 +95,7 @@ const Detail = (props: Props) => {
                   />
                   <p className="question">Department:</p>
                 </div>
-                <p className="answer">Accounting</p>
+                <p className="answer">{job?.categories}</p>
               </div>
               <div className="list">
                 <div className="info">
@@ -152,7 +105,7 @@ const Detail = (props: Props) => {
                   />
                   <p className="question">Time:</p>
                 </div>
-                <p className="answer">Internship</p>
+                <p className="answer">{job?.type}</p>
               </div>
               <div className="list">
                 <div className="info">
@@ -162,7 +115,7 @@ const Detail = (props: Props) => {
                   />
                   <p className="question">Salary:</p>
                 </div>
-                <p className="answer">$8,000 USD</p>
+                <p className="answer">{job?.salary}</p>
               </div>
               <button>Apply now</button>
             </div>
@@ -182,39 +135,35 @@ const Detail = (props: Props) => {
           </div>
         </div>
         <Grid container spacing={3}>
-          {arr.map((elem, i) => {
+          {jobs.map((elem, i) => {
             return (
               <Grid item key={i} lg={4} md={4} sm={6} xs={12}>
                 <div className="jobs" key={i}>
-                  <p className="intern">Internship</p>
-                  <p className="jobname">Digital Marketing Manager</p>
+                  <p className="intern">{elem.type}</p>
+                  <p className="jobname">{elem.title}</p>
                   <div className="payment">
                     <div>
-                      <p>$8.000</p>
-                      <p>USD</p>
+                      <p>{elem.salary}</p>
                     </div>
                     <p className="dot">.</p>
-                    <p>Junior</p>
+                    <p>{elem.experience}</p>
                   </div>
                   <div className="jobscontainer">
-                    <img
-                      src="https://assets-global.website-files.com/63b3bf674632664abc613903/63c7e4e481ac42dbc0f41e79_company-02.png"
-                      alt=""
-                      className="jobicon"
-                    />
+                    <img src={elem.companylogo} className="jobicon" />
                     <div className="inf">
-                      <p className="jobname">Amazon</p>
+                      <p className="jobname">{elem.companyname}</p>
                       <div className="location">
                         <img
                           src="https://assets-global.website-files.com/63b2816edd90444c9df54d80/63b3cc6e4632663f9161e95a_geo-alt.svg"
                           alt=""
                         />
-                        <p>Remote</p>
+                        <p>{elem.location}</p>
                       </div>
                     </div>
                   </div>
-
-                  <button>View job</button>
+                  <Link to={`/${elem?.id}`} className="link width">
+                    <button>View job</button>
+                  </Link>
                 </div>
               </Grid>
             );

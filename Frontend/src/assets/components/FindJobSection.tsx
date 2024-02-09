@@ -1,11 +1,21 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import { Link } from "react-router-dom";
-
+import type { RootState } from "../redux/store";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { fetchJobs } from "../../redux/slices/JobsSlice";
 type Props = {};
 
 const FindJobSection = (props: Props) => {
-  const arr = [1, 2, 3, 4, 5];
+  const { jobs, loading, error } = useSelector(
+    (state: RootState) => state.jobs
+  );
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchJobs());
+  }, [dispatch]);
+  console.log(jobs);
   return (
     <div className="findjob">
       <p className="find">Find your favorite job</p>
@@ -69,28 +79,24 @@ const FindJobSection = (props: Props) => {
           </div>
         </Grid>
         <Grid item lg={8} md={8} sm={12} xs={12} className="rightside">
-          {arr.map((elem, i) => {
+          {jobs.map((elem, i) => {
             return (
               <div className="jobs">
                 <div className="jobscont">
-                  <img
-                    src="https://assets-global.website-files.com/63b3bf674632664abc613903/63c7e048dbd85384ac3e7adf_skype.svg"
-                    alt=""
-                    className="jobicon"
-                  />
+                  <img src={elem.companylogo} alt="" className="jobicon" />
                   <div className="inf">
-                    <p className="jobname">Digital Marketing Manager</p>
+                    <p className="jobname">{elem.title}</p>
                     <div className="location">
                       <img
                         src="https://assets-global.website-files.com/63b2816edd90444c9df54d80/63b3cc6e4632663f9161e95a_geo-alt.svg"
                         alt=""
                       />
-                      <p>Tokyo, Japan</p>
+                      <p>{elem.location}</p>
                     </div>
                   </div>
                 </div>
-                <p className="type">Internship</p>
-                <Link to="/1">
+                <p className="type">{elem.type}</p>
+                <Link to={`/${elem?.id}`}>
                   <button>View job</button>
                 </Link>
               </div>

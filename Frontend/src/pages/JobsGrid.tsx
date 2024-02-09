@@ -1,11 +1,20 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import { Link } from "react-router-dom";
-
+import type { RootState } from "../redux/store";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { fetchJobs } from "../redux/slices/JobsSlice";
 type Props = {};
 
 const JobsGrid = (props: Props) => {
-  const arr = [1, 2, 3, 4, 5];
+  const { jobs, loading, error } = useSelector(
+    (state: RootState) => state.jobs
+  );
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchJobs());
+  }, [dispatch]);
   return (
     <div className="jobspage">
       <div className="jobsgrid">
@@ -84,38 +93,33 @@ const JobsGrid = (props: Props) => {
         </Grid>
         <Grid item lg={9} md={9} sm={12} xs={12} className="rightside">
           <Grid container spacing={3}>
-            {arr.map((elem, i) => {
+            {jobs.map((elem, i) => {
               return (
                 <Grid item key={i} lg={6} md={6} sm={6} xs={12}>
                   <div className="jobs" key={i}>
-                    <p className="intern">Internship</p>
-                    <p className="jobname">Digital Marketing Manager</p>
+                    <p className="intern">{elem.type}</p>
+                    <p className="jobname">{elem.title}</p>
                     <div className="payment">
                       <div>
-                        <p>$8.000</p>
-                        <p>USD</p>
+                        <p>{elem.salary}</p>
                       </div>
                       <p className="dot">.</p>
-                      <p>Junior</p>
+                      <p>{elem.experience}</p>
                     </div>
                     <div className="jobscontainer">
-                      <img
-                        src="https://assets-global.website-files.com/63b3bf674632664abc613903/63c7e4e481ac42dbc0f41e79_company-02.png"
-                        alt=""
-                        className="jobicon"
-                      />
+                      <img src={elem.companylogo} className="jobicon" />
                       <div className="inf">
-                        <p className="jobname">Amazon</p>
+                        <p className="jobname">{elem.companyname}</p>
                         <div className="location">
                           <img
                             src="https://assets-global.website-files.com/63b2816edd90444c9df54d80/63b3cc6e4632663f9161e95a_geo-alt.svg"
                             alt=""
                           />
-                          <p>Remote</p>
+                          <p>{elem.location}</p>
                         </div>
                       </div>
                     </div>
-                    <Link to="/1" className="link width">
+                    <Link to={`/${elem?.id}`} className="link width">
                       <button>View job</button>
                     </Link>
                   </div>

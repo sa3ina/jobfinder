@@ -9,6 +9,8 @@ import SignUpEmployer from "../pages/SignUpEmployer";
 import Root from "../pages/Root";
 import Detail from "../pages/Detail";
 import SignUp from "../pages/SignUp";
+import ProfileEmployer from "../pages/ProfileEmployer";
+import ProfileJobSeeker from "../pages/ProfileJobSeeker";
 export const routes = [
   {
     path: "/",
@@ -49,6 +51,14 @@ export const routes = [
       {
         path: "/signup",
         element: <SignUp />,
+      },
+      {
+        path: "/profilemployer",
+        element: <ProfileEmployer />,
+      },
+      {
+        path: "/profilejobseeker",
+        element: <ProfileJobSeeker />,
       },
       {
         path: "/:id",

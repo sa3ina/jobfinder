@@ -98,15 +98,6 @@ const Navbar = (props: Props) => {
               </Grid>
             </div>
           </div>
-          {/* <Link to="/jobsgrid" className="link findjob">
-            <p>Find a Job</p>
-          </Link>
-          <button className="link cart">
-            Cart <p>0</p>
-          </button>
-          <Link to="/postjob" className="link postjob">
-            <p>Log In</p>
-          </Link> */}
           <Link
             to={isEmployer ? "/postjob" : "/jobsgrid"}
             className="link findjob"
@@ -117,7 +108,13 @@ const Navbar = (props: Props) => {
             Cart <p>0</p>
           </button>
           <Link
-            to={isJobseeker || isEmployer ? "/myprofile" : "/login"}
+            to={
+              isJobseeker
+                ? "/profilejobseeker"
+                : isEmployer
+                ? "/profilemployer"
+                : "/login"
+            }
             className="link postjob"
           >
             <p>{isJobseeker || isEmployer ? "My Profile" : "Log In"}</p>

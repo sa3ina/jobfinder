@@ -127,6 +127,12 @@ const PostJob = (props: Props) => {
                     <Field name="companylocation" className="input" />
                   </div>
                 </div>
+                <p className="label">Company Logo</p>
+                <Field
+                  name="companylocation"
+                  className="input"
+                  placeholder="enter link here"
+                />
                 <p className="label">Company Description</p>
                 <Field name="companydesc" as="textarea" className="input" />
                 <button type="submit">Submit for approval</button>

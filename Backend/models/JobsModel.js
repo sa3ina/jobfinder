@@ -9,7 +9,6 @@ const schema = mongoose.Schema({
   location: String,
   remote: Boolean,
   type: String,
-  remote: Boolean,
   experience: String,
   qualification: String,
   description: String,
@@ -19,6 +18,7 @@ const schema = mongoose.Schema({
   companycontact: String,
   companylocation: String,
   companydescription: String,
+  companylogo: String,
 });
 
 const Model = mongoose.model("jobs", schema);

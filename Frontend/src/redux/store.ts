@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import jobseekerReducer from "./slices/JobseekerSlice";
 import EmployerReducer from "./slices/EmployerSlice";
+import jobReducer from "./slices/JobsSlice";
 export const store = configureStore({
   reducer: {
     jobseekers: jobseekerReducer,
     employers: EmployerReducer,
+    jobs: jobReducer,
   },
 });
 // Infer the `RootState` and `AppDispatch` types from the store itself

@@ -2412,6 +2412,7 @@
       }
       button:hover {
         background-color: transparent;
+        transition: 0.5s;
       }
 
       @media only screen and (max-width: 1040px) {
@@ -3034,4 +3035,10 @@
       text-align: center;
     }
   }
+}
+.profilemployer {
+  margin-bottom: 300px;
+}
+.profilejobseeker {
+  margin-bottom: 300px;
 }
