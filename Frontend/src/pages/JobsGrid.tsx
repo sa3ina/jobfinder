@@ -15,6 +15,20 @@ const JobsGrid = (props: Props) => {
   useEffect(() => {
     dispatch(fetchJobs());
   }, [dispatch]);
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedLocation, setSelectedLocation] = useState("");
+  const filteredJobs = jobs.filter((job) => {
+    if (selectedCategory && job.category !== selectedCategory) {
+      return false;
+    }
+    if (selectedLocation && job.location !== selectedLocation) {
+      return false;
+    }
+    return true;
+  });
+  const handleCategoryClick = (category) => {
+    setSelectedCategory(category);
+  };
   return (
     <div className="jobspage">
       <div className="jobsgrid">
@@ -28,7 +42,10 @@ const JobsGrid = (props: Props) => {
         <Grid item lg={3} md={3} sm={12} xs={12} className="leftside">
           <div className="cont">
             <p className="categ">Categories</p>
-            <div className="category">
+            <div
+              className="category"
+              onClick={() => handleCategoryClick("Accounting")}
+            >
               <p className="name">Accounting</p>
             </div>
             <div className="category">
@@ -93,7 +110,7 @@ const JobsGrid = (props: Props) => {
         </Grid>
         <Grid item lg={9} md={9} sm={12} xs={12} className="rightside">
           <Grid container spacing={3}>
-            {jobs.map((elem, i) => {
+            {filteredJobs.map((elem, i) => {
               return (
                 <Grid item key={i} lg={6} md={6} sm={6} xs={12}>
                   <div className="jobs" key={i}>

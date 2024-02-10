@@ -9,7 +9,6 @@ type Props = {};
 
 const Detail = (props: Props) => {
   const { id } = useParams();
-  const arr = [1, 2, 3, 4, 5];
   const { jobs, loading, error } = useSelector(
     (state: RootState) => state.jobs
   );
@@ -36,19 +35,24 @@ const Detail = (props: Props) => {
             <div className="jobdesc">
               <p className="heading">Job Description</p>
               <p className="text">{job?.description}</p>
-              <p className="heading">Qualification</p>
-              <p className="textwithbullet">{job?.qualification}</p>
 
+              <p className="heading">Job Benefits</p>
+              {job?.benefits.map((elem) => {
+                return <p className="textwithbullet">{elem}</p>;
+              })}
+
+              <p className="heading">Qualification</p>
+              <p className="text">{job?.qualification}</p>
               <p className="heading">Company Email</p>
-              <p className="textwithbullet">{job?.companyemail}</p>
+              <p className="text">{job?.companyemail}</p>
               <p className="heading">Company Contact</p>
-              <p className="textwithbullet">{job?.companycontact}</p>
+              <p className="text">{job?.companycontact}</p>
               <p className="heading">Company Location</p>
-              <p className="textwithbullet">{job?.companylocation}</p>
+              <p className="text">{job?.companylocation}</p>
               <p className="heading">Company Description</p>
-              <p className="textwithbullet">{job?.description}</p>
+              <p className="text">{job?.description}</p>
               <p className="heading">Company website</p>
-              <p className="textwithbullet">
+              <p className="text">
                 <a href={job?.companywebsite}>{job?.companywebsite}</a>
               </p>
             </div>

@@ -14,7 +14,6 @@ const SignUpEmployer = (props: Props) => {
     (state: RootState) => state.employers
   );
   const dispatch = useDispatch();
-  const [data, setData] = useState([]);
 
   useEffect(() => {
     dispatch(fetchDataa());
