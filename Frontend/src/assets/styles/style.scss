@@ -3122,3 +3122,25 @@
 .profilejobseeker {
   margin-bottom: 300px;
 }
+.activeButton {
+  background-color: #007bff;
+}
+
+.inactiveButton {
+}
+.reset {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  width: 100%;
+  padding: 3%;
+  font-size: 18px;
+  font-family: "Work Sans";
+  border-radius: 4px;
+  margin-bottom: 4%;
+  cursor: pointer;
+}
+.reset:hover {
+  background-color: transparent;
+  transition: 0.3s;
+}
