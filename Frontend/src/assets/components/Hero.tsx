@@ -1,6 +1,6 @@
 import React from "react";
 type Props = {};
-
+import { Link } from "react-router-dom";
 const Hero = (props: Props) => {
   return (
     <>
@@ -31,7 +31,9 @@ const Hero = (props: Props) => {
                 className="input"
                 placeholder="Search job or companies"
               />
-              <button className="explore">Explore</button>
+              <Link to="/search">
+                <button className="explore">Explore</button>
+              </Link>
             </div>
             <p className="find">*Find the position and location to work</p>
           </div>

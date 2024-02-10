@@ -11,6 +11,7 @@ import Detail from "../pages/Detail";
 import SignUp from "../pages/SignUp";
 import ProfileEmployer from "../pages/ProfileEmployer";
 import ProfileJobSeeker from "../pages/ProfileJobSeeker";
+import Search from "../pages/Search";
 export const routes = [
   {
     path: "/",
@@ -59,6 +60,10 @@ export const routes = [
       {
         path: "/profilejobseeker",
         element: <ProfileJobSeeker />,
+      },
+      {
+        path: "/search",
+        element: <Search />,
       },
       {
         path: "/:id",
