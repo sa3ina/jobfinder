@@ -6,7 +6,6 @@ interface job {
   email: String;
   title: String;
   categories: String;
-  company: String;
   salary: String;
   location: String;
   remote: Boolean;

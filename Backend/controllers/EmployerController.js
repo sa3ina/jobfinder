@@ -16,5 +16,16 @@ const postOne = async (req, res) => {
   await post.save();
   res.send(post);
 };
+const patchOne = async (req, res) => {
+  let id = req.params.id;
+  try {
+    let updateUser = await Model.findOneAndUpdate({ id: id }, req.body, {
+      new: true,
+    });
+    res.send(updateUser);
+  } catch (error) {
+    res.status(500).send("Error updating user");
+  }
+};
 
-module.exports = { getall, getbyId, deleteByiD, postOne };
+module.exports = { getall, getbyId, deleteByiD, postOne, patchOne };

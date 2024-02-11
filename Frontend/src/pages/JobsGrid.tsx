@@ -113,9 +113,9 @@ const JobsGrid = (props: Props) => {
                   ? "activeButton"
                   : "inactiveButton"
               }`}
-              onClick={() => handleCategoryClick("Marketing and finance")}
+              onClick={() => handleCategoryClick("Marketing & finance")}
             >
-              <p className="name">Marketing and finance</p>
+              <p className="name">Marketing & finance</p>
             </div>
             <div
               className={`category ${
@@ -133,9 +133,9 @@ const JobsGrid = (props: Props) => {
                   ? "activeButton"
                   : "inactiveButton"
               }`}
-              onClick={() => handleCategoryClick("Finance management")}
+              onClick={() => handleCategoryClick("Tech & Programming")}
             >
-              <p className="name">Finance management</p>
+              <p className="name">Tech & Programming</p>
             </div>
             <div
               className={`category ${

@@ -15,7 +15,6 @@ const FindJobSection = (props: Props) => {
   useEffect(() => {
     dispatch(fetchJobs());
   }, [dispatch]);
-  console.log(jobs);
   return (
     <div className="findjob">
       <p className="find">Find your favorite job</p>
@@ -79,7 +78,7 @@ const FindJobSection = (props: Props) => {
           </div>
         </Grid>
         <Grid item lg={8} md={8} sm={12} xs={12} className="rightside">
-          {jobs.map((elem, i) => {
+          {jobs.slice(0, 5).map((elem, i) => {
             return (
               <div className="jobs">
                 <div className="jobscont">

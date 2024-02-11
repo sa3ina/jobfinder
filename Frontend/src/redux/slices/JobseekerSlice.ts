@@ -37,20 +37,11 @@ export const postData = createAsyncThunk("user/postData", async (newPers) => {
   const posted = await axios.post(`http://localhost:3000/jobseeker/`, newPers);
   return posted.data;
 });
+
 export const JobseekerSlice = createSlice({
   name: "jobseekers",
   initialState,
-  reducers: {
-    increment: (state) => {
-      // Redux Toolkit allows us to write "mutating" logic in reducers. It
-      // doesn't actually mutate the state because it uses the Immer library,
-      // which detects changes to a "draft state" and produces a brand new
-      // immutable state based off those changes
-    },
-    // incrementByAmount: (state, action: PayloadAction<number>) => {
-    //   state.value += action.payload;
-    // },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchData.pending, (state) => {
       state.loading = true;

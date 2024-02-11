@@ -5,6 +5,7 @@ import type { RootState } from "../redux/store";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { fetchJobs } from "../redux/slices/JobsSlice";
+import { applyForJob } from "../redux/slices/EmployerSlice";
 type Props = {};
 
 const Detail = (props: Props) => {
@@ -17,6 +18,15 @@ const Detail = (props: Props) => {
     dispatch(fetchJobs());
   }, [dispatch]);
   const job = jobs.find((elem) => elem.id === id);
+  const similarJobs = jobs.filter(
+    (elem) =>
+      (elem.categories === job?.categories ||
+        elem.type === job?.type ||
+        elem.location === job?.location ||
+        elem.companyname === job?.companyname) &&
+      elem.id !== id
+  );
+  const login = JSON.parse(localStorage.getItem("login") || "{}");
   return (
     <div className="detail">
       <div className="image"></div>
@@ -35,7 +45,8 @@ const Detail = (props: Props) => {
             <div className="jobdesc">
               <p className="heading">Job Description</p>
               <p className="text">{job?.description}</p>
-
+              <p className="heading">Job Category</p>
+              <p className="text">{job?.categories}</p>
               <p className="heading">Job Benefits</p>
               {job?.benefits.map((elem) => {
                 return <p className="textwithbullet">{elem}</p>;
@@ -121,7 +132,19 @@ const Detail = (props: Props) => {
                 </div>
                 <p className="answer">{job?.salary}</p>
               </div>
-              <button>Apply now</button>
+              <button
+                onClick={() => {
+                  dispatch(
+                    applyForJob({
+                      jobId: job.id,
+                      jobSeekerEmail: login.email,
+                      employerEmail: job.email,
+                    })
+                  );
+                }}
+              >
+                Apply now
+              </button>
             </div>
           </Grid>
         </Grid>{" "}
@@ -139,7 +162,7 @@ const Detail = (props: Props) => {
           </div>
         </div>
         <Grid container spacing={3}>
-          {jobs.map((elem, i) => {
+          {similarJobs.map((elem, i) => {
             return (
               <Grid item key={i} lg={4} md={4} sm={6} xs={12}>
                 <div className="jobs" key={i}>

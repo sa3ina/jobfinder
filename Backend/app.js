@@ -5,6 +5,8 @@ require("./config/db");
 const jobseekerRouter = require("./routes/JobseekerRoute");
 const employerRouter = require("./routes/EmployerRoute");
 const jobsRouter = require("./routes/JobsRoute");
+var bodyParser = require("body-parser");
+app.use(bodyParser.json());
 var cors = require("cors");
 app.use(cors());
 app.use(express.json());

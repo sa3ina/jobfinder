@@ -43,6 +43,7 @@ const SignUpEmployer = (props: Props) => {
             lastname: "",
             email: "",
             password: "",
+            notifications: [],
           }}
           // validationSchema={SignupSchema}
           onSubmit={(values) => {

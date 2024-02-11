@@ -5,10 +5,22 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
-
+import { useSelector, useDispatch } from "react-redux";
+import type { RootState } from "../../redux/store";
+import { fetchDataa } from "../../redux/slices/EmployerSlice";
 type Props = {};
 
 const Navbar = (props: Props) => {
+  const { employers, loading, error } = useSelector(
+    (state: RootState) => state.employers
+  );
+  const login = JSON.parse(localStorage.getItem("login") || "{}");
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchDataa());
+  }, [dispatch]);
+  const userInfo = employers.find((elem) => elem.id === login.id);
   const [isPagesHovered, setIsPagesHovered] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [shouldLog, setShouldLog] = useState(false);
@@ -35,6 +47,7 @@ const Navbar = (props: Props) => {
       setIsEmployer(true);
     }
   }, []);
+
   return (
     <>
       <div className="navbar">
@@ -104,9 +117,19 @@ const Navbar = (props: Props) => {
           >
             <p>{isEmployer ? "Post a Job" : "Find a Job"}</p>
           </Link>
-          <button className="link cart">
-            Cart <p>0</p>
-          </button>
+          {isEmployer || isJobseeker ? (
+            <Link
+              className="link"
+              to={isEmployer ? "/notificationemp" : "/notificationjs"}
+            >
+              <button className="link cart">
+                Notification <p>{userInfo?.notifications.length}</p>
+              </button>
+            </Link>
+          ) : (
+            ""
+          )}
+
           <Link
             to={
               isJobseeker

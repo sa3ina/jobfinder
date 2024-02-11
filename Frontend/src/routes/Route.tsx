@@ -12,6 +12,8 @@ import SignUp from "../pages/SignUp";
 import ProfileEmployer from "../pages/ProfileEmployer";
 import ProfileJobSeeker from "../pages/ProfileJobSeeker";
 import Search from "../pages/Search";
+import NotificationEmployer from "../pages/NotificationEmployer";
+import NotificationJobSeeker from "../pages/NotificationJobSeeker";
 export const routes = [
   {
     path: "/",
@@ -64,6 +66,14 @@ export const routes = [
       {
         path: "/search",
         element: <Search />,
+      },
+      {
+        path: "/notificationemp",
+        element: <NotificationEmployer />,
+      },
+      {
+        path: "/notificationjs",
+        element: <NotificationJobSeeker />,
       },
       {
         path: "/:id",

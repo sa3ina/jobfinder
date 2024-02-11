@@ -6,7 +6,7 @@ const schema = mongoose.Schema({
   lastname: String,
   email: String,
   password: String,
-  jobs: Array,
+  notifications: Array,
 });
 
 const Model = mongoose.model("employer", schema);

@@ -7,6 +7,7 @@ interface employer {
   lastname: String;
   email: String;
   password: String;
+  notifications: Array<Object>;
 }
 
 interface employerState {
@@ -30,20 +31,50 @@ export const postData = createAsyncThunk("user/postData", async (newEmp) => {
   const posted = await axios.post(`http://localhost:3000/employer/`, newEmp);
   return posted.data;
 });
+import { RootState } from "../store";
+
+export const applyForJob = createAsyncThunk(
+  "employers/applyforjob",
+  async (payload) => {
+    try {
+      const employers = await axios.get("http://localhost:3000/employer");
+      console.log("employers", employers.data);
+      const updatedEmployers = employers.data.map((employer) => {
+        console.log(payload.employerEmail);
+        if (employer.email === payload.employerEmail) {
+          return {
+            ...employer,
+            notifications: [
+              ...employer.notifications,
+              {
+                jobId: payload.jobId,
+                jobSeekerEmail: payload.jobSeekerEmail,
+                status: "pending",
+              },
+            ],
+          };
+        }
+        return employer;
+      });
+      await Promise.all(
+        updatedEmployers.map(async (employer) => {
+          await axios.patch(`http://localhost:3000/employer/${employer.id}`, {
+            notifications: employer.notifications,
+          });
+        })
+      );
+      console.log("updatedEmployers", updatedEmployers);
+      return updatedEmployers;
+    } catch (error) {
+      throw new Error("Failed to apply for job");
+    }
+  }
+);
+
 export const EmployerSlice = createSlice({
   name: "employers",
   initialState,
-  reducers: {
-    increment: (state) => {
-      // Redux Toolkit allows us to write "mutating" logic in reducers. It
-      // doesn't actually mutate the state because it uses the Immer library,
-      // which detects changes to a "draft state" and produces a brand new
-      // immutable state based off those changes
-    },
-    // incrementByAmount: (state, action: PayloadAction<number>) => {
-    //   state.value += action.payload;
-    // },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchDataa.pending, (state) => {
       state.loading = true;
@@ -62,9 +93,21 @@ export const EmployerSlice = createSlice({
       state.loading = false;
       state.employers = [...state.employers, action.payload];
     });
-    builder.addCase(postData.rejected, (state) => {
-      state.loading = false;
-    });
+    builder
+      .addCase(postData.rejected, (state) => {
+        state.loading = false;
+      })
+      .addCase(applyForJob.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(applyForJob.fulfilled, (state, action) => {
+        state.loading = false;
+        state.employers = action.payload; // Update the employers' notifications
+      })
+      .addCase(applyForJob.rejected, (state) => {
+        state.loading = false;
+        // Handle rejection if needed
+      });
   },
 });
 
