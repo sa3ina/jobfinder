@@ -44,6 +44,13 @@ export const postJob = createAsyncThunk("user/postData", async (newJob) => {
   const posted = await axios.post(`http://localhost:3000/job/`, newJob);
   return posted.data;
 });
+export const deleteJob = createAsyncThunk(
+  "jobs/deleteJob",
+  async (jobId: string) => {
+    await axios.delete(`http://localhost:3000/job/${jobId}`);
+    return jobId;
+  }
+);
 export const JobSlice = createSlice({
   name: "jobs",
   initialState,
@@ -77,6 +84,16 @@ export const JobSlice = createSlice({
       state.jobs = [...state.jobs, action.payload];
     });
     builder.addCase(postJob.rejected, (state) => {
+      state.loading = false;
+    });
+    builder.addCase(deleteJob.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(deleteJob.fulfilled, (state, action) => {
+      state.loading = false;
+      state.jobs = state.jobs.filter((job) => job.id !== action.payload);
+    });
+    builder.addCase(deleteJob.rejected, (state) => {
       state.loading = false;
     });
   },

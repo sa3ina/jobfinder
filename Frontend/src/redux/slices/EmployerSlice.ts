@@ -102,11 +102,10 @@ export const EmployerSlice = createSlice({
       })
       .addCase(applyForJob.fulfilled, (state, action) => {
         state.loading = false;
-        state.employers = action.payload; // Update the employers' notifications
+        state.employers = action.payload;
       })
       .addCase(applyForJob.rejected, (state) => {
         state.loading = false;
-        // Handle rejection if needed
       });
   },
 });

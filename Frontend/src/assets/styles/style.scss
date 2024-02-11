@@ -3066,12 +3066,43 @@
 .profilemployer {
   background-color: #161616;
   color: white;
-
+  .let {
+    background-color: #1e662c;
+    border: none;
+    padding: 2px;
+    border-radius: 4px;
+    cursor: pointer;
+    color: white;
+    margin-right: 5px;
+  }
+  .delete {
+    background-color: #d90429;
+    color: white;
+    border: none;
+    padding: 2px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .deletejob {
+    background-color: #d90429;
+    color: white;
+    border: none;
+    padding: 4px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
   .posted {
     font-weight: 600;
-    font-size: 30px;
+    font-size: 28px;
     font-family: "Outfit";
-    margin-bottom: 7%;
+    margin-bottom: 2%;
+  }
+  .candidates {
+    font-weight: 600;
+    font-size: 28px;
+    font-family: "Outfit";
+    margin-bottom: 2%;
+    margin-top: 2%;
   }
   .text {
     font-size: 18px;
@@ -3088,6 +3119,10 @@
     cursor: pointer;
     font-size: 18px;
   }
+  .logout:hover {
+    background-color: transparent;
+    color: white;
+  }
   .form {
     background-color: #1e1e1e;
     border: 2px solid rgb(47, 46, 46);
@@ -3096,12 +3131,19 @@
     height: auto;
     display: flex;
     flex-direction: column;
+    padding: 5%;
+    text-align: center;
+    display: flex;
     justify-content: center;
     align-items: center;
-    padding: 4% 0;
-    text-align: center;
+    .userinfo {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      // align-items: start;
+    }
     img {
-      width: 150px;
+      width: 100px;
       border-radius: 50%;
       margin-bottom: 3%;
     }
@@ -3357,7 +3399,15 @@
   color: white;
   padding: 0 5%;
   padding-bottom: 30%;
+  .buttons {
+    display: flex;
+    gap: 10px;
 
+    .x:hover {
+      background-color: #9a0f26 !important;
+      transition: 0.5s;
+    }
+  }
   .status {
     // background-color: #f5fafc;
     .stat {
@@ -3381,7 +3431,7 @@
       justify-content: space-between;
       padding: 1%;
       max-width: 100%;
-      margin-bottom: 4%;
+      margin-bottom: 1%;
       flex-direction: column;
       gap: 20px;
       cursor: pointer;
@@ -3413,12 +3463,12 @@
         width: 40px;
       }
       button {
-        padding: 15px 30px;
+        padding: 10px 20px;
         background-color: transparent;
         color: white;
         border: 2px solid rgb(47, 46, 46);
         border-radius: 4px;
-        font-size: 18px;
+        font-size: 17px;
         font-family: "Work Sans";
         cursor: pointer;
       }

@@ -19,7 +19,6 @@ const PostJob = (props: Props) => {
   useEffect(() => {
     dispatch(fetchJobs());
   }, [dispatch]);
-  console.log("jobs", jobs);
   const [inputs, setInputs] = useState([""]);
   const addInput = () => {
     setInputs([...inputs, ""]);
@@ -43,7 +42,7 @@ const PostJob = (props: Props) => {
       benefits: inputs.filter((input) => input.trim() !== ""),
     };
     dispatch(postJob(formData));
-    enqueueSnackbar("Job submitted for approval!", { variant: "success" });
+    enqueueSnackbar("Job posted successfully!", { variant: "success" });
   };
   const SignupSchema = Yup.object().shape({
     firstName: Yup.string()
