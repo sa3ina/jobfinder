@@ -2,12 +2,16 @@ import React, { useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchDataa } from "../redux/slices/EmployerSlice";
+import {
+  askForInterview,
+  fetchDataa,
+  rejectJobseeker,
+} from "../redux/slices/EmployerSlice";
 import { fetchJobs } from "../redux/slices/JobsSlice";
 import Modal from "@mui/material/Modal";
 import { Box } from "@mui/material";
 import { fetchData } from "../redux/slices/JobseekerSlice";
-
+import { applyForJob } from "../redux/slices/EmployerSlice";
 type Props = {};
 
 const NotificationEmployer = (props: Props) => {
@@ -50,6 +54,42 @@ const NotificationEmployer = (props: Props) => {
     setSelectedJobId(null);
   };
 
+  const handleAskForInterview = (jobId, jobSeekerEmail) => {
+    dispatch(
+      askForInterview({
+        employerEmail: userInfo.email,
+        jobId: jobId,
+        jobSeekerEmail: jobSeekerEmail,
+        status: "interview",
+      })
+    );
+    // Fetch job seeker info here
+    const jobseekerInfo = jobseekers.find(
+      (item) => item.email === jobSeekerEmail
+    );
+    setJobseekerInfo((prevJobseekerInfo) => ({
+      ...prevJobseekerInfo,
+      [jobId]: jobseekerInfo,
+    }));
+  };
+  const handleRejectJobseeker = (jobId, jobSeekerEmail) => {
+    dispatch(
+      rejectJobseeker({
+        employerEmail: userInfo.email,
+        jobId: jobId,
+        jobSeekerEmail: jobSeekerEmail,
+        status: "interview",
+      })
+    );
+    // Fetch job seeker info here
+    const jobseekerInfo = jobseekers.find(
+      (item) => item.email === jobSeekerEmail
+    );
+    setJobseekerInfo((prevJobseekerInfo) => ({
+      ...prevJobseekerInfo,
+      [jobId]: jobseekerInfo,
+    }));
+  };
   return (
     <div className="notificationemp">
       <Modal
@@ -96,9 +136,9 @@ const NotificationEmployer = (props: Props) => {
 
       <Grid container>
         <Grid item lg={12} md={12} sm={12} xs={12} className="rightside">
-          {userInfo?.notifications.map((elem) => {
-            const jobInfo = jobs.find((job) => job.id === elem.jobId);
-            if (!jobInfo) return null;
+          {userInfo?.notifications.map((elem: any) => {
+            const jobInfo = jobs.find((job: any) => job.id === elem.jobId);
+            if (!jobInfo || elem.status !== "pending") return null;
             return (
               <div
                 className="jobs"
@@ -108,7 +148,7 @@ const NotificationEmployer = (props: Props) => {
                 <div className="jobscont">
                   <div className="container">
                     <div className="status">
-                      <p className="stat">Applied</p>
+                      <p className="stat">applied</p>
                     </div>
                     <div className="inf">
                       <p className="type">
@@ -118,8 +158,23 @@ const NotificationEmployer = (props: Props) => {
                     </div>
                   </div>{" "}
                   <div className="buttons">
-                    <button>Ask for an interview</button>
-                    <button className="x">X</button>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleAskForInterview(elem.jobId, elem.jobSeekerEmail);
+                      }}
+                    >
+                      Ask for an interview
+                    </button>
+                    <button
+                      className="x"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleRejectJobseeker(elem.jobId, elem.jobSeekerEmail);
+                      }}
+                    >
+                      X
+                    </button>
                   </div>
                 </div>
               </div>

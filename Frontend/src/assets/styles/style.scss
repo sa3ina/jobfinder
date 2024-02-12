@@ -1720,7 +1720,7 @@
       overflow: hidden;
       position: relative;
       display: flex;
-
+      cursor: pointer;
       justify-content: center;
       align-items: center;
       text-align: center;
@@ -3066,8 +3066,16 @@
 .profilemployer {
   background-color: #161616;
   color: white;
+  .details {
+    background-color: #b8b9ee;
+    border: none;
+    padding: 4px;
+    border-radius: 4px;
+    cursor: pointer;
+    color: white;
+  }
   .let {
-    background-color: #1e662c;
+    background-color: #70d18c;
     border: none;
     padding: 2px;
     border-radius: 4px;
@@ -3076,12 +3084,21 @@
     margin-right: 5px;
   }
   .delete {
-    background-color: #d90429;
+    background-color: #fb777c;
     color: white;
     border: none;
     padding: 2px;
     border-radius: 4px;
     cursor: pointer;
+  }
+  .interview {
+    background-color: #88d2fc;
+    border: none;
+    padding: 2px;
+    border-radius: 4px;
+    cursor: pointer;
+    color: white;
+    margin-right: 5px;
   }
   .deletejob {
     background-color: #d90429;
@@ -3412,11 +3429,12 @@
     // background-color: #f5fafc;
     .stat {
       text-align: center;
-      background-color: #8297b3;
+      background-color: #88d2fc;
       width: 40%;
       border-radius: 15px;
       font-family: "Outfit";
       padding: 3px;
+      color: #000;
     }
   }
 

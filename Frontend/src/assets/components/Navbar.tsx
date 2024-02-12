@@ -47,7 +47,9 @@ const Navbar = (props: Props) => {
       setIsEmployer(true);
     }
   }, []);
-
+  const pendingNotificationsCount = userInfo?.notifications.filter(
+    (elem) => elem.status === "pending"
+  ).length;
   return (
     <>
       <div className="navbar">
@@ -123,7 +125,7 @@ const Navbar = (props: Props) => {
               to={isEmployer ? "/notificationemp" : "/notificationjs"}
             >
               <button className="link cart">
-                Notification <p>{userInfo?.notifications.length}</p>
+                Notification <p>{pendingNotificationsCount}</p>
               </button>
             </Link>
           ) : (

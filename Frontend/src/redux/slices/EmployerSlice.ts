@@ -70,7 +70,144 @@ export const applyForJob = createAsyncThunk(
     }
   }
 );
+export const askForInterview = createAsyncThunk(
+  "employers/ask",
+  async (payload) => {
+    try {
+      console.log("Payload:", payload); // Log the payload
 
+      const employers = await axios.get("http://localhost:3000/employer");
+
+      const updatedEmployers = employers.data.map((employer) => {
+        console.log("Employer:", employer); // Log the current employer
+        if (employer.email === payload.employerEmail) {
+          const updatedNotifications = employer.notifications.map(
+            (notification) => {
+              console.log("Notification:", notification); // Log the current notification
+              if (
+                notification.jobId === payload.jobId &&
+                notification.jobSeekerEmail === payload.jobSeekerEmail
+              ) {
+                return {
+                  ...notification,
+                  status: "interview",
+                };
+              }
+              return notification;
+            }
+          );
+          return {
+            ...employer,
+            notifications: updatedNotifications,
+          };
+        }
+        return employer;
+      });
+      await Promise.all(
+        updatedEmployers.map(async (employer) => {
+          await axios.patch(`http://localhost:3000/employer/${employer.id}`, {
+            notifications: employer.notifications,
+          });
+        })
+      );
+      return updatedEmployers;
+    } catch (error) {
+      throw new Error("Failed to apply for job");
+    }
+  }
+);
+export const rejectJobseeker = createAsyncThunk(
+  "employers/reject",
+  async (payload) => {
+    try {
+      console.log("Payload:", payload); // Log the payload
+
+      const employers = await axios.get("http://localhost:3000/employer");
+
+      const updatedEmployers = employers.data.map((employer) => {
+        console.log("Employer:", employer); // Log the current employer
+        if (employer.email === payload.employerEmail) {
+          const updatedNotifications = employer.notifications.map(
+            (notification) => {
+              console.log("Notification:", notification); // Log the current notification
+              if (
+                notification.jobId === payload.jobId &&
+                notification.jobSeekerEmail === payload.jobSeekerEmail
+              ) {
+                return {
+                  ...notification,
+                  status: "rejected",
+                };
+              }
+              return notification;
+            }
+          );
+          return {
+            ...employer,
+            notifications: updatedNotifications,
+          };
+        }
+        return employer;
+      });
+      await Promise.all(
+        updatedEmployers.map(async (employer) => {
+          await axios.patch(`http://localhost:3000/employer/${employer.id}`, {
+            notifications: employer.notifications,
+          });
+        })
+      );
+      return updatedEmployers;
+    } catch (error) {
+      throw new Error("Failed to apply for job");
+    }
+  }
+);
+export const hireJobseeker = createAsyncThunk(
+  "employers/hire",
+  async (payload) => {
+    try {
+      console.log("Payload:", payload); // Log the payload
+
+      const employers = await axios.get("http://localhost:3000/employer");
+
+      const updatedEmployers = employers.data.map((employer) => {
+        console.log("Employer:", employer); // Log the current employer
+        if (employer.email === payload.employerEmail) {
+          const updatedNotifications = employer.notifications.map(
+            (notification) => {
+              console.log("Notification:", notification); // Log the current notification
+              if (
+                notification.jobId === payload.jobId &&
+                notification.jobSeekerEmail === payload.jobSeekerEmail
+              ) {
+                return {
+                  ...notification,
+                  status: "hired",
+                };
+              }
+              return notification;
+            }
+          );
+          return {
+            ...employer,
+            notifications: updatedNotifications,
+          };
+        }
+        return employer;
+      });
+      await Promise.all(
+        updatedEmployers.map(async (employer) => {
+          await axios.patch(`http://localhost:3000/employer/${employer.id}`, {
+            notifications: employer.notifications,
+          });
+        })
+      );
+      return updatedEmployers;
+    } catch (error) {
+      throw new Error("Failed to apply for job");
+    }
+  }
+);
 export const EmployerSlice = createSlice({
   name: "employers",
   initialState,
@@ -105,6 +242,36 @@ export const EmployerSlice = createSlice({
         state.employers = action.payload;
       })
       .addCase(applyForJob.rejected, (state) => {
+        state.loading = false;
+      })
+      .addCase(askForInterview.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(askForInterview.fulfilled, (state, action) => {
+        state.loading = false;
+        state.employers = action.payload;
+      })
+      .addCase(askForInterview.rejected, (state) => {
+        state.loading = false;
+      })
+      .addCase(rejectJobseeker.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(rejectJobseeker.fulfilled, (state, action) => {
+        state.loading = false;
+        state.employers = action.payload;
+      })
+      .addCase(rejectJobseeker.rejected, (state) => {
+        state.loading = false;
+      })
+      .addCase(hireJobseeker.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(hireJobseeker.fulfilled, (state, action) => {
+        state.loading = false;
+        state.employers = action.payload;
+      })
+      .addCase(hireJobseeker.rejected, (state) => {
         state.loading = false;
       });
   },

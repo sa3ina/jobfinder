@@ -95,6 +95,16 @@ const Detail = (props: Props) => {
               <div className="list">
                 <div className="info">
                   <img
+                    src="https://assets-global.website-files.com/63b2816edd90444c9df54d80/63b3cc6e4632663f9161e95a_geo-alt.svg"
+                    alt=""
+                  />
+                  <p className="question">Remote:</p>
+                </div>
+                <p className="answer">{job?.remote ? "Yes" : "No"}</p>
+              </div>
+              <div className="list">
+                <div className="info">
+                  <img
                     src="https://assets-global.website-files.com/63b2816edd90444c9df54d80/63b7d5981d90ae2c2100db4b_bar-chart-line.svg"
                     alt=""
                   />

@@ -17,10 +17,19 @@ import { SnackbarProvider, VariantType, useSnackbar } from "notistack";
 import { fetchData } from "../redux/slices/JobseekerSlice";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
+import ConnectWithoutContactIcon from "@mui/icons-material/ConnectWithoutContact";
+import {
+  hireJobseeker,
+  rejectJobseeker,
+  askForInterview,
+} from "../../src/redux/slices/EmployerSlice";
+import Modal from "@mui/material/Modal";
+import { Box } from "@mui/material";
 type Props = {};
 
 const ProfileEmployer = (props: Props) => {
   const [jobseekerInfo, setJobseekerInfo] = useState({});
+  const [selectedJobseeker, setSelectedJobseeker] = useState(null);
   const [jobInfo, setJobInfo] = useState({});
 
   const { employers, loading, error } = useSelector(
@@ -68,7 +77,18 @@ const ProfileEmployer = (props: Props) => {
       }));
     });
   }, [userInfo, jobseekers, jobs]);
+  const [openModal, setOpenModal] = useState(false);
+  const handleOpenModal = (jobSeekerEmail) => {
+    setSelectedJobseeker(
+      jobseekers.find((jobseeker) => jobseeker.email === jobSeekerEmail)
+    );
+    setOpenModal(true);
+  };
 
+  const handleCloseModal = () => {
+    setSelectedJobseeker(null);
+    setOpenModal(false);
+  };
   return (
     <>
       <div className="profilemployer">
@@ -141,7 +161,8 @@ const ProfileEmployer = (props: Props) => {
               <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
                   <TableRow>
-                    <TableCell>Name</TableCell>
+                    <TableCell>Email</TableCell>
+                    <TableCell>About</TableCell>
                     <TableCell>Job Name</TableCell>
                     <TableCell>Status</TableCell>
                     <TableCell>Action</TableCell>
@@ -157,8 +178,17 @@ const ProfileEmployer = (props: Props) => {
                         }}
                       >
                         <TableCell>
-                          {jobseekerInfo[elem.jobId]?.firstname}{" "}
-                          {jobseekerInfo[elem.jobId]?.lastname}
+                          {elem.jobSeekerEmail}
+                          {/* {jobseekerInfo[elem.jobId]?.firstname}{" "}
+                          {jobseekerInfo[elem.jobId]?.lastname} */}
+                        </TableCell>
+                        <TableCell>
+                          <button
+                            className="details"
+                            onClick={() => handleOpenModal(elem.jobSeekerEmail)}
+                          >
+                            View Details
+                          </button>
                         </TableCell>
                         <TableCell>{jobInfo[elem.jobId]?.title}</TableCell>
                         <TableCell>{elem.status}</TableCell>
@@ -166,8 +196,15 @@ const ProfileEmployer = (props: Props) => {
                           <button
                             className="let"
                             onClick={() => {
-                              dispatch(deleteJob(elem.id));
-                              enqueueSnackbar("Job deleted successfully!", {
+                              dispatch(
+                                hireJobseeker({
+                                  employerEmail: userInfo.email,
+                                  jobId: elem.jobId,
+                                  jobSeekerEmail: elem.jobSeekerEmail,
+                                  status: "hired",
+                                })
+                              );
+                              enqueueSnackbar("Jobseeker is hired!", {
                                 variant: "success",
                               });
                             }}
@@ -175,10 +212,38 @@ const ProfileEmployer = (props: Props) => {
                             <CheckIcon />
                           </button>
                           <button
+                            className="interview"
+                            onClick={() => {
+                              dispatch(
+                                askForInterview({
+                                  employerEmail: userInfo.email,
+                                  jobId: elem.jobId,
+                                  jobSeekerEmail: elem.jobSeekerEmail,
+                                  status: "interview",
+                                })
+                              );
+                              enqueueSnackbar(
+                                "Job seeker is asked for interview!",
+                                {
+                                  variant: "success",
+                                }
+                              );
+                            }}
+                          >
+                            <ConnectWithoutContactIcon />
+                          </button>
+                          <button
                             className="delete"
                             onClick={() => {
-                              dispatch(deleteJob(elem.id));
-                              enqueueSnackbar("Job deleted successfully!", {
+                              dispatch(
+                                rejectJobseeker({
+                                  employerEmail: userInfo.email,
+                                  jobId: elem.jobId,
+                                  jobSeekerEmail: elem.jobSeekerEmail,
+                                  status: "rejected",
+                                })
+                              );
+                              enqueueSnackbar("Job seeker is rejected.", {
                                 variant: "success",
                               });
                             }}
@@ -195,6 +260,35 @@ const ProfileEmployer = (props: Props) => {
           </Grid>
         </Grid>
       </div>
+      <Modal open={openModal} onClose={handleCloseModal}>
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: 400,
+            bgcolor: "background.paper",
+            border: "2px solid #000",
+            p: 4,
+            fontFamily: "Outfit",
+          }}
+        >
+          {selectedJobseeker && (
+            <>
+              <p>First Name: {selectedJobseeker.firstname}</p>
+              <p>Last Name: {selectedJobseeker.lastname}</p>
+              <p>Education: {selectedJobseeker.education}</p>
+              <p>City:{selectedJobseeker.city}</p>
+              <p>
+                Open for remote job:{selectedJobseeker.remote ? "Yes" : "No"}
+              </p>
+              <p>Experience:{selectedJobseeker.experience}</p>
+              <p>About:{selectedJobseeker.about}</p>
+            </>
+          )}
+        </Box>
+      </Modal>
     </>
   );
 };
