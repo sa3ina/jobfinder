@@ -6,6 +6,14 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchData } from "../../src/redux/slices/JobseekerSlice";
 import { fetchJobs } from "../../src/redux/slices/JobsSlice";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import { Paper } from "@mui/material";
+import { SnackbarProvider, VariantType, useSnackbar } from "notistack";
 type Props = {};
 
 const ProfileJobSeeker = (props: Props) => {
@@ -13,6 +21,7 @@ const ProfileJobSeeker = (props: Props) => {
     (state: RootState) => state.jobseekers
   );
   const { jobs } = useSelector((state: RootState) => state.jobs);
+  const { employers } = useSelector((state: RootState) => state.employers);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -34,6 +43,7 @@ const ProfileJobSeeker = (props: Props) => {
     navigate("/");
     window.location.reload();
   };
+
   return (
     <>
       <div className="profilemployer">
@@ -41,7 +51,7 @@ const ProfileJobSeeker = (props: Props) => {
           <Grid item lg={4} md={4} sm={12} xs={12} className="leftside">
             <div className="form">
               <img
-                src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                src="https://jatinvats.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F4d8cf7af-147c-416e-8774-38f1883323e5%2F3314844f-cde3-4186-876a-9e8db7c29791%2Fdp.png?table=block&id=dce6ac6e-0c14-4140-8352-c32c0262937d&spaceId=4d8cf7af-147c-416e-8774-38f1883323e5&width=250&userId=&cache=v2"
                 alt=""
               />
               <div className="userinfo">
@@ -74,31 +84,53 @@ const ProfileJobSeeker = (props: Props) => {
           </Grid>
           <Grid item lg={8} md={8} sm={12} xs={12} className="rightside">
             <p className="posted">Jobs that you applied</p>
-            {jobs.map((elem, i) => {
-              if (elem.email == userInfo?.email) {
-                return (
-                  <div className="jobs">
-                    <div className="jobscont">
-                      <img src={elem.companylogo} alt="" className="jobicon" />
-                      <div className="inf">
-                        <p className="jobname">{elem.title}</p>
-                        <div className="location">
-                          <img
-                            src="https://assets-global.website-files.com/63b2816edd90444c9df54d80/63b3cc6e4632663f9161e95a_geo-alt.svg"
-                            alt=""
-                          />
-                          <p>{elem.location}</p>
-                        </div>
-                      </div>
-                    </div>
-                    <p className="type">{elem.type}</p>
-                    <Link to={`/${elem?.id}`}>
-                      <button>View job</button>
-                    </Link>
-                  </div>
-                );
-              }
-            })}
+            <TableContainer component={Paper}>
+              <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Name</TableCell>
+                    <TableCell>Description</TableCell>
+                    <TableCell>Status</TableCell>
+                    <TableCell>Employer</TableCell>
+                    <TableCell>View job</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {employers.map((employer) =>
+                    employer.notifications.map((notification) => {
+                      if (notification.jobSeekerEmail === userInfo?.email) {
+                        const job = jobs.find(
+                          (job) => job.id === notification.jobId
+                        );
+                        if (job) {
+                          return (
+                            <TableRow key={job.id}>
+                              <TableCell>{job.title}</TableCell>
+                              <TableCell>{job.categories}</TableCell>
+                              <TableCell>{notification.status}</TableCell>
+                              <TableCell>
+                                {employer.firstname} {employer.lastname}
+                              </TableCell>
+                              <TableCell>
+                                <button
+                                  className="view"
+                                  onClick={() => {
+                                    navigate(`/${job.id}`);
+                                  }}
+                                >
+                                  View
+                                </button>
+                              </TableCell>
+                            </TableRow>
+                          );
+                        }
+                      }
+                      return null;
+                    })
+                  )}
+                </TableBody>
+              </Table>
+            </TableContainer>
           </Grid>
         </Grid>
       </div>

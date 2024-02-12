@@ -3066,6 +3066,14 @@
 .profilemployer {
   background-color: #161616;
   color: white;
+  .view {
+    background-color: #b8b9ee;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    color: white;
+  }
   .details {
     background-color: #b8b9ee;
     border: none;
@@ -3179,9 +3187,7 @@
   }
   padding-bottom: 5%;
 }
-.profilejobseeker {
-  margin-bottom: 300px;
-}
+
 .activeButton {
   background-color: #007bff;
 }
