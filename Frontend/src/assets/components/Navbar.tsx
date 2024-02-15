@@ -8,12 +8,14 @@ import Drawer from "@mui/material/Drawer";
 import { useSelector, useDispatch } from "react-redux";
 import type { RootState } from "../../redux/store";
 import { fetchDataa } from "../../redux/slices/EmployerSlice";
+import CircleNotificationsIcon from "@mui/icons-material/CircleNotifications";
 type Props = {};
 
 const Navbar = (props: Props) => {
   const { employers, loading, error } = useSelector(
     (state: RootState) => state.employers
   );
+  const { jobseekers } = useSelector((state: RootState) => state.jobseekers);
   const login = JSON.parse(localStorage.getItem("login") || "{}");
   const dispatch = useDispatch();
 
@@ -21,6 +23,7 @@ const Navbar = (props: Props) => {
     dispatch(fetchDataa());
   }, [dispatch]);
   const userInfo = employers.find((elem) => elem.id === login.id);
+  const userInfo2 = jobseekers.find((elem) => elem.id === login.id);
   const [isPagesHovered, setIsPagesHovered] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [shouldLog, setShouldLog] = useState(false);
@@ -50,6 +53,17 @@ const Navbar = (props: Props) => {
   const pendingNotificationsCount = userInfo?.notifications.filter(
     (elem) => elem.status === "pending"
   ).length;
+  const pendingNotificationsCount2 = employers.reduce((acc, employer) => {
+    return (
+      acc +
+      employer?.notifications?.filter(
+        (notification) =>
+          notification?.jobSeekerEmail === userInfo2?.email &&
+          notification?.status != "pending"
+      ).length
+    );
+  }, 0);
+
   return (
     <>
       <div className="navbar">
@@ -124,8 +138,20 @@ const Navbar = (props: Props) => {
               className="link"
               to={isEmployer ? "/notificationemp" : "/notificationjs"}
             >
-              <button className="link cart">
-                Notification <p>{pendingNotificationsCount}</p>
+              <button className="link cart" style={{ position: "relative" }}>
+                <CircleNotificationsIcon style={{ fontSize: "40px" }} />{" "}
+                <p
+                  style={{
+                    position: "absolute",
+                    backgroundColor: "#C1111F",
+                    right: "-4px",
+                    top: "0px",
+                  }}
+                >
+                  {isEmployer
+                    ? pendingNotificationsCount
+                    : pendingNotificationsCount2}
+                </p>
               </button>
             </Link>
           ) : (

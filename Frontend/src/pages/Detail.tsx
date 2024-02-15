@@ -13,6 +13,8 @@ const Detail = (props: Props) => {
   const { jobs, loading, error } = useSelector(
     (state: RootState) => state.jobs
   );
+  const { employers } = useSelector((state: RootState) => state.employers);
+  const { jobseekers } = useSelector((state: RootState) => state.jobseekers);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchJobs());
@@ -27,6 +29,20 @@ const Detail = (props: Props) => {
       elem.id !== id
   );
   const login = JSON.parse(localStorage.getItem("login") || "{}");
+  const userInfo = jobseekers.find((elem) => elem.email === login.email);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  const isJobApplied = employers.some((employer) =>
+    employer.notifications.some(
+      (notification) =>
+        notification.jobSeekerEmail === userInfo?.email &&
+        notification.jobId === job.id
+    )
+  );
+  console.log(isJobApplied);
+
   return (
     <div className="detail">
       <div className="image"></div>
@@ -143,6 +159,7 @@ const Detail = (props: Props) => {
                 <p className="answer">{job?.salary}</p>
               </div>
               <button
+                disabled={isJobApplied}
                 onClick={() => {
                   dispatch(
                     applyForJob({
@@ -153,7 +170,7 @@ const Detail = (props: Props) => {
                   );
                 }}
               >
-                Apply now
+                {isJobApplied ? "Applied" : "Apply now"}
               </button>
             </div>
           </Grid>

@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
 interface employer {
   id: String;
   firstname: String;
@@ -50,6 +51,7 @@ export const applyForJob = createAsyncThunk(
                 jobId: payload.jobId,
                 jobSeekerEmail: payload.jobSeekerEmail,
                 status: "pending",
+                id: uuidv4(),
               },
             ],
           };
@@ -166,16 +168,16 @@ export const hireJobseeker = createAsyncThunk(
   "employers/hire",
   async (payload) => {
     try {
-      console.log("Payload:", payload); // Log the payload
+      console.log("Payload:", payload);
 
       const employers = await axios.get("http://localhost:3000/employer");
 
       const updatedEmployers = employers.data.map((employer) => {
-        console.log("Employer:", employer); // Log the current employer
+        console.log("Employer:", employer);
         if (employer.email === payload.employerEmail) {
           const updatedNotifications = employer.notifications.map(
             (notification) => {
-              console.log("Notification:", notification); // Log the current notification
+              console.log("Notification:", notification);
               if (
                 notification.jobId === payload.jobId &&
                 notification.jobSeekerEmail === payload.jobSeekerEmail

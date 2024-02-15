@@ -10,6 +10,9 @@ import { fetchDataa } from "../redux/slices/EmployerSlice";
 type Props = {};
 
 const Login = (props: Props) => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const navigate = useNavigate();
   const { employers, loading, error } = useSelector(
     (state: RootState) => state.employers

@@ -58,7 +58,7 @@
       p {
         font-size: 13px;
         background-color: #1e1e1e;
-        padding: 3px 8px;
+        padding: 2px 7px;
         border-radius: 50%;
       }
     }
@@ -120,7 +120,7 @@
       height: auto;
     }
   }
-  @media only screen and (max-width: 543px) {
+  @media only screen and (max-width: 540px) {
     .navel {
       .postjob {
         display: none;
@@ -3066,6 +3066,15 @@
 .profilemployer {
   background-color: #161616;
   color: white;
+  .cv {
+    margin-bottom: 4%;
+    display: flex;
+    justify-content: space-around;
+    font-family: "Outfit";
+    button {
+      cursor: pointer;
+    }
+  }
   .view {
     background-color: #b8b9ee;
     border: none;
@@ -3229,7 +3238,7 @@
     padding: 3%;
   }
   .search {
-    max-width: 55%;
+    max-width: 60%;
     font-family: "Work Sans";
     display: flex;
     flex-direction: column;
@@ -3415,6 +3424,32 @@
   .jobs:not(:hover) {
     transform: translateY(0);
     transition: transform 0.3s ease;
+  }
+  @media only screen and (max-width: 950px) {
+    .results {
+      font-size: 60px;
+    }
+  }
+  @media only screen and (max-width: 740px) {
+    .results {
+      font-size: 50px;
+    }
+  }
+  @media only screen and (max-width: 540px) {
+    .results {
+      font-size: 32px;
+    }
+    .search {
+      .left {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+  }
+  @media only screen and (max-width: 1000px) {
+    .search {
+      max-width: 94%;
+    }
   }
 }
 .notificationemp {

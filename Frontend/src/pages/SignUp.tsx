@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from "react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { Link } from "react-router-dom";
@@ -6,6 +7,9 @@ import { Link } from "react-router-dom";
 type Props = {};
 
 const SignUp = (props: Props) => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const SignupSchema = Yup.object().shape({
     firstName: Yup.string()
       .min(2, "Too Short!")

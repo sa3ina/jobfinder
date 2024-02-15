@@ -12,6 +12,9 @@ import Modal from "@mui/material/Modal";
 import { Box } from "@mui/material";
 import { fetchData } from "../redux/slices/JobseekerSlice";
 import { applyForJob } from "../redux/slices/EmployerSlice";
+
+import { fetchPhotos } from "../redux/slices/PhotosSlice";
+
 type Props = {};
 
 const NotificationEmployer = (props: Props) => {
@@ -23,7 +26,9 @@ const NotificationEmployer = (props: Props) => {
   );
   const { jobseekers } = useSelector((state: RootState) => state.jobseekers);
   const { jobs } = useSelector((state: RootState) => state.jobs);
+  const { photos } = useSelector((state: RootState) => state.photos);
   const login = JSON.parse(localStorage.getItem("login") || "{}");
+
   const userInfo = employers.find((elem) => elem.id === login.id);
   const dispatch = useDispatch();
 
@@ -31,6 +36,7 @@ const NotificationEmployer = (props: Props) => {
     dispatch(fetchDataa());
     dispatch(fetchJobs());
     dispatch(fetchData());
+    dispatch(fetchPhotos());
   }, [dispatch]);
 
   useEffect(() => {
@@ -39,7 +45,7 @@ const NotificationEmployer = (props: Props) => {
       const jobseekerinfo = jobseekers.find(
         (item) => item.email === elem.jobSeekerEmail
       );
-      jobseekerData[elem.jobId] = jobseekerinfo;
+      jobseekerData[elem.id] = jobseekerinfo;
     });
     setJobseekerInfo(jobseekerData);
   }, [userInfo, jobseekers]);
@@ -63,7 +69,6 @@ const NotificationEmployer = (props: Props) => {
         status: "interview",
       })
     );
-    // Fetch job seeker info here
     const jobseekerInfo = jobseekers.find(
       (item) => item.email === jobSeekerEmail
     );
@@ -81,7 +86,6 @@ const NotificationEmployer = (props: Props) => {
         status: "interview",
       })
     );
-    // Fetch job seeker info here
     const jobseekerInfo = jobseekers.find(
       (item) => item.email === jobSeekerEmail
     );
@@ -104,47 +108,36 @@ const NotificationEmployer = (props: Props) => {
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-            width: 400,
+            width: 600,
             bgcolor: "background.paper",
-            border: "2px solid #000",
             p: 4,
             fontFamily: "Outfit",
           }}
         >
-          <div className="modal">
-            <p className="text">
-              First Name: {jobseekerInfo[selectedJobId]?.firstname}
-            </p>
-            <p className="text">
-              Last Name: {jobseekerInfo[selectedJobId]?.lastname}
-            </p>
-            <p className="text">
-              Education: {jobseekerInfo[selectedJobId]?.education}
-            </p>
-            <p className="text">City: {jobseekerInfo[selectedJobId]?.city}</p>
-            <p className="text">
-              Open for remote job:{" "}
-              {jobseekerInfo[selectedJobId]?.remote ? "Yes" : "No"}
-            </p>
-            <p className="text">
-              Experience: {jobseekerInfo[selectedJobId]?.experience}
-            </p>
-            <p className="text">About: {jobseekerInfo[selectedJobId]?.about}</p>
-          </div>
+          {photos.map((photo) => {
+            if (photo.useremail === jobseekerInfo[selectedJobId]?.email) {
+              return (
+                <img
+                  key={photo.id}
+                  src={`http://localhost:3000/${photo.profilePicture.path}`}
+                  alt=""
+                  width="500px"
+                  height="620px"
+                />
+              );
+            }
+            return null;
+          })}
         </Box>
       </Modal>
 
       <Grid container>
         <Grid item lg={12} md={12} sm={12} xs={12} className="rightside">
-          {userInfo?.notifications.map((elem: any) => {
+          {userInfo?.notifications.map((elem: any, i: any) => {
             const jobInfo = jobs.find((job: any) => job.id === elem.jobId);
             if (!jobInfo || elem.status !== "pending") return null;
             return (
-              <div
-                className="jobs"
-                key={elem.jobId}
-                onClick={() => handleOpen(elem.jobId)}
-              >
+              <div className="jobs" key={i}>
                 <div className="jobscont">
                   <div className="container">
                     <div className="status">
@@ -158,6 +151,7 @@ const NotificationEmployer = (props: Props) => {
                     </div>
                   </div>{" "}
                   <div className="buttons">
+                    <button onClick={() => handleOpen(elem.id)}>CV</button>
                     <button
                       onClick={(e) => {
                         e.stopPropagation();

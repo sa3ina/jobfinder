@@ -13,6 +13,7 @@ const schema = mongoose.Schema({
   about: String,
   experience: String,
   password: String,
+  cv: String,
 });
 
 const Model = mongoose.model("jobseeker", schema);

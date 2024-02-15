@@ -25,17 +25,20 @@ import {
 } from "../../src/redux/slices/EmployerSlice";
 import Modal from "@mui/material/Modal";
 import { Box } from "@mui/material";
+import { fetchPhotos } from "../redux/slices/PhotosSlice";
 type Props = {};
 
 const ProfileEmployer = (props: Props) => {
+  const [open, setOpen] = useState(false);
+  const [selectedJobId, setSelectedJobId] = useState(null);
   const [jobseekerInfo, setJobseekerInfo] = useState({});
-  const [selectedJobseeker, setSelectedJobseeker] = useState(null);
   const [jobInfo, setJobInfo] = useState({});
 
   const { employers, loading, error } = useSelector(
     (state: RootState) => state.employers
   );
   const { jobs } = useSelector((state: RootState) => state.jobs);
+  const { photos } = useSelector((state: RootState) => state.photos);
   const { jobseekers } = useSelector((state: RootState) => state.jobseekers);
 
   const dispatch = useDispatch();
@@ -44,6 +47,7 @@ const ProfileEmployer = (props: Props) => {
     dispatch(fetchDataa());
     dispatch(fetchJobs());
     dispatch(fetchData());
+    dispatch(fetchPhotos());
   }, [dispatch]);
 
   const navigate = useNavigate();
@@ -77,23 +81,30 @@ const ProfileEmployer = (props: Props) => {
       }));
     });
   }, [userInfo, jobseekers, jobs]);
-  const [openModal, setOpenModal] = useState(false);
-  const handleOpenModal = (jobSeekerEmail) => {
-    setSelectedJobseeker(
-      jobseekers.find((jobseeker) => jobseeker.email === jobSeekerEmail)
-    );
-    setOpenModal(true);
+  useEffect(() => {
+    const jobseekerData = {};
+    userInfo?.notifications.forEach((elem) => {
+      const jobseekerinfo = jobseekers.find(
+        (item) => item.email === elem.jobSeekerEmail
+      );
+      jobseekerData[elem.id] = jobseekerinfo;
+    });
+    setJobseekerInfo(jobseekerData);
+  }, [userInfo, jobseekers]);
+  const handleOpen = (jobId) => {
+    setOpen(true);
+    setSelectedJobId(jobId);
   };
 
-  const handleCloseModal = () => {
-    setSelectedJobseeker(null);
-    setOpenModal(false);
+  const handleClose = () => {
+    setOpen(false);
+    setSelectedJobId(null);
   };
   return (
     <>
       <div className="profilemployer">
         <Grid container className="findgrid" spacing={3}>
-          <Grid item lg={3} md={3} sm={12} xs={12} className="leftside">
+          <Grid item lg={3} md={12} sm={12} xs={12} className="leftside">
             <div className="form">
               <img
                 src="https://jatinvats.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F4d8cf7af-147c-416e-8774-38f1883323e5%2F3314844f-cde3-4186-876a-9e8db7c29791%2Fdp.png?table=block&id=dce6ac6e-0c14-4140-8352-c32c0262937d&spaceId=4d8cf7af-147c-416e-8774-38f1883323e5&width=250&userId=&cache=v2"
@@ -111,7 +122,7 @@ const ProfileEmployer = (props: Props) => {
               </div>
             </div>
           </Grid>
-          <Grid item lg={9} md={9} sm={12} xs={12} className="rightside">
+          <Grid item lg={9} md={12} sm={12} xs={12} className="rightside">
             <p className="posted">Jobs that you posted</p>
             <TableContainer component={Paper}>
               <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -169,124 +180,132 @@ const ProfileEmployer = (props: Props) => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {userInfo?.notifications.map((elem, i) => {
-                    return (
-                      <TableRow
-                        key={i}
-                        sx={{
-                          "&:last-child td, &:last-child th": { border: 0 },
-                        }}
-                      >
-                        <TableCell>
-                          {elem.jobSeekerEmail}
-                          {/* {jobseekerInfo[elem.jobId]?.firstname}{" "}
+                  {userInfo?.notifications
+                    .slice(0)
+                    .reverse()
+                    .map((elem, i) => {
+                      return (
+                        <TableRow
+                          key={i}
+                          sx={{
+                            "&:last-child td, &:last-child th": { border: 0 },
+                          }}
+                        >
+                          <TableCell>
+                            {elem.jobSeekerEmail}
+                            {/* {jobseekerInfo[elem.jobId]?.firstname}{" "}
                           {jobseekerInfo[elem.jobId]?.lastname} */}
-                        </TableCell>
-                        <TableCell>
-                          <button
-                            className="details"
-                            onClick={() => handleOpenModal(elem.jobSeekerEmail)}
-                          >
-                            View Details
-                          </button>
-                        </TableCell>
-                        <TableCell>{jobInfo[elem.jobId]?.title}</TableCell>
-                        <TableCell>{elem.status}</TableCell>
-                        <TableCell>
-                          <button
-                            className="let"
-                            onClick={() => {
-                              dispatch(
-                                hireJobseeker({
-                                  employerEmail: userInfo.email,
-                                  jobId: elem.jobId,
-                                  jobSeekerEmail: elem.jobSeekerEmail,
-                                  status: "hired",
-                                })
-                              );
-                              enqueueSnackbar("Jobseeker is hired!", {
-                                variant: "success",
-                              });
-                            }}
-                          >
-                            <CheckIcon />
-                          </button>
-                          <button
-                            className="interview"
-                            onClick={() => {
-                              dispatch(
-                                askForInterview({
-                                  employerEmail: userInfo.email,
-                                  jobId: elem.jobId,
-                                  jobSeekerEmail: elem.jobSeekerEmail,
-                                  status: "interview",
-                                })
-                              );
-                              enqueueSnackbar(
-                                "Job seeker is asked for interview!",
-                                {
+                          </TableCell>
+                          <TableCell>
+                            <button
+                              className="details"
+                              onClick={() => handleOpen(elem?.id)}
+                            >
+                              View Details
+                            </button>
+                          </TableCell>
+                          <TableCell>{jobInfo[elem.jobId]?.title}</TableCell>
+                          <TableCell>{elem.status}</TableCell>
+                          <TableCell>
+                            <button
+                              className="let"
+                              onClick={() => {
+                                dispatch(
+                                  hireJobseeker({
+                                    employerEmail: userInfo.email,
+                                    jobId: elem.jobId,
+                                    jobSeekerEmail: elem.jobSeekerEmail,
+                                    status: "hired",
+                                  })
+                                );
+                                enqueueSnackbar("Jobseeker is hired!", {
                                   variant: "success",
-                                }
-                              );
-                            }}
-                          >
-                            <ConnectWithoutContactIcon />
-                          </button>
-                          <button
-                            className="delete"
-                            onClick={() => {
-                              dispatch(
-                                rejectJobseeker({
-                                  employerEmail: userInfo.email,
-                                  jobId: elem.jobId,
-                                  jobSeekerEmail: elem.jobSeekerEmail,
-                                  status: "rejected",
-                                })
-                              );
-                              enqueueSnackbar("Job seeker is rejected.", {
-                                variant: "success",
-                              });
-                            }}
-                          >
-                            <CloseIcon />
-                          </button>
-                        </TableCell>
-                      </TableRow>
-                    );
-                  })}
+                                });
+                              }}
+                            >
+                              <CheckIcon />
+                            </button>
+                            <button
+                              className="interview"
+                              onClick={() => {
+                                dispatch(
+                                  askForInterview({
+                                    employerEmail: userInfo.email,
+                                    jobId: elem.jobId,
+                                    jobSeekerEmail: elem.jobSeekerEmail,
+                                    status: "interview",
+                                  })
+                                );
+                                enqueueSnackbar(
+                                  "Job seeker is asked for interview!",
+                                  {
+                                    variant: "success",
+                                  }
+                                );
+                              }}
+                            >
+                              <ConnectWithoutContactIcon />
+                            </button>
+                            <button
+                              className="delete"
+                              onClick={() => {
+                                dispatch(
+                                  rejectJobseeker({
+                                    employerEmail: userInfo.email,
+                                    jobId: elem.jobId,
+                                    jobSeekerEmail: elem.jobSeekerEmail,
+                                    status: "rejected",
+                                  })
+                                );
+                                enqueueSnackbar("Job seeker is rejected.", {
+                                  variant: "success",
+                                });
+                              }}
+                            >
+                              <CloseIcon />
+                            </button>
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })}
                 </TableBody>
               </Table>
             </TableContainer>
           </Grid>
         </Grid>
       </div>
-      <Modal open={openModal} onClose={handleCloseModal}>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
         <Box
           sx={{
             position: "absolute",
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-            width: 400,
+            width: 600,
             bgcolor: "background.paper",
-            border: "2px solid #000",
             p: 4,
             fontFamily: "Outfit",
           }}
         >
-          {selectedJobseeker && (
-            <>
-              <p>First Name: {selectedJobseeker.firstname}</p>
-              <p>Last Name: {selectedJobseeker.lastname}</p>
-              <p>Education: {selectedJobseeker.education}</p>
-              <p>City:{selectedJobseeker.city}</p>
-              <p>
-                Open for remote job:{selectedJobseeker.remote ? "Yes" : "No"}
-              </p>
-              <p>Experience:{selectedJobseeker.experience}</p>
-              <p>About:{selectedJobseeker.about}</p>
-            </>
-          )}
+          {photos.map((photo) => {
+            if (photo.useremail === jobseekerInfo[selectedJobId]?.email) {
+              return (
+                <img
+                  key={photo.id}
+                  src={`http://localhost:3000/${photo.profilePicture.path}`}
+                  alt=""
+                  width="500px"
+                  height="620px"
+                />
+              );
+            }
+            return null;
+          })}
         </Box>
       </Modal>
     </>

@@ -46,7 +46,7 @@ const Search = (props: Props) => {
       <Grid container spacing={3} className="grid">
         {filteredJobs.map((elem, i) => {
           return (
-            <Grid item key={i} lg={4} md={4} sm={6} xs={12}>
+            <Grid item key={i} lg={4} md={6} sm={12} xs={12}>
               <div className="jobs" key={i}>
                 <p className="intern">{elem.type}</p>
                 <p className="jobname">{elem.title}</p>

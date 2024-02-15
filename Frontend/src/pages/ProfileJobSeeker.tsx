@@ -13,7 +13,10 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { Paper } from "@mui/material";
+import axios from "axios";
 import { SnackbarProvider, VariantType, useSnackbar } from "notistack";
+import DescriptionIcon from "@mui/icons-material/Description";
+import { fetchPhotos } from "../redux/slices/PhotosSlice";
 type Props = {};
 
 const ProfileJobSeeker = (props: Props) => {
@@ -23,10 +26,12 @@ const ProfileJobSeeker = (props: Props) => {
   const { jobs } = useSelector((state: RootState) => state.jobs);
   const { employers } = useSelector((state: RootState) => state.employers);
   const dispatch = useDispatch();
+  const { photos } = useSelector((state: RootState) => state.photos);
 
   useEffect(() => {
     dispatch(fetchData());
     dispatch(fetchJobs());
+    dispatch(fetchPhotos());
   }, [dispatch]);
   const navigate = useNavigate();
   const login = JSON.parse(localStorage.getItem("login") || "{}");
@@ -43,6 +48,40 @@ const ProfileJobSeeker = (props: Props) => {
     navigate("/");
     window.location.reload();
   };
+  const [imageFile, setImageFile] = useState(null);
+
+  const handleFileChange = (e) => {
+    setImageFile(e.target.files[0]);
+  };
+
+  const handleSubmit = async () => {
+    const formData = new FormData();
+    formData.append("useremail", login.email);
+    formData.append("imageFile", imageFile);
+
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/photos",
+        formData
+      );
+      console.log("Response:", response.data);
+      if (response.data) {
+        console.log("File uploaded:", response.data.path);
+      } else {
+        console.error("Unexpected response format");
+      }
+    } catch (error) {
+      console.error("Error uploading file:", error.message);
+    }
+  };
+  const [cv, setCv] = useState(false);
+  useEffect(() => {
+    const hasCv = photos.some((elem) => elem.useremail === login.email);
+
+    if (hasCv !== cv) {
+      setCv(hasCv);
+    }
+  }, [cv, login.email, photos]);
 
   return (
     <>
@@ -76,6 +115,21 @@ const ProfileJobSeeker = (props: Props) => {
                   <p className="text">Experience:</p>
                   <p className="text">{userInfo?.experience}</p>
                 </div>
+                {cv ? (
+                  ""
+                ) : (
+                  <div className="cv">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleFileChange}
+                    />
+                    <button onClick={handleSubmit}>
+                      <DescriptionIcon />
+                    </button>
+                  </div>
+                )}
+
                 <button onClick={handleLogout} className="logout">
                   logout
                 </button>

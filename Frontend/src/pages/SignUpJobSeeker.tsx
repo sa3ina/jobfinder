@@ -7,9 +7,15 @@ import { v4 as uuidv4 } from "uuid";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchData } from "../../src/redux/slices/JobseekerSlice";
 import { postData } from "../../src/redux/slices/JobseekerSlice";
+import { useNavigate } from "react-router-dom";
 type Props = {};
 
 const SignUpJobSeeker = (props: Props) => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const { jobseekers, loading, error } = useSelector(
     (state: RootState) => state.jobseekers
   );
@@ -19,7 +25,6 @@ const SignUpJobSeeker = (props: Props) => {
   useEffect(() => {
     dispatch(fetchData());
   }, [dispatch]);
-  console.log("data", jobseekers);
   const SignupSchema = Yup.object().shape({
     firstName: Yup.string()
       .min(2, "Too Short!")
@@ -54,7 +59,9 @@ const SignUpJobSeeker = (props: Props) => {
       desiredjob: inputs.filter((input) => input.trim() !== ""),
     };
     dispatch(postData(formData));
+    navigate("/login");
   };
+
   return (
     <div className="signuppage">
       <p className="post">Create an account</p>
@@ -74,6 +81,7 @@ const SignUpJobSeeker = (props: Props) => {
             about: "",
             experience: "",
             password: "",
+            cv: "",
           }}
           onSubmit={handleSubmit}
         >

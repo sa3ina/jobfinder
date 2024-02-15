@@ -7,9 +7,15 @@ import { useSelector, useDispatch } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 import { fetchDataa } from "../../src/redux/slices/EmployerSlice";
 import { postData } from "../../src/redux/slices/EmployerSlice";
+import { useNavigate } from "react-router-dom";
 type Props = {};
 
 const SignUpEmployer = (props: Props) => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const { employers, loading, error } = useSelector(
     (state: RootState) => state.employers
   );
@@ -18,7 +24,6 @@ const SignUpEmployer = (props: Props) => {
   useEffect(() => {
     dispatch(fetchDataa());
   }, [dispatch]);
-  console.log("data", employers);
   const SignupSchema = Yup.object().shape({
     firstName: Yup.string()
       .min(2, "Too Short!")
@@ -50,6 +55,7 @@ const SignUpEmployer = (props: Props) => {
             dispatch(postData(values));
             // same shape as initial values
             console.log(values);
+            navigate("/login");
           }}
         >
           {({ errors, touched, handleSubmit }) => (

@@ -14,6 +14,7 @@ interface jobseeker {
   about: String;
   experience: String;
   password: String;
+  cv: String;
 }
 
 interface jobseekerState {
@@ -26,6 +27,7 @@ const initialState: jobseekerState = {
   loading: false,
   error: null,
 };
+
 export const fetchData = createAsyncThunk(
   "get/jobseekerinfo",
   async (): Promise<jobseeker[]> => {
@@ -33,6 +35,7 @@ export const fetchData = createAsyncThunk(
     return await response.data;
   }
 );
+
 export const postData = createAsyncThunk("user/postData", async (newPers) => {
   const posted = await axios.post(`http://localhost:3000/jobseeker/`, newPers);
   return posted.data;
