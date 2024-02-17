@@ -18,7 +18,7 @@ const Detail = (props: Props) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchJobs());
-  }, [dispatch]);
+  }, [dispatch, employers]);
   const job = jobs.find((elem) => elem.id === id);
   const similarJobs = jobs.filter(
     (elem) =>

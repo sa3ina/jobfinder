@@ -82,7 +82,7 @@ const SignUpEmployer = (props: Props) => {
                   <div>{errors.email}</div>
                 ) : null} */}{" "}
                 <p className="label">Password</p>
-                <Field name="password" className="input" />
+                <Field name="password" className="input" type="password" />
                 <button type="submit" className="submit">
                   Create account
                 </button>

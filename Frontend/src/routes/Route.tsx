@@ -14,6 +14,11 @@ import ProfileJobSeeker from "../pages/ProfileJobSeeker";
 import Search from "../pages/Search";
 import NotificationEmployer from "../pages/NotificationEmployer";
 import NotificationJobSeeker from "../pages/NotificationJobSeeker";
+import AdminPage from "../adminpanel/App";
+import AdminRoot from "../adminpanel/AdminRoot";
+import Employers from "../adminpanel/Employers";
+import Jobseekers from "../adminpanel/Jobseekers";
+import Jobs from "../adminpanel/Jobs";
 export const routes = [
   {
     path: "/",
@@ -75,9 +80,32 @@ export const routes = [
         path: "/notificationjs",
         element: <NotificationJobSeeker />,
       },
+
       {
         path: "/:id",
         element: <Detail />,
+      },
+    ],
+  },
+  {
+    path: "/",
+    element: <AdminRoot />,
+    children: [
+      {
+        path: "/admin",
+        element: <AdminPage />,
+      },
+      {
+        path: "/adminemp",
+        element: <Employers />,
+      },
+      {
+        path: "/adminjs",
+        element: <Jobseekers />,
+      },
+      {
+        path: "/adminjobs",
+        element: <Jobs />,
       },
     ],
   },

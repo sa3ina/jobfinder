@@ -32,7 +32,7 @@ const ProfileJobSeeker = (props: Props) => {
     dispatch(fetchData());
     dispatch(fetchJobs());
     dispatch(fetchPhotos());
-  }, [dispatch]);
+  }, [dispatch, photos]);
   const navigate = useNavigate();
   const login = JSON.parse(localStorage.getItem("login") || "{}");
   const id = login.id;

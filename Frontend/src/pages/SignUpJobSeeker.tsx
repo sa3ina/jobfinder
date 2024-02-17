@@ -163,7 +163,7 @@ const SignUpJobSeeker = (props: Props) => {
                 <p className="label">Work experience</p>
                 <Field name="experience" as="textarea" className="input" />
                 <p className="label">Password</p>
-                <Field name="password" className="input" />
+                <Field name="password" type="password" className="input" />
                 <button type="submit" className="submit">
                   Create account
                 </button>

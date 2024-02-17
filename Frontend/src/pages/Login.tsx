@@ -7,6 +7,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { fetchData } from "../redux/slices/JobseekerSlice";
 import { fetchDataa } from "../redux/slices/EmployerSlice";
+import { fetchAdmin } from "../redux/slices/AdminSlice";
+import { SnackbarProvider, VariantType, useSnackbar } from "notistack";
+
 type Props = {};
 
 const Login = (props: Props) => {
@@ -18,11 +21,13 @@ const Login = (props: Props) => {
     (state: RootState) => state.employers
   );
   const { jobseekers } = useSelector((state: RootState) => state.jobseekers);
-
+  const { admins } = useSelector((state: RootState) => state.admins);
+  const { enqueueSnackbar } = useSnackbar();
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchData());
     dispatch(fetchDataa());
+    dispatch(fetchAdmin());
   }, [dispatch]);
   const handleSubmit = (values, { setSubmitting }) => {
     let findJobseeker = jobseekers.find(
@@ -31,8 +36,11 @@ const Login = (props: Props) => {
     let findEmployer = employers.find(
       (elem) => elem.email === values.email && elem.password === values.password
     );
+    let findAdmin = admins.find(
+      (elem) => elem.email === values.email && elem.password === values.password
+    );
 
-    if (findJobseeker || findEmployer) {
+    if (findJobseeker || findEmployer || findAdmin) {
       if (findJobseeker) {
         localStorage.setItem("login", JSON.stringify(findJobseeker));
         localStorage.setItem("userRole", "jobseeker");
@@ -41,12 +49,19 @@ const Login = (props: Props) => {
         localStorage.setItem("login", JSON.stringify(findEmployer));
         localStorage.setItem("userRole", "employer");
         navigate("/");
+      } else if (findAdmin) {
+        localStorage.setItem("login", JSON.stringify(findAdmin));
+        localStorage.setItem("userRole", "admin");
+        navigate("/admin");
       }
+      window.location.reload();
     } else {
+      enqueueSnackbar("Incorrect email or password. Please try again", {
+        variant: "error",
+      });
       console.log("not correct login info");
     }
     setSubmitting(false);
-    window.location.reload();
   };
 
   const SignupSchema = Yup.object().shape({
@@ -91,6 +106,7 @@ const Login = (props: Props) => {
                   name="password"
                   className="input"
                   placeholder="Password"
+                  type="password"
                 />
                 {/* {errors.lastName && touched.lastName ? (
                   <div>{errors.lastName}</div>
