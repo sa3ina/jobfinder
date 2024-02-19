@@ -5,11 +5,25 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "swiper/swiper-bundle.css";
-
+import type { RootState } from "../../redux/store";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchComment } from "../../redux/slices/CommentSlice";
 import { Pagination, Navigation } from "swiper/modules";
+import Modal from "@mui/material/Modal";
+import { Box } from "@mui/material";
+import Rating from "@mui/material/Rating";
+import { Formik, Form, Field } from "formik";
+import { v4 as uuidv4 } from "uuid";
+import { postComment } from "../../redux/slices/CommentSlice";
+import { SnackbarProvider, VariantType, useSnackbar } from "notistack";
 type Props = {};
 
 const Comment = (props: Props) => {
+  const dispatch = useDispatch();
+  const { enqueueSnackbar } = useSnackbar();
+  const [value, setValue] = useState(2);
+
+  const [open, setOpen] = useState(false);
   const [swiperRef, setSwiperRef] = useState(null);
   let arr = [1, 2, 3, 4, 5];
   const containerWidth = 700;
@@ -20,10 +34,80 @@ const Comment = (props: Props) => {
   const spaceBetween = Math.floor(
     (containerWidth - slidesPerView * 300) / (slidesPerView - 1)
   );
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
+  const userInfo = JSON.parse(localStorage.getItem("login") || "{}");
+  useEffect(() => {
+    dispatch(fetchComment());
+  }, [dispatch]);
+  const { comments, loading, error } = useSelector(
+    (state: RootState) => state.comments
+  );
   return (
     <>
       <div className="comment">
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box
+            sx={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              width: 600,
+              bgcolor: "background.paper",
+              p: 4,
+              fontFamily: "Outfit",
+              borderRadius: "4px",
+            }}
+          >
+            <Formik
+              initialValues={{
+                id: uuidv4(),
+                fullname: userInfo.firstname + " " + userInfo.lastname,
+                rating: value,
+                comment: "",
+              }}
+              onSubmit={(values) => {
+                console.log(values);
+                dispatch(postComment(values));
+                handleClose();
+                enqueueSnackbar("Comment added successfully!", {
+                  variant: "success",
+                });
+              }}
+            >
+              {({ errors, touched, setFieldValue }) => (
+                <Form>
+                  <div className="form">
+                    <Rating
+                      name="simple-controlled"
+                      value={value}
+                      onChange={(event, newValue) => {
+                        setValue(newValue);
+                        setFieldValue("rating", newValue);
+                      }}
+                    />
+                    <Field
+                      name="comment"
+                      className="field"
+                      as="textarea"
+                      placeholder="Type your comment.."
+                    />
+                  </div>
+                  <button type="submit" className="submit">
+                    Add comment
+                  </button>
+                </Form>
+              )}
+            </Formik>
+          </Box>
+        </Modal>
         <Grid container className="commentgrid" spacing={10}>
           <Grid item lg={5} md={12} sm={12} xs={12}>
             <p className="trusted">
@@ -31,7 +115,7 @@ const Comment = (props: Props) => {
             </p>
             <p className="moonlight">
               He moonlights difficult engrossed it, sportsmen. Interested has
-              all Devonshire difficulty gay assistance joy.
+              all Devonshire difficulty guy assistance joy.
             </p>
             <div className="counts">
               <div className="item">
@@ -84,12 +168,12 @@ const Comment = (props: Props) => {
                 },
               }}
             >
-              {arr.map((elem) => {
+              {arr.map((elem, i) => {
                 return (
                   <SwiperSlide className="my-swiper-slide">
                     <div className="swipercont">
                       <div className="stars">
-                        {arr.map((elem) => {
+                        {arr.map((elem, i) => {
                           return (
                             <img
                               src="https://assets-global.website-files.com/63b2816edd90444c9df54d80/63b3e06ce2d5f111ed03ea1e_star-fill.svg"
@@ -128,6 +212,13 @@ const Comment = (props: Props) => {
               className="custom-next"
               src="https://assets-global.website-files.com/63b2816edd90444c9df54d80/63b3efa0a6da8ae26fe8c0e0_arrow-right.svg"
             />
+            {localStorage.getItem("login") ? (
+              <button className="commentbutton" onClick={handleOpen}>
+                add yours
+              </button>
+            ) : (
+              ""
+            )}
           </Grid>
         </Grid>
         <img

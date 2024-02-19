@@ -7,6 +7,7 @@ const jobseekerRouter = require("./routes/JobseekerRoute");
 const employerRouter = require("./routes/EmployerRoute");
 const jobsRouter = require("./routes/JobsRoute");
 const adminRouter = require("./routes/AdminRoute");
+const commentRouter = require("./routes/CommentRoute");
 
 var bodyParser = require("body-parser");
 const multer = require("multer");
@@ -20,6 +21,7 @@ app.use("/", jobseekerRouter);
 app.use("/", employerRouter);
 app.use("/", jobsRouter);
 app.use("/", adminRouter);
+app.use("/", commentRouter);
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {

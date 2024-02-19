@@ -4,6 +4,8 @@ import EmployerReducer from "./slices/EmployerSlice";
 import jobReducer from "./slices/JobsSlice";
 import PhotosReducer from "./slices/PhotosSlice";
 import AdminReducer from "./slices/AdminSlice";
+import CommentReducer from "./slices/CommentSlice";
+
 export const store = configureStore({
   reducer: {
     jobseekers: jobseekerReducer,
@@ -11,6 +13,7 @@ export const store = configureStore({
     jobs: jobReducer,
     photos: PhotosReducer,
     admins: AdminReducer,
+    comments: CommentReducer,
   },
 });
 // Infer the `RootState` and `AppDispatch` types from the store itself

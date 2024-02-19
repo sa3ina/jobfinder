@@ -860,7 +860,6 @@
   cursor: pointer;
   border-radius: 50%;
   margin-right: 10px;
-
   margin-top: 20px;
 }
 .custom-next {
@@ -871,6 +870,22 @@
   cursor: pointer;
   border-radius: 50%;
 }
+.commentbutton {
+  padding: 13px;
+  cursor: pointer;
+  border: none;
+  transition: 0.3s;
+  border-radius: 4px;
+  width: 100px;
+  position: absolute;
+  right: 3%;
+  margin-top: 30px;
+  background-color: #fd890f;
+}
+.commentbutton:hover {
+  background-color: #1e1e1e;
+  color: white;
+}
 .swipercont {
   background-color: #1e1e1e;
   display: flex;
@@ -879,7 +894,7 @@
   padding: 40px 35px;
   width: 400px;
   border-radius: 4px;
-
+  position: relative;
   .stars {
     display: flex;
     gap: 3px;
@@ -3604,4 +3619,22 @@
       transition: transform 0.3s ease;
     }
   }
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  .field {
+    margin-bottom: 15px;
+    height: 100px;
+    padding: 3px;
+  }
+}
+.submit {
+  background-color: #1e1e1e;
+  color: white;
+  padding: 6px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
 }
