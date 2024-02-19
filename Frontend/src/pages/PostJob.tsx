@@ -85,7 +85,6 @@ const PostJob = (props: Props) => {
             companydescription: "",
             companylogo: "",
           }}
-          // validationSchema={SignupSchema}
           onSubmit={handleSubmit}
         >
           {({ errors, touched, handleSubmit }) => (
@@ -93,9 +92,6 @@ const PostJob = (props: Props) => {
               <Form className="formik" onSubmit={handleSubmit}>
                 <p className="jobdetail">Job details</p>
 
-                {/* {errors.email && touched.email ? (
-                  <div>{errors.email}</div>
-                ) : null} */}
                 <p className="label">Job Title</p>
                 <Field name="title" className="input" />
                 <p className="label">Location</p>
@@ -104,9 +100,7 @@ const PostJob = (props: Props) => {
                   className="input inputlocation"
                   placeholder="e.g Mumbai"
                 />
-                {/* {errors.email && touched.email ? (
-                  <div>{errors.email}</div>
-                ) : null} */}
+
                 <p className="leave">
                   Leave this blank if the location is not important
                 </p>
@@ -146,7 +140,22 @@ const PostJob = (props: Props) => {
                   </div>
                 </div>
                 <p className="label">Job category</p>
-                <Field name="categories" className="input" />
+                <Field as="select" name="categories" className="selectcategory">
+                  <option value="Accounting">Accounting</option>
+                  <option value="Business & consulting">
+                    Business & consulting
+                  </option>
+                  <option value="Human research">Human research</option>
+                  <option value="Marketing & finance">
+                    Marketing & finance
+                  </option>
+                  <option value="Design & development">
+                    Design & development
+                  </option>
+                  <option value="Tech & Programming">Tech & Programming</option>
+                  <option value="Project management">Project management</option>
+                  <option value="Customer services">Customer services</option>
+                </Field>
                 <p className="label">Job benefits</p>
                 {inputs.map((input, index) => (
                   <div key={index} className="jobtitles">
@@ -156,12 +165,12 @@ const PostJob = (props: Props) => {
                       value={input}
                       onChange={(e) => handleInputChange(index, e.target.value)}
                     />
-                    {index === inputs.length - 1 && ( // Show + button for the last input
+                    {index === inputs.length - 1 && (
                       <button type="button" className="add" onClick={addInput}>
                         +
                       </button>
                     )}
-                    {inputs.length > 1 && ( // Show - button for all inputs except the first one
+                    {inputs.length > 1 && (
                       <button
                         type="button"
                         className="add"

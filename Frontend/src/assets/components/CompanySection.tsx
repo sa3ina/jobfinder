@@ -1,11 +1,21 @@
 import React, { useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
 import { Link } from "react-router-dom";
+import type { RootState } from "../../redux/store";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchJobs } from "../../redux/slices/JobsSlice";
 
 const CompanySection = () => {
   const arr = [1, 2, 3, 4];
   const [scrollPosition, setScrollPosition] = useState(0);
+  const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(fetchJobs());
+  }, [dispatch]);
+  const { jobs, loading, error } = useSelector(
+    (state: RootState) => state.jobs
+  );
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
@@ -41,7 +51,7 @@ const CompanySection = () => {
               : "translateX(0)",
         }}
       >
-        {arr.map((elem, i) => (
+        {jobs.slice(0, 4).map((elem, i) => (
           <Grid
             item
             key={i}
@@ -53,18 +63,14 @@ const CompanySection = () => {
           >
             <div className="jobs">
               <div className="jobscont">
-                <img
-                  src="https://assets-global.website-files.com/63b3bf674632664abc613903/63c7e54d22d142869c20f953_vk.svg"
-                  alt=""
-                  className="jobicon"
-                />
+                <img src={elem.companylogo} alt="" className="jobicon" />
                 <div className="inf">
-                  <p className="jobname">beWellfed</p>
-                  <p className="place">Tokyo, Japan</p>
+                  <p className="jobname">{elem.companyname}</p>
+                  <p className="place">{elem.companylocation}</p>
                 </div>
               </div>
               <div className="position">
-                <p className="type">5 Positions</p>
+                <p className="type">Job position</p>
                 <div className="browsejob">
                   <p>Browse job </p>
                   <img
@@ -91,7 +97,7 @@ const CompanySection = () => {
               : "translateX(0)",
         }}
       >
-        {arr.map((elem, i) => (
+        {jobs.slice(4, 8).map((elem, i) => (
           <Grid
             item
             key={i}
@@ -103,20 +109,18 @@ const CompanySection = () => {
           >
             <div className="jobs">
               <div className="jobscont">
-                <img
-                  src="https://assets-global.website-files.com/63b3bf674632664abc613903/63c7e0bd624809323e2e78ad_teams.svg"
-                  alt=""
-                  className="jobicon"
-                />
+                <img src={elem.companylogo} alt="" className="jobicon" />
                 <div className="inf">
-                  <p className="jobname">beWellfed</p>
-                  <p className="place">Tokyo, Japan</p>
+                  <p className="jobname">{elem.companyname}</p>
+                  <p className="place">{elem.companylocation}</p>
                 </div>
               </div>
               <div className="position">
-                <p className="type">5 Positions</p>
+                <p className="type">Job position</p>
                 <div className="browsejob">
-                  <p>Browse job </p>
+                  <Link to={`/${elem?.id}`} className="link">
+                    <p>Browse job </p>
+                  </Link>
                   <img
                     src="https://assets-global.website-files.com/63b2816edd90444c9df54d80/63ddf30d1693d1f9dae4820f_arrow-right-royal-blue.svg"
                     alt=""

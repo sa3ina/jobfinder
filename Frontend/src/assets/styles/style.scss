@@ -618,7 +618,6 @@
       }
       .jobscont {
         display: flex;
-        justify-content: center;
         align-items: center;
         gap: 15px;
         width: 230px;
@@ -2146,6 +2145,7 @@
           font-size: 18px;
           font-family: "Work Sans";
           margin-bottom: 7%;
+          text-align: left;
         }
         .textwithbullet {
           font-size: 18px;
@@ -2495,10 +2495,16 @@
     padding: 10px 10px;
     width: 40px;
     margin-right: 5px;
+    margin-bottom: 3px;
   }
   .title {
     margin-right: 40px;
     width: 300px;
+  }
+  @media (max-width: 727px) {
+    .title {
+      width: 100%;
+    }
   }
   @media (max-width: 500px) {
     .add {
@@ -2509,7 +2515,7 @@
     }
     .title {
       margin-right: 1%;
-      width: 190px;
+      width: 100%;
     }
   }
   .post {
@@ -2554,6 +2560,31 @@
     height: 100%;
     width: 800px;
   }
+  @media (max-width: 830px) {
+    .cont {
+      width: 700px;
+    }
+  }
+  @media (max-width: 710px) {
+    .cont {
+      width: 600px;
+    }
+  }
+  @media (max-width: 620px) {
+    .cont {
+      width: 500px;
+    }
+  }
+  @media (max-width: 520px) {
+    .cont {
+      width: 400px;
+    }
+  }
+  @media (max-width: 420px) {
+    .cont {
+      width: 300px;
+    }
+  }
   .leave {
     font-size: 14px;
     font-family: "Work Sans";
@@ -2592,6 +2623,15 @@
     border: 2px solid rgb(47, 46, 46);
     padding: 2.3%;
     width: 350px;
+  }
+  .selectcategory {
+    background-color: #1e1e1e;
+    color: white;
+    font-size: 18px;
+    font-family: "Work Sans";
+    border: 2px solid rgb(47, 46, 46);
+    padding: 2.3%;
+    width: 100%;
   }
   @media (max-width: 850px) {
     .grids {

@@ -23,9 +23,7 @@ const Detail = (props: Props) => {
   const similarJobs = jobs.filter(
     (elem) =>
       (elem.categories === job?.categories ||
-        elem.type === job?.type ||
-        elem.location === job?.location ||
-        elem.companyname === job?.companyname) &&
+        elem.location === job?.location) &&
       elem.id !== id
   );
   const login = JSON.parse(localStorage.getItem("login") || "{}");
