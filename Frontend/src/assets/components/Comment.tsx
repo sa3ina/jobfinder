@@ -16,6 +16,8 @@ import { Formik, Form, Field } from "formik";
 import { v4 as uuidv4 } from "uuid";
 import { postComment } from "../../redux/slices/CommentSlice";
 import { SnackbarProvider, VariantType, useSnackbar } from "notistack";
+import SwiperCore from "swiper";
+SwiperCore.use([Navigation]);
 type Props = {};
 
 const Comment = (props: Props) => {
@@ -44,6 +46,42 @@ const Comment = (props: Props) => {
   const { comments, loading, error } = useSelector(
     (state: RootState) => state.comments
   );
+  const [slides, setSlides] = useState([]);
+  useEffect(() => {
+    const newSlides = comments.map((elem) => (
+      <SwiperSlide key={elem.id} className="my-swiper-slide">
+        <div className="swipercont">
+          <div className="stars">
+            {arr.map((_, i) => (
+              <img
+                key={i}
+                src={
+                  i < elem.rating
+                    ? "https://assets-global.website-files.com/63b2816edd90444c9df54d80/63b3e06ce2d5f111ed03ea1e_star-fill.svg"
+                    : "https://images.emojiterra.com/mozilla/1024px/2b50.png"
+                }
+                alt=""
+                className="star"
+              />
+            ))}
+          </div>
+          <p className="moon">{elem.comment}</p>
+          <div className="information">
+            <img
+              src="https://assets-global.website-files.com/63b2816edd90444c9df54d80/63b3e06ce2d5f128a903ea1f_07.jpg"
+              alt=""
+              className="profile"
+            />
+            <div className="info">
+              <p className="name">{elem.fullname}</p>
+              <p className="work">Our customer</p>
+            </div>
+          </div>
+        </div>
+      </SwiperSlide>
+    ));
+    setSlides(newSlides);
+  }, [comments]);
   return (
     <>
       <div className="comment">
@@ -142,7 +180,7 @@ const Comment = (props: Props) => {
             </div>
           </Grid>
           <Grid item lg={7} md={12} sm={12} xs={12}>
-            <Swiper
+            {/* <Swiper
               onSwiper={setSwiperRef}
               spaceBetween={
                 spaceBetween < minSpaceBetween ? minSpaceBetween : spaceBetween
@@ -203,6 +241,28 @@ const Comment = (props: Props) => {
                   </SwiperSlide>
                 );
               })}
+            </Swiper> */}
+            <Swiper
+              navigation={{
+                prevEl: ".custom-prev",
+                nextEl: ".custom-next",
+              }}
+              className="mySwiper"
+              style={{ maxWidth: "100%" }}
+              breakpoints={{
+                320: {
+                  slidesPerView: 1,
+                },
+                768: {
+                  slidesPerView: 2,
+                },
+              }}
+              spaceBetween={
+                spaceBetween < minSpaceBetween ? minSpaceBetween : spaceBetween
+              }
+              // loop={true}
+            >
+              {slides}
             </Swiper>
             <img
               className="custom-prev "

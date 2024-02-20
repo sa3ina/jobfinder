@@ -889,9 +889,11 @@
   background-color: #1e1e1e;
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  // gap: 30px;
+  justify-content: space-between;
   padding: 40px 35px;
   width: 400px;
+  height: 315px;
   border-radius: 4px;
   position: relative;
   .stars {
@@ -905,6 +907,13 @@
   .moon {
     font-size: 18px;
     font-family: "Work Sans";
+  }
+  .moon {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
   }
   .information {
     display: flex;

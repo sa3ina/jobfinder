@@ -72,7 +72,9 @@ const CompanySection = () => {
               <div className="position">
                 <p className="type">Job position</p>
                 <div className="browsejob">
-                  <p>Browse job </p>
+                  <Link to={`/${elem?.id}`} className="link">
+                    <p>Browse job </p>
+                  </Link>
                   <img
                     src="https://assets-global.website-files.com/63b2816edd90444c9df54d80/63ddf30d1693d1f9dae4820f_arrow-right-royal-blue.svg"
                     alt=""
