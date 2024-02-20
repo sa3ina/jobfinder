@@ -140,7 +140,7 @@ const PostJob = (props: Props) => {
                 </div>
                 <p className="label">Job category</p>
                 <Field as="select" name="categories" className="selectcategory">
-                  <option value="Accounting">Accounting</option>
+                  <option value="Engineering">Engineering</option>
                   <option value="Business & consulting">
                     Business & consulting
                   </option>

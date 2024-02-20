@@ -79,13 +79,13 @@ const JobsGrid = (props: Props) => {
             <p className="categ">Categories</p>
             <div
               className={`category ${
-                selectedCategory === "Accounting"
+                selectedCategory === "Engineering"
                   ? "activeButton"
                   : "inactiveButton"
               }`}
-              onClick={() => handleCategoryClick("Accounting")}
+              onClick={() => handleCategoryClick("Engineering")}
             >
-              <p className="name">Accounting</p>
+              <p className="name">Engineering</p>
             </div>
             <div
               className={`category ${
