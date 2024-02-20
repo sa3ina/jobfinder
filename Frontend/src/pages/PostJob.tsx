@@ -91,7 +91,6 @@ const PostJob = (props: Props) => {
             <div className="cont">
               <Form className="formik" onSubmit={handleSubmit}>
                 <p className="jobdetail">Job details</p>
-
                 <p className="label">Job Title</p>
                 <Field name="title" className="input" />
                 <p className="label">Location</p>

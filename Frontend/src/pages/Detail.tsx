@@ -35,10 +35,11 @@ const Detail = (props: Props) => {
   const isJobApplied = employers.some((employer) =>
     employer.notifications.some(
       (notification) =>
-        notification.jobSeekerEmail === userInfo?.email &&
-        notification.jobId === job.id
+        notification.jobSeekerEmail === login?.email &&
+        notification.jobId === id
     )
   );
+
   console.log(isJobApplied);
 
   return (

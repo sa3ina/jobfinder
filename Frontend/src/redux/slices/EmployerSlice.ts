@@ -51,6 +51,7 @@ export const applyForJob = createAsyncThunk(
                 jobId: payload.jobId,
                 jobSeekerEmail: payload.jobSeekerEmail,
                 status: "pending",
+                date: new Date(),
                 id: uuidv4(),
               },
             ],

@@ -65,10 +65,10 @@ const Comment = (props: Props) => {
               />
             ))}
           </div>
-          <p className="moon">{elem.comment}</p>
+          <p className="moon">"{elem.comment}"</p>
           <div className="information">
             <img
-              src="https://assets-global.website-files.com/63b2816edd90444c9df54d80/63b3e06ce2d5f128a903ea1f_07.jpg"
+              src="https://jatinvats.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F4d8cf7af-147c-416e-8774-38f1883323e5%2F3314844f-cde3-4186-876a-9e8db7c29791%2Fdp.png?table=block&id=dce6ac6e-0c14-4140-8352-c32c0262937d&spaceId=4d8cf7af-147c-416e-8774-38f1883323e5&width=250&userId=&cache=v2"
               alt=""
               className="profile"
             />

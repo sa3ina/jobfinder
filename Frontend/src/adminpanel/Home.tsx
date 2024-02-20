@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import type { RootState } from "../redux/store";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchData } from "../redux/slices/JobseekerSlice";
@@ -65,50 +65,77 @@ function Home() {
     (total, count) => total + count,
     0
   );
-  const data = [
-    {
-      name: "Page A",
-      uv: 4000,
-      pv: 2400,
-      amt: 2400,
-    },
-    {
-      name: "Page B",
-      uv: 3000,
-      pv: 1398,
-      amt: 2210,
-    },
-    {
-      name: "Page C",
-      uv: 2000,
-      pv: 9800,
-      amt: 2290,
-    },
-    {
-      name: "Page D",
-      uv: 2780,
-      pv: 3908,
-      amt: 2000,
-    },
-    {
-      name: "Page E",
-      uv: 1890,
-      pv: 4800,
-      amt: 2181,
-    },
-    {
-      name: "Page F",
-      uv: 2390,
-      pv: 3800,
-      amt: 2500,
-    },
-    {
-      name: "Page G",
-      uv: 3490,
-      pv: 4300,
-      amt: 2100,
-    },
-  ];
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    const aggregatedData = aggregateJobApplications(employers);
+    setData(aggregatedData);
+  }, [employers]);
+
+  const aggregateJobApplications = (employersData) => {
+    const jobApplicationsByDate = {};
+
+    employersData.forEach((employer) => {
+      employer.notifications.forEach((notification) => {
+        const date = new Date(notification.date).toLocaleDateString();
+
+        if (jobApplicationsByDate[date]) {
+          jobApplicationsByDate[date]++;
+        } else {
+          jobApplicationsByDate[date] = 1;
+        }
+      });
+    });
+    const chartData = Object.keys(jobApplicationsByDate).map((date) => ({
+      name: date,
+      uv: jobApplicationsByDate[date],
+    }));
+
+    return chartData;
+  };
+
+  //   {
+  //     name: "Page A",
+  //     uv: 4000,
+  //     pv: 2400,
+  //     amt: 2400,
+  //   },
+  //   {
+  //     name: "Page B",
+  //     uv: 3000,
+  //     pv: 1398,
+  //     amt: 2210,
+  //   },
+  //   {
+  //     name: "Page C",
+  //     uv: 2000,
+  //     pv: 9800,
+  //     amt: 2290,
+  //   },
+  //   {
+  //     name: "Page D",
+  //     uv: 2780,
+  //     pv: 3908,
+  //     amt: 2000,
+  //   },
+  //   {
+  //     name: "Page E",
+  //     uv: 1890,
+  //     pv: 4800,
+  //     amt: 2181,
+  //   },
+  //   {
+  //     name: "Page F",
+  //     uv: 2390,
+  //     pv: 3800,
+  //     amt: 2500,
+  //   },
+  //   {
+  //     name: "Page G",
+  //     uv: 3490,
+  //     pv: 4300,
+  //     amt: 2100,
+  //   },
+  // ];
 
   return (
     <main className="main-container">

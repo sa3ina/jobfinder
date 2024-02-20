@@ -39,11 +39,6 @@ function Sidebar({ openSidebarToggle, OpenSidebar }) {
           </li>
         </Link>
 
-        <li className="sidebar-list-item">
-          <a href="">
-            <BsFillGrid3X3GapFill className="icon" /> Categories
-          </a>
-        </li>
         <Link to="/adminjs" className="link">
           <li className="sidebar-list-item">
             <a href="/adminjs">
@@ -58,6 +53,11 @@ function Sidebar({ openSidebarToggle, OpenSidebar }) {
             </a>
           </li>
         </Link>
+        <li className="sidebar-list-item">
+          <a href="">
+            <BsFillGrid3X3GapFill className="icon" /> Categories
+          </a>
+        </li>
         <li className="sidebar-list-item">
           <a href="">
             <BsMenuButtonWideFill className="icon" /> Reports
