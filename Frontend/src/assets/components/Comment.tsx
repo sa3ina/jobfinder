@@ -180,68 +180,6 @@ const Comment = (props: Props) => {
             </div>
           </Grid>
           <Grid item lg={7} md={12} sm={12} xs={12}>
-            {/* <Swiper
-              onSwiper={setSwiperRef}
-              spaceBetween={
-                spaceBetween < minSpaceBetween ? minSpaceBetween : spaceBetween
-              }
-              slidesPerView={slidesPerView}
-              loop={true}
-              navigation={{
-                prevEl: ".custom-prev",
-                nextEl: ".custom-next",
-              }}
-              pagination={{
-                type: "fraction",
-              }}
-              modules={[Navigation]}
-              className="mySwiper"
-              style={{ maxWidth: "100%" }}
-              breakpoints={{
-                320: {
-                  slidesPerView: 1,
-                },
-                768: {
-                  slidesPerView: 2,
-                },
-              }}
-            >
-              {arr.map((elem, i) => {
-                return (
-                  <SwiperSlide className="my-swiper-slide">
-                    <div className="swipercont">
-                      <div className="stars">
-                        {arr.map((elem, i) => {
-                          return (
-                            <img
-                              src="https://assets-global.website-files.com/63b2816edd90444c9df54d80/63b3e06ce2d5f111ed03ea1e_star-fill.svg"
-                              alt=""
-                              className="star"
-                            />
-                          );
-                        })}
-                      </div>
-                      <p className="moon">
-                        “Moonlight newspaper up its enjoyment agreeable
-                        depending. Timed voice share led him to widen noisy
-                        young at weddings.”
-                      </p>
-                      <div className="information">
-                        <img
-                          src="https://assets-global.website-files.com/63b2816edd90444c9df54d80/63b3e06ce2d5f128a903ea1f_07.jpg"
-                          alt=""
-                          className="profile"
-                        />
-                        <div className="info">
-                          <p className="name">Carolyn Ortiz</p>
-                          <p className="work">Designer at Apple</p>
-                        </div>
-                      </div>
-                    </div>
-                  </SwiperSlide>
-                );
-              })}
-            </Swiper> */}
             <Swiper
               navigation={{
                 prevEl: ".custom-prev",
