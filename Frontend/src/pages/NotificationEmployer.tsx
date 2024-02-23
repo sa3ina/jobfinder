@@ -114,20 +114,26 @@ const NotificationEmployer = (props: Props) => {
             fontFamily: "Outfit",
           }}
         >
-          {photos.map((photo) => {
-            if (photo.useremail === jobseekerInfo[selectedJobId]?.email) {
-              return (
-                <img
-                  key={photo.id}
-                  src={`http://localhost:3000/${photo.profilePicture.path}`}
-                  alt=""
-                  width="500px"
-                  height="620px"
-                />
-              );
-            }
-            return null;
-          })}
+          {photos.some(
+            (photo) => photo.useremail === jobseekerInfo[selectedJobId]?.email
+          ) ? (
+            photos.map((photo) => {
+              if (photo.useremail === jobseekerInfo[selectedJobId]?.email) {
+                return (
+                  <img
+                    key={photo.id}
+                    src={`http://localhost:3000/${photo.profilePicture.path}`}
+                    alt=""
+                    width="500px"
+                    height="620px"
+                  />
+                );
+              }
+              return null;
+            })
+          ) : (
+            <p>User doesn't have CV.</p>
+          )}
         </Box>
       </Modal>
 

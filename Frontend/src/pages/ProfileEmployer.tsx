@@ -131,6 +131,7 @@ const ProfileEmployer = (props: Props) => {
                     <TableCell>Name</TableCell>
                     <TableCell>Description</TableCell>
                     <TableCell>Price</TableCell>
+                    <TableCell>View job</TableCell>
                     <TableCell>Delete</TableCell>
                   </TableRow>
                 </TableHead>
@@ -147,6 +148,16 @@ const ProfileEmployer = (props: Props) => {
                           <TableCell>{elem.title}</TableCell>
                           <TableCell>{elem.categories}</TableCell>
                           <TableCell>{elem.salary}</TableCell>
+                          <TableCell>
+                            <button
+                              className="view"
+                              onClick={() => {
+                                navigate(`/${elem.id}`);
+                              }}
+                            >
+                              View
+                            </button>
+                          </TableCell>
                           <TableCell>
                             <button
                               className="deletejob"
@@ -292,20 +303,26 @@ const ProfileEmployer = (props: Props) => {
             fontFamily: "Outfit",
           }}
         >
-          {photos.map((photo) => {
-            if (photo.useremail === jobseekerInfo[selectedJobId]?.email) {
-              return (
-                <img
-                  key={photo.id}
-                  src={`http://localhost:3000/${photo.profilePicture.path}`}
-                  alt=""
-                  width="500px"
-                  height="620px"
-                />
-              );
-            }
-            return null;
-          })}
+          {photos.some(
+            (photo) => photo.useremail === jobseekerInfo[selectedJobId]?.email
+          ) ? (
+            photos.map((photo) => {
+              if (photo.useremail === jobseekerInfo[selectedJobId]?.email) {
+                return (
+                  <img
+                    key={photo.id}
+                    src={`http://localhost:3000/${photo.profilePicture.path}`}
+                    alt=""
+                    width="500px"
+                    height="620px"
+                  />
+                );
+              }
+              return null;
+            })
+          ) : (
+            <p>User doesn't have CV.</p>
+          )}
         </Box>
       </Modal>
     </>

@@ -1,5 +1,5 @@
 import Grid from "@mui/material/Grid";
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import type { RootState } from "../redux/store";
 import { useSelector, useDispatch } from "react-redux";
@@ -9,12 +9,16 @@ import { applyForJob } from "../redux/slices/EmployerSlice";
 type Props = {};
 
 const Detail = (props: Props) => {
+  const [isJobseeker, setIsJobseeker] = useState(false);
+  const [isEmployer, setIsEmployer] = useState(false);
+
   const { id } = useParams();
   const { jobs, loading, error } = useSelector(
     (state: RootState) => state.jobs
   );
   const { employers } = useSelector((state: RootState) => state.employers);
   const { jobseekers } = useSelector((state: RootState) => state.jobseekers);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchJobs());
@@ -41,7 +45,30 @@ const Detail = (props: Props) => {
   );
 
   console.log(isJobApplied);
-
+  useEffect(() => {
+    const userRole = localStorage.getItem("userRole");
+    if (userRole === "jobseeker") {
+      setIsJobseeker(true);
+    } else if (userRole === "employer") {
+      setIsEmployer(true);
+    }
+  }, []);
+  const handleApplyJob = () => {
+    dispatch(
+      applyForJob({
+        jobId: job.id,
+        jobSeekerEmail: login.email,
+        employerEmail: job.email,
+      })
+    );
+  };
+  const handleApplyButtonClick = () => {
+    if (!isJobseeker) {
+      navigate("/login");
+    } else {
+      handleApplyJob();
+    }
+  };
   return (
     <div className="detail">
       <div className="image"></div>
@@ -158,16 +185,8 @@ const Detail = (props: Props) => {
                 <p className="answer">{job?.salary}</p>
               </div>
               <button
-                disabled={isJobApplied}
-                onClick={() => {
-                  dispatch(
-                    applyForJob({
-                      jobId: job.id,
-                      jobSeekerEmail: login.email,
-                      employerEmail: job.email,
-                    })
-                  );
-                }}
+                disabled={isEmployer || isJobApplied}
+                onClick={handleApplyButtonClick}
               >
                 {isJobApplied ? "Applied" : "Apply now"}
               </button>
