@@ -6,7 +6,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchJobs } from "../../redux/slices/JobsSlice";
 
 const CompanySection = () => {
-  const arr = [1, 2, 3, 4];
   const [scrollPosition, setScrollPosition] = useState(0);
   const dispatch = useDispatch();
 

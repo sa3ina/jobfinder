@@ -9,9 +9,21 @@ import { useSelector, useDispatch } from "react-redux";
 import type { RootState } from "../../redux/store";
 import { fetchDataa } from "../../redux/slices/EmployerSlice";
 import CircleNotificationsIcon from "@mui/icons-material/CircleNotifications";
+import Button from "@mui/material/Button";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import Fade from "@mui/material/Fade";
 type Props = {};
 
 const Navbar = (props: Props) => {
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   const { employers, loading, error } = useSelector(
     (state: RootState) => state.employers
   );
@@ -85,11 +97,59 @@ const Navbar = (props: Props) => {
             <p>Home</p>
           </Link>
           <div className="pages" onClick={handlePagesClick}>
-            <button className="link">
+            <Button
+              className="link"
+              id="fade-button"
+              aria-controls={open ? "fade-menu" : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? "true" : undefined}
+              onClick={handleClick}
+              sx={{
+                color: "white",
+                fontFamily: "Work Sans",
+                fontSize: "17px",
+                fontWeight: "400",
+              }}
+            >
               Pages
               <KeyboardArrowDownIcon />
-            </button>
-            <div className={`pageshover ${isPagesHovered ? "show" : ""}`}>
+            </Button>
+            <Menu
+              id="fade-menu"
+              MenuListProps={{
+                "aria-labelledby": "fade-button",
+              }}
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              TransitionComponent={Fade}
+              PaperProps={{
+                style: {
+                  width: 350,
+                  backgroundColor: "#1e1e1e",
+                  border: "2px solid rgb(47, 46, 46)",
+                  borderRadius: 4,
+                  color: "white",
+                  zIndex: 20,
+                  display: open ? "" : "none",
+                  alignItems: "center",
+                  marginTop: "10px",
+                  padding: 5,
+                  textAlign: "left",
+                  fontFamily: "Work Sans",
+                  boxShadow: "none",
+                  elevation: 0,
+                  "&:hover": {
+                    boxShadow: "none",
+                    elevation: 0,
+                  },
+                  "&:active": {
+                    boxShadow: "none",
+                    elevation: 0,
+                  },
+                },
+              }}
+            >
               <Grid container className="pagescont">
                 <Grid item lg={6} md={6} sm={6} xs={12} className="sect">
                   <p className="strong">Pages</p>{" "}
@@ -125,7 +185,7 @@ const Navbar = (props: Props) => {
                   </Link>
                 </Grid>
               </Grid>
-            </div>
+            </Menu>
           </div>
           <Link
             to={isEmployer ? "/postjob" : "/jobsgrid"}

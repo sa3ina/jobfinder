@@ -168,20 +168,22 @@
     left: 0;
     z-index: 20;
     background-color: #1e1e1e;
-    display: none;
-    .strong {
-      font-weight: 600;
-      font-family: "Outfit";
-      font-size: 22px;
-      padding-bottom: 10px;
-      padding-top: 30px;
-    }
-    .normal {
-      font-size: 16px;
-      margin-bottom: 15px;
-      font-family: "Work Sans";
-    }
+    // display: none;
   }
+}
+.strong {
+  font-weight: 600;
+  font-family: "Outfit";
+  font-size: 22px;
+  padding-bottom: 10px;
+  padding-top: 30px;
+  padding-left: 20px;
+}
+.normal {
+  font-size: 16px;
+  margin-bottom: 15px;
+  font-family: "Work Sans";
+  padding-left: 20px;
 }
 .pageshover {
   display: none;
@@ -1596,6 +1598,8 @@
         align-items: start;
         padding: 8%;
         margin-bottom: 4%;
+        height: calc(100% - 10px);
+        justify-content: space-between;
         flex-direction: column;
         cursor: pointer;
         .intern {
@@ -1888,6 +1892,13 @@
       }
     }
   }
+  @media (max-width: 400px) {
+    .compheading {
+      .comp {
+        font-size: 36px;
+      }
+    }
+  }
   .findcompany {
     transition: transform 0.2s ease;
     .rightside {
@@ -1903,6 +1914,7 @@
         margin-bottom: 4%;
         flex-direction: column;
         gap: 20px;
+        height: calc(100% - 10px);
         cursor: pointer;
         .position {
           display: flex;
@@ -3130,13 +3142,16 @@
 .profilemployer {
   background-color: #161616;
   color: white;
-  .cv {
-    margin-bottom: 4%;
-    display: flex;
-    justify-content: space-around;
-    font-family: "Outfit";
-    button {
-      cursor: pointer;
+  .userinfo {
+    .cv {
+      margin-bottom: 4%;
+      display: flex;
+      justify-content: space-around;
+      font-family: "Outfit";
+      // width: 100%;
+      button {
+        cursor: pointer;
+      }
     }
   }
   .view {
@@ -3234,11 +3249,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
     .userinfo {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      // align-items: start;
+      width: 100%;
+      // align-items: center;
     }
     img {
       width: 100px;
@@ -3364,6 +3381,8 @@
     margin-bottom: 4%;
     flex-direction: column;
     cursor: pointer;
+    height: calc(100% - 10px);
+    justify-content: space-between;
     .intern {
       font-size: 16px;
       font-family: "Work Sans";
