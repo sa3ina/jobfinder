@@ -20,6 +20,7 @@ const schema = mongoose.Schema({
   companydescription: String,
   companylogo: String,
   benefits: Array,
+  date: String,
 });
 
 const Model = mongoose.model("jobs", schema);

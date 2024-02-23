@@ -66,18 +66,45 @@ function Home() {
     0
   );
   const [data, setData] = useState([]);
+  const [dataline, setDataline] = useState({ pv: [], uv: [] });
+
+  const aggregateJobPosts = (jobs) => {
+    const jobPostsByDate = {};
+    jobs.forEach((job) => {
+      const date = new Date(job.date).toLocaleDateString();
+      if (jobPostsByDate[date]) {
+        jobPostsByDate[date]++;
+      } else {
+        jobPostsByDate[date] = 1;
+      }
+    });
+    return Object.keys(jobPostsByDate).map((date) => ({
+      date,
+      count: jobPostsByDate[date],
+    }));
+  };
+
   useEffect(() => {
-    const aggregatedData = aggregateJobApplications(employers);
-    setData(aggregatedData);
-  }, [employers]);
+    if (jobs.length > 0 && employers.length > 0) {
+      const jobPostsByDate = aggregateJobPosts(jobs);
+      const jobApplicationsByDate = aggregateJobApplications(employers);
+      const newData = {
+        pv: jobPostsByDate.map(({ date, count }) => ({
+          name: date,
+          pv: count,
+        })),
+        uv: jobApplicationsByDate.map(({ name, uv }) => ({ name, uv })),
+      };
+      setDataline(newData);
+      console.log(newData);
+    }
+  }, [jobs, employers]);
 
   const aggregateJobApplications = (employersData) => {
     const jobApplicationsByDate = {};
-
     employersData.forEach((employer) => {
       employer.notifications.forEach((notification) => {
         const date = new Date(notification.date).toLocaleDateString();
-
         if (jobApplicationsByDate[date]) {
           jobApplicationsByDate[date]++;
         } else {
@@ -89,54 +116,39 @@ function Home() {
       name: date,
       uv: jobApplicationsByDate[date],
     }));
-
     return chartData;
   };
+  console.log(data);
+  const mergedData = [];
+  let pvIndex = 0;
+  let uvIndex = 0;
 
-  //   {
-  //     name: "Page A",
-  //     uv: 4000,
-  //     pv: 2400,
-  //     amt: 2400,
-  //   },
-  //   {
-  //     name: "Page B",
-  //     uv: 3000,
-  //     pv: 1398,
-  //     amt: 2210,
-  //   },
-  //   {
-  //     name: "Page C",
-  //     uv: 2000,
-  //     pv: 9800,
-  //     amt: 2290,
-  //   },
-  //   {
-  //     name: "Page D",
-  //     uv: 2780,
-  //     pv: 3908,
-  //     amt: 2000,
-  //   },
-  //   {
-  //     name: "Page E",
-  //     uv: 1890,
-  //     pv: 4800,
-  //     amt: 2181,
-  //   },
-  //   {
-  //     name: "Page F",
-  //     uv: 2390,
-  //     pv: 3800,
-  //     amt: 2500,
-  //   },
-  //   {
-  //     name: "Page G",
-  //     uv: 3490,
-  //     pv: 4300,
-  //     amt: 2100,
-  //   },
-  // ];
+  while (pvIndex < dataline.pv.length || uvIndex < dataline.uv.length) {
+    const pvData = dataline.pv[pvIndex];
+    const uvData = dataline.uv[uvIndex];
 
+    if (!pvData) {
+      mergedData.push({ name: uvData.name, pv: 0, uv: uvData.uv });
+      uvIndex++;
+    } else if (!uvData) {
+      mergedData.push({ name: pvData.name, pv: pvData.pv, uv: 0 });
+      pvIndex++;
+    } else {
+      if (pvData.name === uvData.name) {
+        mergedData.push({ name: pvData.name, pv: pvData.pv, uv: uvData.uv });
+        pvIndex++;
+        uvIndex++;
+      } else if (pvData.name < uvData.name) {
+        mergedData.push({ name: pvData.name, pv: pvData.pv, uv: 0 });
+        pvIndex++;
+      } else {
+        mergedData.push({ name: uvData.name, pv: 0, uv: uvData.uv });
+        uvIndex++;
+      }
+    }
+  }
+
+  console.log(mergedData);
   return (
     <main className="main-container">
       <div className="main-title">
@@ -195,9 +207,7 @@ function Home() {
         </ResponsiveContainer>
         <ResponsiveContainer width="100%" height="100%">
           <LineChart
-            width={500}
-            height={300}
-            data={data}
+            data={mergedData}
             margin={{
               top: 3,
               right: 30,
@@ -214,9 +224,14 @@ function Home() {
               type="monotone"
               dataKey="pv"
               stroke="#8884d8"
-              activeDot={{ r: 8 }}
+              name="Posted jobs"
             />
-            <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+            <Line
+              type="monotone"
+              dataKey="uv"
+              stroke="#82ca9d"
+              name="Applied jobs"
+            />
           </LineChart>
         </ResponsiveContainer>
       </div>

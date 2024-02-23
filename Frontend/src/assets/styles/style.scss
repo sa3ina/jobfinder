@@ -2251,9 +2251,10 @@
       border-radius: 4px;
       display: flex;
       align-items: start;
+      justify-content: space-between;
       padding: 8%;
-      margin-bottom: 4%;
       flex-direction: column;
+      height: calc(100% - 10px);
       cursor: pointer;
       text-align: left;
       .intern {

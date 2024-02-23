@@ -84,6 +84,7 @@ const PostJob = (props: Props) => {
             companylocation: "",
             companydescription: "",
             companylogo: "",
+            date: new Date(),
           }}
           onSubmit={handleSubmit}
         >
