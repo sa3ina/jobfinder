@@ -46,94 +46,8 @@ const NotificationJobSeeker = (props: Props) => {
     }
   }, [userInfo, jobseekers]);
 
-  const handleOpen = (jobId) => {
-    setOpen(true);
-    setSelectedJobId(jobId);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-    setSelectedJobId(null);
-  };
-
-  const handleAskForInterview = (jobId, jobSeekerEmail) => {
-    dispatch(
-      askForInterview({
-        employerEmail: userInfo.email,
-        jobId: jobId,
-        jobSeekerEmail: jobSeekerEmail,
-        status: "interview",
-      })
-    );
-    const jobseekerInfo = jobseekers.find(
-      (item) => item.email === jobSeekerEmail
-    );
-    setJobseekerInfo((prevJobseekerInfo) => ({
-      ...prevJobseekerInfo,
-      [jobId]: jobseekerInfo,
-    }));
-  };
-  const handleRejectJobseeker = (jobId, jobSeekerEmail) => {
-    dispatch(
-      rejectJobseeker({
-        employerEmail: userInfo.email,
-        jobId: jobId,
-        jobSeekerEmail: jobSeekerEmail,
-        status: "interview",
-      })
-    );
-    const jobseekerInfo = jobseekers.find(
-      (item) => item.email === jobSeekerEmail
-    );
-    setJobseekerInfo((prevJobseekerInfo) => ({
-      ...prevJobseekerInfo,
-      [jobId]: jobseekerInfo,
-    }));
-  };
   return (
     <div className="notificationemp">
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box
-          sx={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            width: 400,
-            bgcolor: "background.paper",
-            border: "2px solid #000",
-            p: 4,
-            fontFamily: "Outfit",
-          }}
-        >
-          <div className="modal">
-            <p className="text">
-              First Name: {jobseekerInfo[selectedJobId]?.firstname}
-            </p>
-            <p className="text">
-              Last Name: {jobseekerInfo[selectedJobId]?.lastname}
-            </p>
-            <p className="text">
-              Education: {jobseekerInfo[selectedJobId]?.education}
-            </p>
-            <p className="text">City: {jobseekerInfo[selectedJobId]?.city}</p>
-            <p className="text">
-              Open for remote job:{" "}
-              {jobseekerInfo[selectedJobId]?.remote ? "Yes" : "No"}
-            </p>
-            <p className="text">
-              Experience: {jobseekerInfo[selectedJobId]?.experience}
-            </p>
-            <p className="text">About: {jobseekerInfo[selectedJobId]?.about}</p>
-          </div>
-        </Box>
-      </Modal>
-
       <Grid container>
         <Grid item lg={12} md={12} sm={12} xs={12} className="rightside">
           {employers.map((employer) =>
@@ -143,11 +57,7 @@ const NotificationJobSeeker = (props: Props) => {
                 if (notification.status === "pending") return null;
                 if (job) {
                   return (
-                    <div
-                      className="jobs"
-                      key={job.id}
-                      onClick={() => handleOpen(job.id)}
-                    >
+                    <div className="jobs" key={job.id}>
                       <div className="jobscont">
                         <div className="container">
                           <div className="status">
@@ -158,7 +68,9 @@ const NotificationJobSeeker = (props: Props) => {
                               {employer.email}{" "}
                               {notification.status === "interview"
                                 ? " has requested an interview for the job opportunity."
-                                : " your application has been unsuccessful."}{" "}
+                                : notification.status === "hired"
+                                ? "Congratulations! You have been hired for the job."
+                                : " your application has been unsuccessful."}
                             </p>
                             <p className="type">{job.title}</p>
                           </div>

@@ -3627,7 +3627,7 @@
     .stat {
       text-align: center;
       background-color: #88d2fc;
-      width: 40%;
+      width: 140px;
       border-radius: 15px;
       font-family: "Outfit";
       padding: 3px;
@@ -3649,6 +3649,7 @@
       margin-bottom: 1%;
       flex-direction: column;
       gap: 20px;
+      margin-bottom: 1%;
       cursor: pointer;
       .position {
         display: flex;
@@ -3731,12 +3732,25 @@
           }
         }
       }
+      @media only screen and (max-width: 888px) {
+        .jobscont {
+          flex-direction: column;
+          gap: 20px;
+          align-items: start;
+          .buttons {
+            button {
+              font-size: 14px;
+            }
+          }
+        }
+      }
     }
     @media only screen and (max-width: 770px) {
       .jobs {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
+        margin-bottom: 2%;
         .jobscont {
           margin-bottom: 15px;
         }
