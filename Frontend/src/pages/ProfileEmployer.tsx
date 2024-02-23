@@ -243,7 +243,7 @@ const ProfileEmployer = (props: Props) => {
                         style={{ padding: "1px" }}
                       />
                       <Button
-                        style={{ backgroundColor: "#70d18c ", color: "white" }}
+                        style={{ backgroundColor: "#95B8D1 ", color: "white" }}
                         type="submit"
                         disabled={isSubmitting}
                       >
