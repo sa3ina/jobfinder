@@ -40,6 +40,8 @@ const PostJob = (props: Props) => {
     const formData = {
       ...values,
       benefits: inputs.filter((input) => input.trim() !== ""),
+      companylogo:
+        "https://assets-global.website-files.com/63b3bf674632664abc613903/63c7dfab3d135205f8d21a3d_slack.svg",
     };
     dispatch(postJob(formData));
     enqueueSnackbar("Job posted successfully!", { variant: "success" });
@@ -206,12 +208,12 @@ const PostJob = (props: Props) => {
                     <Field name="companylocation" className="input" />
                   </div>
                 </div>
-                <p className="label">Company Logo</p>
-                <Field
+                {/* <p className="label">Company Logo</p> */}
+                {/* <Field
                   name="companylogo"
                   className="input"
                   placeholder="enter link here"
-                />
+                /> */}
                 <p className="label">Company Description</p>
                 <Field
                   name="companydescription"
