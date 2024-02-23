@@ -51,6 +51,17 @@ export const deleteJob = createAsyncThunk(
     return jobId;
   }
 );
+export const editJob = createAsyncThunk(
+  "jobs/editJob",
+  async (updatedJob: job) => {
+    const response = await axios.patch(
+      `http://localhost:3000/job/${updatedJob.id}`,
+      updatedJob
+    );
+    console.log(response.data);
+    return response.data;
+  }
+);
 export const JobSlice = createSlice({
   name: "jobs",
   initialState,
@@ -94,6 +105,19 @@ export const JobSlice = createSlice({
       state.jobs = state.jobs.filter((job) => job.id !== action.payload);
     });
     builder.addCase(deleteJob.rejected, (state) => {
+      state.loading = false;
+    });
+    builder.addCase(editJob.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(editJob.fulfilled, (state, action) => {
+      state.loading = false;
+
+      state.jobs = state.jobs.map((job) =>
+        job.id === action.payload.id ? action.payload : job
+      );
+    });
+    builder.addCase(editJob.rejected, (state) => {
       state.loading = false;
     });
   },

@@ -16,4 +16,21 @@ const postOne = async (req, res) => {
   await post.save();
   res.send(post);
 };
-module.exports = { getall, getbyId, deleteByiD, postOne };
+const patchById = async (req, res) => {
+  try {
+    const updatedData = req.body;
+    const postId = req.params.id;
+    const post = await Model.findOne({ id: postId });
+
+    if (!post) {
+      return res.status(404).json({ message: "Post not found" });
+    }
+    Object.assign(post, updatedData);
+    await post.save();
+    res.json(post);
+  } catch (error) {
+    console.error("Error updating post:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+module.exports = { getall, getbyId, deleteByiD, postOne, patchById };
