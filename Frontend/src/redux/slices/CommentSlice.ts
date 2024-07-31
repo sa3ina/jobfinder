@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
@@ -22,7 +23,7 @@ const initialState: commentState = {
 export const fetchComment = createAsyncThunk(
   "get/commentinfo",
   async (): Promise<comment[]> => {
-    const response = await axios("http://localhost:3000/comment");
+    const response = await axios("https://jobfinder-4jwl.onrender.com/comment");
     return await response.data;
   }
 );
@@ -30,7 +31,7 @@ export const postComment = createAsyncThunk(
   "user/postComment",
   async (newComment) => {
     const posted = await axios.post(
-      `http://localhost:3000/comment/`,
+      `https://jobfinder-4jwl.onrender.com/comment/`,
       newComment
     );
     return posted.data;

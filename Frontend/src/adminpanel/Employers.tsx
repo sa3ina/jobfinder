@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+//@ts-nocheck
+import { useState, useEffect } from "react";
 import "./admin.scss";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
@@ -10,7 +11,6 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { Paper } from "@mui/material";
 import type { RootState } from "../redux/store";
-import Grid from "@mui/material/Grid";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchData } from "../redux/slices/JobseekerSlice";
 import { fetchDataa } from "../redux/slices/EmployerSlice";

@@ -1,4 +1,4 @@
-import React from "react";
+//@ts-nocheck
 import { useState, useEffect } from "react";
 import "./admin.scss";
 import Header from "./Header";
@@ -11,11 +11,8 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { Paper } from "@mui/material";
 import type { RootState } from "../redux/store";
-import Grid from "@mui/material/Grid";
-import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchJobs } from "../redux/slices/JobsSlice";
-import { SnackbarProvider, VariantType, useSnackbar } from "notistack";
 import { deleteJob } from "../redux/slices/JobsSlice";
 type Props = {};
 

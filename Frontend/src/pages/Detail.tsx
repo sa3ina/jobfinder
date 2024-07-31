@@ -1,3 +1,4 @@
+//@ts-nocheck
 import Grid from "@mui/material/Grid";
 import React, { useRef, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";

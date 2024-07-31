@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React, { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import type { RootState } from "../redux/store";

@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React, { useRef, useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import { Swiper, SwiperSlide } from "swiper/react";

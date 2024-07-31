@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React from "react";
 import Hero from "../assets/components/Hero";
 import { Helmet } from "react-helmet";

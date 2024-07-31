@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React, { useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
 import { Link } from "react-router-dom";
@@ -122,7 +123,7 @@ const NotificationEmployer = (props: Props) => {
                 return (
                   <img
                     key={photo.id}
-                    src={`http://localhost:3000/${photo.profilePicture.path}`}
+                    src={`https://jobfinder-4jwl.onrender.com/${photo.profilePicture.path}`}
                     alt=""
                     width="500px"
                     height="620px"

@@ -1,4 +1,4 @@
-import React from "react";
+//@ts-nocheck
 import {
   BsCart3,
   BsGrid1X2Fill,

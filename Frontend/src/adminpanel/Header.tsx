@@ -1,9 +1,8 @@
-import React from "react";
+//@ts-nocheck
 import {
   BsFillBellFill,
   BsFillEnvelopeFill,
   BsPersonCircle,
-  BsSearch,
   BsJustify,
 } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";

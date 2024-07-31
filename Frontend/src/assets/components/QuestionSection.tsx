@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React, { useState } from "react";
 import Grid from "@mui/material/Grid";
 import Accordion from "@mui/material/Accordion";

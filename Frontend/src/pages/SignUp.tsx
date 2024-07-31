@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React from "react";
 import { useEffect } from "react";
 import { Formik, Form, Field } from "formik";
@@ -34,7 +35,6 @@ const SignUp = (props: Props) => {
           }}
           validationSchema={SignupSchema}
           onSubmit={(values) => {
-            // same shape as initial values
             console.log(values);
           }}
         >

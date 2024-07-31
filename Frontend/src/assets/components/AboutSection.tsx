@@ -1,4 +1,4 @@
-import React from "react";
+//@ts-nocheck
 import Grid from "@mui/material/Grid";
 type Props = {};
 

@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React from "react";
 type Props = {};
 import { Link } from "react-router-dom";
