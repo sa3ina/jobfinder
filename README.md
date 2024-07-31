@@ -1,0 +1,1 @@
+JobFinder is a web application built with TypeScript, Redux Toolkit, and SCSS, designed to facilitate job searching for job seekers and job posting for employers. This application offers a seamless user experience with various functionalities including job search, job postings, and candidate search.
