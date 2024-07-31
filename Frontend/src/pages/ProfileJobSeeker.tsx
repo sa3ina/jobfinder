@@ -14,12 +14,16 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { Paper } from "@mui/material";
 import axios from "axios";
-import { SnackbarProvider, VariantType, useSnackbar } from "notistack";
+
 import DescriptionIcon from "@mui/icons-material/Description";
 import { fetchPhotos } from "../redux/slices/PhotosSlice";
+import { useSnackbar } from "notistack";
+
 type Props = {};
 
 const ProfileJobSeeker = (props: Props) => {
+  const { enqueueSnackbar } = useSnackbar();
+
   const { jobseekers, loading, error } = useSelector(
     (state: RootState) => state.jobseekers
   );
@@ -61,16 +65,25 @@ const ProfileJobSeeker = (props: Props) => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/photos",
+        "https://jobfinder-4jwl.onrender.com/photos",
         formData
       );
       console.log("Response:", response.data);
       if (response.data) {
         console.log("File uploaded:", response.data.path);
+        enqueueSnackbar("File uploaded!", {
+          variant: "success",
+        });
       } else {
         console.error("Unexpected response format");
+        enqueueSnackbar("File format is not correct!", {
+          variant: "error",
+        });
       }
     } catch (error) {
+      enqueueSnackbar("File format is not correct!", {
+        variant: "error",
+      });
       console.error("Error uploading file:", error.message);
     }
   };

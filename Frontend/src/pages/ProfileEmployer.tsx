@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import type { RootState } from "../redux/store";
 import { Formik, Form, Field } from "formik";
 import Grid from "@mui/material/Grid";
-import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchDataa } from "../../src/redux/slices/EmployerSlice";
 import { deleteJob, fetchJobs } from "../../src/redux/slices/JobsSlice";
@@ -14,7 +13,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { Paper } from "@mui/material";
-import { SnackbarProvider, VariantType, useSnackbar } from "notistack";
+import { useSnackbar } from "notistack";
 import { fetchData } from "../redux/slices/JobseekerSlice";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
@@ -29,6 +28,8 @@ import { Box } from "@mui/material";
 import { fetchPhotos } from "../redux/slices/PhotosSlice";
 import { editJob } from "../../src/redux/slices/JobsSlice";
 import { Button } from "@mui/material";
+import type { AppDispatch } from "../redux/store";
+
 type Props = {};
 
 const ProfileEmployer = (props: Props) => {
@@ -44,7 +45,7 @@ const ProfileEmployer = (props: Props) => {
   const { photos } = useSelector((state: RootState) => state.photos);
   const { jobseekers } = useSelector((state: RootState) => state.jobseekers);
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     dispatch(fetchDataa());
@@ -452,7 +453,7 @@ const ProfileEmployer = (props: Props) => {
                 return (
                   <img
                     key={photo.id}
-                    src={`http://localhost:3000/${photo.profilePicture.path}`}
+                    src={`https://jobfinder-4jwl.onrender.com/${photo.profilePicture.path}`}
                     alt=""
                     width="500px"
                     height="620px"

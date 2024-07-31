@@ -177,12 +177,15 @@ const Navbar = (props: Props) => {
                   <p className="normal">Licenses</p>
                   <p className="normal">Instructions</p>
                   <p className="normal">Changelog</p>
-                  <Link to="/login" className="link">
+                  <Link to="/search" className="link">
+                    <p className="normal">Search</p>
+                  </Link>
+                  {/* <Link to="/login" className="link">
                     <p className="normal">Log in</p>
                   </Link>
                   <Link to="/signup" className="link">
                     <p className="normal">Sign Up</p>
-                  </Link>
+                  </Link> */}
                 </Grid>
               </Grid>
             </Menu>

@@ -16,6 +16,7 @@ const Login = (props: Props) => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
   const navigate = useNavigate();
   const { employers, loading, error } = useSelector(
     (state: RootState) => state.employers
@@ -29,7 +30,7 @@ const Login = (props: Props) => {
     dispatch(fetchDataa());
     dispatch(fetchAdmin());
   }, [dispatch]);
-  const handleSubmit = (values, { setSubmitting }) => {
+  const handleSubmit = async (values, { setSubmitting }) => {
     let findJobseeker = jobseekers.find(
       (elem) => elem.email === values.email && elem.password === values.password
     );
@@ -44,15 +45,15 @@ const Login = (props: Props) => {
       if (findJobseeker) {
         localStorage.setItem("login", JSON.stringify(findJobseeker));
         localStorage.setItem("userRole", "jobseeker");
-        navigate("/");
+        await navigate("/");
       } else if (findEmployer) {
         localStorage.setItem("login", JSON.stringify(findEmployer));
         localStorage.setItem("userRole", "employer");
-        navigate("/");
+        await navigate("/");
       } else if (findAdmin) {
         localStorage.setItem("login", JSON.stringify(findAdmin));
         localStorage.setItem("userRole", "admin");
-        navigate("/admin");
+        await navigate("/admin");
       }
       window.location.reload();
     } else {

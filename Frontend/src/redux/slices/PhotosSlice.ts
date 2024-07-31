@@ -29,7 +29,7 @@ const initialState: PhotosState = {
 export const fetchPhotos = createAsyncThunk(
   "get/photoinfo",
   async (): Promise<Photo[]> => {
-    const response = await axios("http://localhost:3000/photos");
+    const response = await axios("https://jobfinder-4jwl.onrender.com/photos");
     return response.data.users;
   }
 );

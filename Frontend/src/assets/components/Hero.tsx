@@ -30,6 +30,7 @@ const Hero = (props: Props) => {
                 type="text"
                 className="input"
                 placeholder="Search job or companies"
+                readOnly
               />
               <Link to="/search">
                 <button className="explore">Explore</button>

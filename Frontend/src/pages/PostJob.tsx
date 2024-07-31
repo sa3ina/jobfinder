@@ -1,19 +1,17 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Formik, Form, Field } from "formik";
-import * as Yup from "yup";
-import { Link } from "react-router-dom";
-import type { RootState } from "../redux/store";
+import type { AppDispatch, RootState } from "../redux/store";
 import { v4 as uuidv4 } from "uuid";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchJobs, postJob } from "../redux/slices/JobsSlice";
-import { SnackbarProvider, VariantType, useSnackbar } from "notistack";
-type Props = {};
+import { useSnackbar } from "notistack";
 
-const PostJob = (props: Props) => {
+const PostJob = () => {
+  //@ts-ignore
   const { jobs, loading, error } = useSelector(
     (state: RootState) => state.jobs
   );
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const userInfo = JSON.parse(localStorage.getItem("login") || "{}");
   const email = userInfo.email;
   useEffect(() => {
@@ -24,39 +22,40 @@ const PostJob = (props: Props) => {
     setInputs([...inputs, ""]);
   };
 
-  const handleInputChange = (index, value) => {
+  const handleInputChange = (index: any, value: any) => {
     const newInputs = [...inputs];
     newInputs[index] = value;
     setInputs(newInputs);
   };
 
-  const removeInput = (index) => {
+  const removeInput = (index: any) => {
     const newInputs = [...inputs];
     newInputs.splice(index, 1);
     setInputs(newInputs);
   };
   const { enqueueSnackbar } = useSnackbar();
-  const handleSubmit = (values) => {
+  const handleSubmit = (values: any) => {
     const formData = {
       ...values,
       benefits: inputs.filter((input) => input.trim() !== ""),
       companylogo:
         "https://assets-global.website-files.com/63b3bf674632664abc613903/63c7dfab3d135205f8d21a3d_slack.svg",
     };
+    //@ts-ignore
     dispatch(postJob(formData));
     enqueueSnackbar("Job posted successfully!", { variant: "success" });
   };
-  const SignupSchema = Yup.object().shape({
-    firstName: Yup.string()
-      .min(2, "Too Short!")
-      .max(50, "Too Long!")
-      .required("Required"),
-    lastName: Yup.string()
-      .min(2, "Too Short!")
-      .max(50, "Too Long!")
-      .required("Required"),
-    email: Yup.string().email("Invalid email").required("Required"),
-  });
+  // const SignupSchema = Yup.object().shape({
+  //   firstName: Yup.string()
+  //     .min(2, "Too Short!")
+  //     .max(50, "Too Long!")
+  //     .required("Required"),
+  //   lastName: Yup.string()
+  //     .min(2, "Too Short!")
+  //     .max(50, "Too Long!")
+  //     .required("Required"),
+  //   email: Yup.string().email("Invalid email").required("Required"),
+  // });
   return (
     <div className="postjobpage">
       <p className="post">Post a Job</p>
@@ -90,7 +89,7 @@ const PostJob = (props: Props) => {
           }}
           onSubmit={handleSubmit}
         >
-          {({ errors, touched, handleSubmit }) => (
+          {({ handleSubmit }) => (
             <div className="cont">
               <Form className="formik" onSubmit={handleSubmit}>
                 <p className="jobdetail">Job details</p>
@@ -165,7 +164,9 @@ const PostJob = (props: Props) => {
                       name="benefits"
                       className="input title"
                       value={input}
-                      onChange={(e) => handleInputChange(index, e.target.value)}
+                      onChange={(e: any) =>
+                        handleInputChange(index, e.target.value)
+                      }
                     />
                     {index === inputs.length - 1 && (
                       <button type="button" className="add" onClick={addInput}>

@@ -56,6 +56,7 @@ const SignUpEmployer = (props: Props) => {
             // same shape as initial values
             console.log(values);
             navigate("/login");
+            window.location.reload();
           }}
         >
           {({ errors, touched, handleSubmit }) => (

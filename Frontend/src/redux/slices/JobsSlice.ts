@@ -36,18 +36,21 @@ const initialState: jobState = {
 export const fetchJobs = createAsyncThunk(
   "get/jobsinfo",
   async (): Promise<job[]> => {
-    const response = await axios("http://localhost:3000/job");
+    const response = await axios("https://jobfinder-4jwl.onrender.com/job");
     return await response.data;
   }
 );
 export const postJob = createAsyncThunk("user/postData", async (newJob) => {
-  const posted = await axios.post(`http://localhost:3000/job/`, newJob);
+  const posted = await axios.post(
+    `https://jobfinder-4jwl.onrender.com/job/`,
+    newJob
+  );
   return posted.data;
 });
 export const deleteJob = createAsyncThunk(
   "jobs/deleteJob",
   async (jobId: string) => {
-    await axios.delete(`http://localhost:3000/job/${jobId}`);
+    await axios.delete(`https://jobfinder-4jwl.onrender.com/job/${jobId}`);
     return jobId;
   }
 );
@@ -55,7 +58,7 @@ export const editJob = createAsyncThunk(
   "jobs/editJob",
   async (updatedJob: job) => {
     const response = await axios.patch(
-      `http://localhost:3000/job/${updatedJob.id}`,
+      `https://jobfinder-4jwl.onrender.com/job/${updatedJob.id}`,
       updatedJob
     );
     console.log(response.data);

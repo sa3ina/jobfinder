@@ -23,7 +23,7 @@ const initialState: adminState = {
 export const fetchAdmin = createAsyncThunk(
   "get/admininfo",
   async (): Promise<admin[]> => {
-    const response = await axios("http://localhost:3000/admin");
+    const response = await axios("https://jobfinder-4jwl.onrender.com/admin");
     return await response.data;
   }
 );

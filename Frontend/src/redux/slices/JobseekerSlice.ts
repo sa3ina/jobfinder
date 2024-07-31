@@ -31,13 +31,18 @@ const initialState: jobseekerState = {
 export const fetchData = createAsyncThunk(
   "get/jobseekerinfo",
   async (): Promise<jobseeker[]> => {
-    const response = await axios("http://localhost:3000/jobseeker");
+    const response = await axios(
+      "https://jobfinder-4jwl.onrender.com/jobseeker"
+    );
     return await response.data;
   }
 );
 
 export const postData = createAsyncThunk("user/postData", async (newPers) => {
-  const posted = await axios.post(`http://localhost:3000/jobseeker/`, newPers);
+  const posted = await axios.post(
+    `https://jobfinder-4jwl.onrender.com/jobseeker/`,
+    newPers
+  );
   return posted.data;
 });
 

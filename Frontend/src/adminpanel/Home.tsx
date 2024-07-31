@@ -149,6 +149,10 @@ function Home() {
   }
 
   console.log(mergedData);
+  const sortedData = mergedData.sort(
+    (a, b) => new Date(a.name) - new Date(b.name)
+  );
+
   return (
     <main className="main-container">
       <div className="main-title">
@@ -194,20 +198,20 @@ function Home() {
               top: 3,
               right: 30,
               left: 20,
-              bottom: 60,
+              bottom: 75,
             }}
           >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="location" angle={-40} textAnchor="end" />
             <YAxis />
             <Tooltip />
-            <Legend />
+            {/* <Legend /> */}
             <Bar dataKey="count" fill="#8884d8" />
           </BarChart>
         </ResponsiveContainer>
         <ResponsiveContainer width="100%" height="100%">
           <LineChart
-            data={mergedData}
+            data={sortedData}
             margin={{
               top: 3,
               right: 30,

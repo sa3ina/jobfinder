@@ -139,47 +139,56 @@ const NotificationEmployer = (props: Props) => {
 
       <Grid container>
         <Grid item lg={12} md={12} sm={12} xs={12} className="rightside">
-          {userInfo?.notifications.map((elem: any, i: any) => {
-            const jobInfo = jobs.find((job: any) => job.id === elem.jobId);
-            if (!jobInfo || elem.status !== "pending") return null;
-            return (
-              <div className="jobs" key={i}>
-                <div className="jobscont">
-                  <div className="container">
-                    <div className="status">
-                      <p className="stat">applied</p>
+          {userInfo?.notifications
+            .slice(0)
+            .reverse()
+            .map((elem: any, i: any) => {
+              const jobInfo = jobs.find((job: any) => job.id === elem.jobId);
+              if (!jobInfo || elem.status !== "pending") return null;
+              return (
+                <div className="jobs" key={i}>
+                  <div className="jobscont">
+                    <div className="container">
+                      <div className="status">
+                        <p className="stat">applied</p>
+                      </div>
+                      <div className="inf">
+                        <p className="type">
+                          {elem.jobSeekerEmail} is applied for a job
+                        </p>
+                        <p className="type">{jobInfo.title}</p>
+                      </div>
+                    </div>{" "}
+                    <div className="buttons">
+                      <button onClick={() => handleOpen(elem.id)}>CV</button>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleAskForInterview(
+                            elem.jobId,
+                            elem.jobSeekerEmail
+                          );
+                        }}
+                      >
+                        Ask for an interview
+                      </button>
+                      <button
+                        className="x"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleRejectJobseeker(
+                            elem.jobId,
+                            elem.jobSeekerEmail
+                          );
+                        }}
+                      >
+                        X
+                      </button>
                     </div>
-                    <div className="inf">
-                      <p className="type">
-                        {elem.jobSeekerEmail} is applied for a job
-                      </p>
-                      <p className="type">{jobInfo.title}</p>
-                    </div>
-                  </div>{" "}
-                  <div className="buttons">
-                    <button onClick={() => handleOpen(elem.id)}>CV</button>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleAskForInterview(elem.jobId, elem.jobSeekerEmail);
-                      }}
-                    >
-                      Ask for an interview
-                    </button>
-                    <button
-                      className="x"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleRejectJobseeker(elem.jobId, elem.jobSeekerEmail);
-                      }}
-                    >
-                      X
-                    </button>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
         </Grid>
       </Grid>
     </div>

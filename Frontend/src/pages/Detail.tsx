@@ -6,6 +6,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { fetchJobs } from "../redux/slices/JobsSlice";
 import { applyForJob } from "../redux/slices/EmployerSlice";
+import { useSnackbar } from "notistack";
+
 type Props = {};
 
 const Detail = (props: Props) => {
@@ -43,8 +45,9 @@ const Detail = (props: Props) => {
         notification.jobId === id
     )
   );
+  const { enqueueSnackbar } = useSnackbar();
 
-  console.log(isJobApplied);
+  // console.log(isJobApplied);
   useEffect(() => {
     const userRole = localStorage.getItem("userRole");
     if (userRole === "jobseeker") {
@@ -67,8 +70,17 @@ const Detail = (props: Props) => {
       navigate("/login");
     } else {
       handleApplyJob();
+      enqueueSnackbar("Applied for the job!", { variant: "success" });
     }
   };
+  function formatDate(inputDate) {
+    const options = { month: "long", day: "numeric", year: "numeric" };
+    const formattedDate = new Date(inputDate).toLocaleDateString(
+      "en-US",
+      options
+    );
+    return formattedDate;
+  }
   return (
     <div className="detail">
       <div className="image"></div>
@@ -121,7 +133,7 @@ const Detail = (props: Props) => {
                   />
                   <p className="question">Posted on:</p>
                 </div>
-                <p className="answer">January 18, 2023</p>
+                <p className="answer">{formatDate(job?.date)}</p>
               </div>
 
               <div className="list">
@@ -184,12 +196,16 @@ const Detail = (props: Props) => {
                 </div>
                 <p className="answer">{job?.salary}</p>
               </div>
-              <button
-                disabled={isEmployer || isJobApplied}
-                onClick={handleApplyButtonClick}
-              >
-                {isJobApplied ? "Applied" : "Apply now"}
-              </button>
+              {!isEmployer ? (
+                <button
+                  disabled={isEmployer || isJobApplied}
+                  onClick={handleApplyButtonClick}
+                >
+                  {isJobApplied ? "Applied" : "Apply now"}
+                </button>
+              ) : (
+                ""
+              )}
             </div>
           </Grid>
         </Grid>{" "}

@@ -24,12 +24,17 @@ const initialState: employerState = {
 export const fetchDataa = createAsyncThunk(
   "get/employerinfo",
   async (): Promise<employer[]> => {
-    const response = await axios("http://localhost:3000/employer");
+    const response = await axios(
+      "https://jobfinder-4jwl.onrender.com/employer"
+    );
     return await response.data;
   }
 );
 export const postData = createAsyncThunk("user/postData", async (newEmp) => {
-  const posted = await axios.post(`http://localhost:3000/employer/`, newEmp);
+  const posted = await axios.post(
+    `https://jobfinder-4jwl.onrender.com/employer/`,
+    newEmp
+  );
   return posted.data;
 });
 import { RootState } from "../store";
@@ -38,7 +43,9 @@ export const applyForJob = createAsyncThunk(
   "employers/applyforjob",
   async (payload) => {
     try {
-      const employers = await axios.get("http://localhost:3000/employer");
+      const employers = await axios.get(
+        "https://jobfinder-4jwl.onrender.com/employer"
+      );
       console.log("employers", employers.data);
       const updatedEmployers = employers.data.map((employer) => {
         console.log(payload.employerEmail);
@@ -61,9 +68,12 @@ export const applyForJob = createAsyncThunk(
       });
       await Promise.all(
         updatedEmployers.map(async (employer) => {
-          await axios.patch(`http://localhost:3000/employer/${employer.id}`, {
-            notifications: employer.notifications,
-          });
+          await axios.patch(
+            `hhttps://jobfinder-4jwl.onrender.com/employer/${employer.id}`,
+            {
+              notifications: employer.notifications,
+            }
+          );
         })
       );
       console.log("updatedEmployers", updatedEmployers);
@@ -77,16 +87,18 @@ export const askForInterview = createAsyncThunk(
   "employers/ask",
   async (payload) => {
     try {
-      console.log("Payload:", payload); // Log the payload
+      console.log("Payload:", payload);
 
-      const employers = await axios.get("http://localhost:3000/employer");
+      const employers = await axios.get(
+        "https://jobfinder-4jwl.onrender.com/employer"
+      );
 
       const updatedEmployers = employers.data.map((employer) => {
-        console.log("Employer:", employer); // Log the current employer
+        console.log("Employer:", employer);
         if (employer.email === payload.employerEmail) {
           const updatedNotifications = employer.notifications.map(
             (notification) => {
-              console.log("Notification:", notification); // Log the current notification
+              console.log("Notification:", notification);
               if (
                 notification.jobId === payload.jobId &&
                 notification.jobSeekerEmail === payload.jobSeekerEmail
@@ -108,9 +120,12 @@ export const askForInterview = createAsyncThunk(
       });
       await Promise.all(
         updatedEmployers.map(async (employer) => {
-          await axios.patch(`http://localhost:3000/employer/${employer.id}`, {
-            notifications: employer.notifications,
-          });
+          await axios.patch(
+            `https://jobfinder-4jwl.onrender.com/employer/${employer.id}`,
+            {
+              notifications: employer.notifications,
+            }
+          );
         })
       );
       return updatedEmployers;
@@ -123,16 +138,18 @@ export const rejectJobseeker = createAsyncThunk(
   "employers/reject",
   async (payload) => {
     try {
-      console.log("Payload:", payload); // Log the payload
+      console.log("Payload:", payload);
 
-      const employers = await axios.get("http://localhost:3000/employer");
+      const employers = await axios.get(
+        "https://jobfinder-4jwl.onrender.com/employer"
+      );
 
       const updatedEmployers = employers.data.map((employer) => {
-        console.log("Employer:", employer); // Log the current employer
+        console.log("Employer:", employer);
         if (employer.email === payload.employerEmail) {
           const updatedNotifications = employer.notifications.map(
             (notification) => {
-              console.log("Notification:", notification); // Log the current notification
+              console.log("Notification:", notification);
               if (
                 notification.jobId === payload.jobId &&
                 notification.jobSeekerEmail === payload.jobSeekerEmail
@@ -154,9 +171,12 @@ export const rejectJobseeker = createAsyncThunk(
       });
       await Promise.all(
         updatedEmployers.map(async (employer) => {
-          await axios.patch(`http://localhost:3000/employer/${employer.id}`, {
-            notifications: employer.notifications,
-          });
+          await axios.patch(
+            `https://jobfinder-4jwl.onrender.com/${employer.id}`,
+            {
+              notifications: employer.notifications,
+            }
+          );
         })
       );
       return updatedEmployers;
@@ -171,7 +191,9 @@ export const hireJobseeker = createAsyncThunk(
     try {
       console.log("Payload:", payload);
 
-      const employers = await axios.get("http://localhost:3000/employer");
+      const employers = await axios.get(
+        "https://jobfinder-4jwl.onrender.com/employer"
+      );
 
       const updatedEmployers = employers.data.map((employer) => {
         console.log("Employer:", employer);
@@ -200,9 +222,12 @@ export const hireJobseeker = createAsyncThunk(
       });
       await Promise.all(
         updatedEmployers.map(async (employer) => {
-          await axios.patch(`http://localhost:3000/employer/${employer.id}`, {
-            notifications: employer.notifications,
-          });
+          await axios.patch(
+            `https://jobfinder-4jwl.onrender.com/employer/${employer.id}`,
+            {
+              notifications: employer.notifications,
+            }
+          );
         })
       );
       return updatedEmployers;

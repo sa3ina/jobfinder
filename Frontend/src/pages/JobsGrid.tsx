@@ -8,6 +8,9 @@ import { fetchJobs } from "../redux/slices/JobsSlice";
 type Props = {};
 
 const JobsGrid = (props: Props) => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const { jobs, loading, error } = useSelector(
     (state: RootState) => state.jobs
   );
@@ -64,7 +67,7 @@ const JobsGrid = (props: Props) => {
   return (
     <div className="jobspage">
       <div className="jobsgrid">
-        <p className="find">Jobs Grid</p>
+        <p className="find">Jobs Page</p>
         <p className="yet">
           Yet uncommonly his ten who diminution astonished. Demesne new manners
           savings staying had.
@@ -109,7 +112,7 @@ const JobsGrid = (props: Props) => {
             </div>
             <div
               className={`category ${
-                selectedCategory === "Marketing and finance"
+                selectedCategory === "Marketing & finance"
                   ? "activeButton"
                   : "inactiveButton"
               }`}
@@ -129,7 +132,7 @@ const JobsGrid = (props: Props) => {
             </div>
             <div
               className={`category ${
-                selectedCategory === "Finance management"
+                selectedCategory === "Tech & Programming"
                   ? "activeButton"
                   : "inactiveButton"
               }`}
