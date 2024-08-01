@@ -81,7 +81,7 @@ const FindJobSection = (props: Props) => {
         <Grid item lg={8} md={8} sm={12} xs={12} className="rightside">
           {jobs.slice(0, 5).map((elem, i) => {
             return (
-              <div className="jobs">
+              <div className="jobs" key={elem.id}>
                 <div className="jobscont">
                   <img src={elem.companylogo} alt="" className="jobicon" />
                   <div className="inf">
