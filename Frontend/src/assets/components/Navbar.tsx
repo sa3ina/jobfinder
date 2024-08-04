@@ -31,7 +31,6 @@ const Navbar = (props: Props) => {
   const { jobseekers } = useSelector((state: RootState) => state.jobseekers);
   const login = JSON.parse(localStorage.getItem("login") || "{}");
   const dispatch = useDispatch();
-
   useEffect(() => {
     dispatch(fetchDataa());
   }, [dispatch]);
@@ -181,12 +180,6 @@ const Navbar = (props: Props) => {
                   <Link to="/search" className="link">
                     <p className="normal">Search</p>
                   </Link>
-                  {/* <Link to="/login" className="link">
-                    <p className="normal">Log in</p>
-                  </Link>
-                  <Link to="/signup" className="link">
-                    <p className="normal">Sign Up</p>
-                  </Link> */}
                 </Grid>
               </Grid>
             </Menu>
@@ -256,28 +249,35 @@ const Navbar = (props: Props) => {
           <Link to="/" className="link">
             <p>Home</p>
           </Link>
-
-          <Link to="/findjob" className="link">
-            <p>Find job</p>
-          </Link>
-          <Link to="/postjob" className="link">
-            <p>Post job</p>
+          <Link to={isEmployer ? "/postjob" : "/jobsgrid"} className="link">
+            <p>{isEmployer ? "Post a Job" : "Find a Job"}</p>
           </Link>
           <Link to="/jobsgrid" className="link">
             <p>Jobs Grid</p>
           </Link>
-          <Link to="/jobslist" className="link">
+          {/* <Link to="/jobslist" className="link">
             <p>Jobs list</p>
-          </Link>
+          </Link> */}
           <Link to="/companies" className="link">
             <p>Companies</p>
           </Link>
-          <Link to="/login" className="link">
-            <p>Log in</p>
-          </Link>
-          <Link to="/signup" className="link">
-            <p>Sign Up</p>
-          </Link>
+          {localStorage.getItem("login") ? (
+            <Link
+              to={isJobseeker ? "/profilejobseeker" : "/profilemployer"}
+              className="link"
+            >
+              <p>My Profile</p>
+            </Link>
+          ) : (
+            <>
+              <Link to="/login" className="link">
+                <p>Log in</p>
+              </Link>
+              <Link to="/signup" className="link">
+                <p>Sign Up</p>
+              </Link>
+            </>
+          )}
         </div>
       </Drawer>
     </>
