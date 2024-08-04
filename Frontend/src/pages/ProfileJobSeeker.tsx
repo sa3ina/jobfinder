@@ -129,20 +129,22 @@ const ProfileJobSeeker = (props: Props) => {
                   <p className="text">Experience:</p>
                   <p className="text">{userInfo?.experience}</p>
                 </div>
-                {cv ? (
-                  ""
-                ) : (
-                  <div className="cv">
-                    <input
-                      type="file"
-                      accept="image/*"
-                      onChange={handleFileChange}
-                    />
-                    <button onClick={handleSubmit}>
-                      <DescriptionIcon />
-                    </button>
-                  </div>
-                )}
+                <div className="cvfile">
+                  {cv ? (
+                    ""
+                  ) : (
+                    <div className="cv">
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleFileChange}
+                      />
+                      <button onClick={handleSubmit}>
+                        <DescriptionIcon />
+                      </button>
+                    </div>
+                  )}
+                </div>
 
                 <button onClick={handleLogout} className="logout">
                   logout

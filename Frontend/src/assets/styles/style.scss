@@ -3269,16 +3269,23 @@
     }
   }
 }
+
 .profilemployer {
   background-color: #161616;
   color: white;
   .userinfo {
+    .cvfile {
+      justify-content: center;
+    }
     .cv {
       margin-bottom: 4%;
       display: flex;
-      justify-content: space-around;
+      justify-content: center;
+      input {
+        width: 100%;
+      }
+
       font-family: "Outfit";
-      // width: 100%;
       button {
         cursor: pointer;
       }
