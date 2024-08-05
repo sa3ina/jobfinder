@@ -92,19 +92,7 @@ const Comment = (props: Props) => {
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-          <Box
-            sx={{
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              width: 600,
-              bgcolor: "background.paper",
-              p: 4,
-              fontFamily: "Outfit",
-              borderRadius: "4px",
-            }}
-          >
+          <Box className="modal-box">
             <Formik
               initialValues={{
                 id: uuidv4(),
