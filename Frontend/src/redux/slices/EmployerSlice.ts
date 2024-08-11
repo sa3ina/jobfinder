@@ -44,12 +44,13 @@ export const applyForJob = createAsyncThunk(
   "employers/applyforjob",
   async (payload) => {
     try {
-      const employers = await axios.get(
+      const employersResponse = await axios.get(
         "https://jobfinder-4jwl.onrender.com/employer"
       );
-      console.log("employers", employers.data);
-      const updatedEmployers = employers.data.map((employer) => {
-        console.log(payload.employerEmail);
+      const employers = employersResponse.data;
+      console.log("Fetched employers:", employers);
+
+      const updatedEmployers = employers.map((employer) => {
         if (employer.email === payload.employerEmail) {
           return {
             ...employer,
@@ -59,7 +60,7 @@ export const applyForJob = createAsyncThunk(
                 jobId: payload.jobId,
                 jobSeekerEmail: payload.jobSeekerEmail,
                 status: "pending",
-                date: new Date(),
+                date: new Date().toISOString(),
                 id: uuidv4(),
               },
             ],
@@ -70,20 +71,67 @@ export const applyForJob = createAsyncThunk(
       await Promise.all(
         updatedEmployers.map(async (employer) => {
           await axios.patch(
-            `hhttps://jobfinder-4jwl.onrender.com/employer/${employer.id}`,
+            `https://jobfinder-4jwl.onrender.com/employer/${employer.id}`,
             {
               notifications: employer.notifications,
             }
           );
         })
       );
-      console.log("updatedEmployers", updatedEmployers);
+
+      console.log("Updated employers:", updatedEmployers);
+
       return updatedEmployers;
     } catch (error) {
+      console.error("Error applying for job:", error.message);
       throw new Error("Failed to apply for job");
     }
   }
 );
+//   "employers/applyforjob",
+//   async (payload) => {
+//     try {
+//       const employers = await axios.get(
+//         "https://jobfinder-4jwl.onrender.com/employer"
+//       );
+//       console.log("employers", employers.data);
+//       const updatedEmployers = employers.data.map((employer) => {
+//         console.log(payload.employerEmail);
+//         console.log(updatedEmployers);
+//         if (employer.email === payload.employerEmail) {
+//           return {
+//             ...employer,
+//             notifications: [
+//               ...employer.notifications,
+//               {
+//                 jobId: payload.jobId,
+//                 jobSeekerEmail: payload.jobSeekerEmail,
+//                 status: "pending",
+//                 date: new Date(),
+//                 id: uuidv4(),
+//               },
+//             ],
+//           };
+//         }
+//         return employer;
+//       });
+//       await Promise.all(
+//         updatedEmployers.map(async (employer) => {
+//           await axios.patch(
+//             `https://jobfinder-4jwl.onrender.com/employer/${employer.id}`,
+//             {
+//               notifications: employer.notifications,
+//             }
+//           );
+//         })
+//       );
+//       console.log("updatedEmployers", updatedEmployers);
+//       return updatedEmployers;
+//     } catch (error) {
+//       throw new Error("Failed to apply for job");
+//     }
+//   }
+// );
 export const askForInterview = createAsyncThunk(
   "employers/ask",
   async (payload) => {

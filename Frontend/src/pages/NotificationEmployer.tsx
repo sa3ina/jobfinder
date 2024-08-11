@@ -12,8 +12,6 @@ import { fetchJobs } from "../redux/slices/JobsSlice";
 import Modal from "@mui/material/Modal";
 import { Box } from "@mui/material";
 import { fetchData } from "../redux/slices/JobseekerSlice";
-import { applyForJob } from "../redux/slices/EmployerSlice";
-
 import { fetchPhotos } from "../redux/slices/PhotosSlice";
 
 type Props = {};
@@ -78,13 +76,14 @@ const NotificationEmployer = (props: Props) => {
       [jobId]: jobseekerInfo,
     }));
   };
+
   const handleRejectJobseeker = (jobId, jobSeekerEmail) => {
     dispatch(
       rejectJobseeker({
         employerEmail: userInfo.email,
         jobId: jobId,
         jobSeekerEmail: jobSeekerEmail,
-        status: "interview",
+        status: "rejected",
       })
     );
     const jobseekerInfo = jobseekers.find(
@@ -95,6 +94,12 @@ const NotificationEmployer = (props: Props) => {
       [jobId]: jobseekerInfo,
     }));
   };
+
+  const notifications = userInfo?.notifications
+    .slice(0)
+    .reverse()
+    .filter((elem) => elem.status === "pending");
+
   return (
     <div className="notificationemp">
       <Modal
@@ -140,12 +145,10 @@ const NotificationEmployer = (props: Props) => {
 
       <Grid container>
         <Grid item lg={12} md={12} sm={12} xs={12} className="rightside">
-          {userInfo?.notifications
-            .slice(0)
-            .reverse()
-            .map((elem: any, i: any) => {
+          {notifications.length > 0 ? (
+            notifications.map((elem: any, i: any) => {
               const jobInfo = jobs.find((job: any) => job.id === elem.jobId);
-              if (!jobInfo || elem.status !== "pending") return null;
+              if (!jobInfo) return null;
               return (
                 <div className="jobs" key={i}>
                   <div className="jobscont">
@@ -155,7 +158,7 @@ const NotificationEmployer = (props: Props) => {
                       </div>
                       <div className="inf">
                         <p className="type">
-                          {elem.jobSeekerEmail} is applied for a job
+                          {elem.jobSeekerEmail} has applied for the job
                         </p>
                         <p className="type">{jobInfo.title}</p>
                       </div>
@@ -189,7 +192,10 @@ const NotificationEmployer = (props: Props) => {
                   </div>
                 </div>
               );
-            })}
+            })
+          ) : (
+            <p className="noNotif">No notifications..</p>
+          )}
         </Grid>
       </Grid>
     </div>

@@ -13,6 +13,7 @@ import Modal from "@mui/material/Modal";
 import { Box } from "@mui/material";
 import { fetchData } from "../redux/slices/JobseekerSlice";
 import { applyForJob } from "../redux/slices/EmployerSlice";
+
 type Props = {};
 
 const NotificationJobSeeker = (props: Props) => {
@@ -47,42 +48,44 @@ const NotificationJobSeeker = (props: Props) => {
     }
   }, [userInfo, jobseekers]);
 
+  const notifications = employers.flatMap((employer) =>
+    employer.notifications.filter(
+      (notification) => notification.jobSeekerEmail === userInfo?.email
+    )
+  );
+
   return (
     <div className="notificationemp">
       <Grid container>
         <Grid item lg={12} md={12} sm={12} xs={12} className="rightside">
-          {employers.map((employer) =>
-            employer.notifications.map((notification) => {
-              if (notification.jobSeekerEmail === userInfo?.email) {
-                const job = jobs.find((job) => job.id === notification.jobId);
-                if (notification.status === "pending") return null;
-                if (job) {
-                  return (
-                    <div className="jobs" key={job.id}>
-                      <div className="jobscont">
-                        <div className="container">
-                          <div className="status">
-                            <p className="stat">{notification.status}</p>
-                          </div>
-                          <div className="inf">
-                            <p className="type">
-                              {employer.email}{" "}
-                              {notification.status === "interview"
-                                ? " has requested an interview for the job opportunity."
-                                : notification.status === "hired"
-                                ? "Congratulations! You have been hired for the job."
-                                : " your application has been unsuccessful."}
-                            </p>
-                            <p className="type">{job.title}</p>
-                          </div>
-                        </div>{" "}
+          {notifications.length > 0 ? (
+            notifications.map((notification) => {
+              const job = jobs.find((job) => job.id === notification.jobId);
+              if (notification.status === "pending" || !job) return null;
+              return (
+                <div className="jobs" key={job.id}>
+                  <div className="jobscont">
+                    <div className="container">
+                      <div className="status">
+                        <p className="stat">{notification.status}</p>
                       </div>
-                    </div>
-                  );
-                }
-              }
-              return null;
+                      <div className="inf">
+                        <p className="type">
+                          {notification.status === "interview"
+                            ? "An interview has been requested for the job opportunity."
+                            : notification.status === "hired"
+                            ? "Congratulations! You have been hired for the job."
+                            : "Your application has been unsuccessful."}
+                        </p>
+                        <p className="type">{job.title}</p>
+                      </div>
+                    </div>{" "}
+                  </div>
+                </div>
+              );
             })
+          ) : (
+            <p className="noNotif">No notifications..</p>
           )}
         </Grid>
       </Grid>
