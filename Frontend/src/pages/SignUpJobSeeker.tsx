@@ -27,15 +27,24 @@ const SignUpJobSeeker = (props: Props) => {
     dispatch(fetchData());
   }, [dispatch]);
   const SignupSchema = Yup.object().shape({
-    firstName: Yup.string()
+    firstname: Yup.string()
       .min(2, "Too Short!")
       .max(50, "Too Long!")
       .required("Required"),
-    lastName: Yup.string()
+    lastname: Yup.string()
       .min(2, "Too Short!")
       .max(50, "Too Long!")
       .required("Required"),
-    email: Yup.string().email("Invalid email").required("Required"),
+    email: Yup.string()
+      .email("Invalid email")
+      .required("Required")
+      .test("unique-email", "Email already in use", (value) => {
+        return !jobseekers.some((js) => js.email === value);
+      }),
+    password: Yup.string()
+      .min(8, "Password is too short - should be 8 characters minimum.")
+      .matches(/[0-9]/, "Password must contain at least one number.")
+      .required("Password is required"),
   });
   const [inputs, setInputs] = useState([""]);
 
@@ -85,6 +94,7 @@ const SignUpJobSeeker = (props: Props) => {
             cv: "",
           }}
           onSubmit={handleSubmit}
+          validationSchema={SignupSchema}
         >
           {({ errors, touched, handleSubmit }) => (
             <div className="cont">
@@ -93,10 +103,16 @@ const SignUpJobSeeker = (props: Props) => {
                   <div className="griditem">
                     <p className="label gridlabel">First Name</p>
                     <Field name="firstname" className="input" />
+                    {errors.firstname && touched.firstname ? (
+                      <div>{errors.firstname}</div>
+                    ) : null}
                   </div>
                   <div className="griditem">
                     <p className="label gridlabel">Last Name</p>
                     <Field name="lastname" className="input" />
+                    {errors.lastname && touched.lastname ? (
+                      <div>{errors.lastname}</div>
+                    ) : null}
                   </div>
                 </div>
                 <p className="label">Your email</p>
@@ -106,9 +122,9 @@ const SignUpJobSeeker = (props: Props) => {
                   className="input"
                   placeholder="info@gmail.com"
                 />
-                {/* {errors.email && touched.email ? (
+                {errors.email && touched.email ? (
                   <div>{errors.email}</div>
-                ) : null} */}{" "}
+                ) : null}
                 <p className="label ">Education</p>
                 <Field name="education" className="input" />
                 <p className="label">Desired job titles</p>
@@ -121,12 +137,12 @@ const SignUpJobSeeker = (props: Props) => {
                       onChange={(e) => handleInputChange(index, e.target.value)}
                       placeholder="e.g Cashier, cook, nurse"
                     />
-                    {index === inputs.length - 1 && ( // Show + button for the last input
+                    {index === inputs.length - 1 && (
                       <button type="button" className="add" onClick={addInput}>
                         +
                       </button>
                     )}
-                    {inputs.length > 1 && ( // Show - button for all inputs except the first one
+                    {inputs.length > 1 && (
                       <button
                         type="button"
                         className="add"
@@ -165,6 +181,9 @@ const SignUpJobSeeker = (props: Props) => {
                 <Field name="experience" as="textarea" className="input" />
                 <p className="label">Password</p>
                 <Field name="password" type="password" className="input" />
+                {errors.password && touched.password ? (
+                  <div>{errors.password}</div>
+                ) : null}
                 <button type="submit" className="submit">
                   Create account
                 </button>
