@@ -239,6 +239,7 @@ const Navbar = (props: Props) => {
             position: "absolute",
             marginTop: isMenuOpen ? "0" : "100px",
             transition: "margin-top 225ms cubic-bezier(0, 0, 0.2, 1)",
+            boxShadow: "0px -4px 10px rgba(0, 0, 0, 0.3)",
           },
         }}
         BackdropProps={{
