@@ -19,6 +19,8 @@ import AdminRoot from "../adminpanel/AdminRoot";
 import Employers from "../adminpanel/Employers";
 import Jobseekers from "../adminpanel/Jobseekers";
 import Jobs from "../adminpanel/Jobs";
+import ProtectedRoute from "../assets/components/ProtectedRoute";
+import { Navigate } from "react-router-dom";
 export const routes = [
   {
     path: "/",
@@ -89,7 +91,11 @@ export const routes = [
   },
   {
     path: "/",
-    element: <AdminRoot />,
+    element: (
+      <ProtectedRoute allowedRole="admin">
+        <AdminRoot />
+      </ProtectedRoute>
+    ),
     children: [
       {
         path: "/admin",
@@ -108,5 +114,9 @@ export const routes = [
         element: <Jobs />,
       },
     ],
+  },
+  {
+    path: "*",
+    element: <Navigate to="/" />,
   },
 ];
