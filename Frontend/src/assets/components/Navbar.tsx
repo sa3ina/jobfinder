@@ -165,9 +165,6 @@ const Navbar = (props: Props) => {
                   <Link to="/jobsgrid" className="link">
                     <p className="normal">Jobs Grid</p>
                   </Link>
-                  <Link to="/jobslist" className="link">
-                    <p className="normal"> Jobs list</p>
-                  </Link>
                   <Link to="/companies" className="link">
                     <p className="normal">Companies</p>
                   </Link>
@@ -256,9 +253,6 @@ const Navbar = (props: Props) => {
           <Link to="/jobsgrid" className="link">
             <p>Jobs Grid</p>
           </Link>
-          {/* <Link to="/jobslist" className="link">
-            <p>Jobs list</p>
-          </Link> */}
           <Link to="/companies" className="link">
             <p>Companies</p>
           </Link>

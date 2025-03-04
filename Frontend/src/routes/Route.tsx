@@ -1,7 +1,6 @@
 import Companies from "../pages/Companies";
 import Home from "../pages/Home";
 import JobsGrid from "../pages/JobsGrid";
-import JobsList from "../pages/JobsList";
 import Login from "../pages/Login";
 import PostJob from "../pages/PostJob";
 import SignUpJobSeeker from "../pages/SignUpJobSeeker";
@@ -37,10 +36,6 @@ export const routes = [
       {
         path: "/jobsgrid",
         element: <JobsGrid />,
-      },
-      {
-        path: "/jobslist",
-        element: <JobsList />,
       },
       {
         path: "/login",

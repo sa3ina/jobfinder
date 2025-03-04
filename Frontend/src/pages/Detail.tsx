@@ -116,7 +116,7 @@ const Detail = (props: Props) => {
               <p className="heading">Company Location</p>
               <p className="text">{job?.companylocation}</p>
               <p className="heading">Company Description</p>
-              <p className="text">{job?.description}</p>
+              <p className="text">{job?.companydescription}</p>
               <p className="heading">Company website</p>
               <p className="text">
                 <a href={job?.companywebsite}>{job?.companywebsite}</a>
