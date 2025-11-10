@@ -69,14 +69,14 @@ const ProfileJobSeeker = (props: Props) => {
         "https://jobfinder-4jwl.onrender.com/photos",
         formData
       );
-      console.log("Response:", response.data);
+      // console.log("Response:", response.data);
       if (response.data) {
-        console.log("File uploaded:", response.data.path);
+        // console.log("File uploaded:", response.data.path);
         enqueueSnackbar("File uploaded!", {
           variant: "success",
         });
       } else {
-        console.error("Unexpected response format");
+        // console.error("Unexpected response format");
         enqueueSnackbar("File format is not correct!", {
           variant: "error",
         });

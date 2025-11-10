@@ -26,7 +26,7 @@ app.use("/", commentRouter);
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     const uploadFolder = "./uploads/";
-    console.log("Destination:", uploadFolder);
+    // console.log("Destination:", uploadFolder);
     if (!fs.existsSync(uploadFolder)) {
       fs.mkdirSync(uploadFolder);
     }

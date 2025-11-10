@@ -48,7 +48,7 @@ export const applyForJob = createAsyncThunk(
         "https://jobfinder-4jwl.onrender.com/employer"
       );
       const employers = employersResponse.data;
-      console.log("Fetched employers:", employers);
+      // console.log("Fetched employers:", employers);
 
       const updatedEmployers = employers.map((employer) => {
         if (employer.email === payload.employerEmail) {
@@ -79,7 +79,7 @@ export const applyForJob = createAsyncThunk(
         })
       );
 
-      console.log("Updated employers:", updatedEmployers);
+      // console.log("Updated employers:", updatedEmployers);
 
       return updatedEmployers;
     } catch (error) {
@@ -136,18 +136,18 @@ export const askForInterview = createAsyncThunk(
   "employers/ask",
   async (payload) => {
     try {
-      console.log("Payload:", payload);
+      // console.log("Payload:", payload);
 
       const employers = await axios.get(
         "https://jobfinder-4jwl.onrender.com/employer"
       );
 
       const updatedEmployers = employers.data.map((employer) => {
-        console.log("Employer:", employer);
+        // console.log("Employer:", employer);
         if (employer.email === payload.employerEmail) {
           const updatedNotifications = employer.notifications.map(
             (notification) => {
-              console.log("Notification:", notification);
+              // console.log("Notification:", notification);
               if (
                 notification.jobId === payload.jobId &&
                 notification.jobSeekerEmail === payload.jobSeekerEmail
@@ -187,18 +187,18 @@ export const rejectJobseeker = createAsyncThunk(
   "employers/reject",
   async (payload) => {
     try {
-      console.log("Payload:", payload);
+      // console.log("Payload:", payload);
 
       const employers = await axios.get(
         "https://jobfinder-4jwl.onrender.com/employer"
       );
 
       const updatedEmployers = employers.data.map((employer) => {
-        console.log("Employer:", employer);
+        // console.log("Employer:", employer);
         if (employer.email === payload.employerEmail) {
           const updatedNotifications = employer.notifications.map(
             (notification) => {
-              console.log("Notification:", notification);
+              // console.log("Notification:", notification);
               if (
                 notification.jobId === payload.jobId &&
                 notification.jobSeekerEmail === payload.jobSeekerEmail
@@ -238,18 +238,18 @@ export const hireJobseeker = createAsyncThunk(
   "employers/hire",
   async (payload) => {
     try {
-      console.log("Payload:", payload);
+      // console.log("Payload:", payload);
 
       const employers = await axios.get(
         "https://jobfinder-4jwl.onrender.com/employer"
       );
 
       const updatedEmployers = employers.data.map((employer) => {
-        console.log("Employer:", employer);
+        // console.log("Employer:", employer);
         if (employer.email === payload.employerEmail) {
           const updatedNotifications = employer.notifications.map(
             (notification) => {
-              console.log("Notification:", notification);
+              // console.log("Notification:", notification);
               if (
                 notification.jobId === payload.jobId &&
                 notification.jobSeekerEmail === payload.jobSeekerEmail

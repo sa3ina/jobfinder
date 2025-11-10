@@ -6,6 +6,7 @@ import type { RootState } from "../redux/store";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { fetchJobs } from "../../redux/slices/JobsSlice";
+import CircularProgress from "@mui/material/CircularProgress";
 type Props = {};
 
 const FindJobSection = (props: Props) => {
@@ -79,32 +80,49 @@ const FindJobSection = (props: Props) => {
           </div>
         </Grid>
         <Grid item lg={8} md={8} sm={12} xs={12} className="rightside">
-          {jobs.slice(0, 5).map((elem, i) => {
-            return (
-              <div className="jobs" key={elem.id}>
-                <div className="jobscont">
-                  <img src={elem.companylogo} alt="" className="jobicon" />
-                  <div className="inf">
-                    <p className="jobname">{elem.title}</p>
-                    <div className="location">
-                      <img
-                        src="https://assets-global.website-files.com/63b2816edd90444c9df54d80/63b3cc6e4632663f9161e95a_geo-alt.svg"
-                        alt=""
-                      />
-                      <p>{elem.location}</p>
+          {loading ? (
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "300px",
+              }}
+            >
+              <CircularProgress />
+            </div>
+          ) : error ? (
+            <p style={{ textAlign: "center", color: "red" }}>
+              Failed to load jobs 😢
+            </p>
+          ) : (
+            <>
+              {jobs.slice(0, 5).map((elem) => (
+                <div className="jobs" key={elem.id}>
+                  <div className="jobscont">
+                    <img src={elem.companylogo} alt="" className="jobicon" />
+                    <div className="inf">
+                      <p className="jobname">{elem.title}</p>
+                      <div className="location">
+                        <img
+                          src="https://assets-global.website-files.com/63b2816edd90444c9df54d80/63b3cc6e4632663f9161e95a_geo-alt.svg"
+                          alt=""
+                        />
+                        <p>{elem.location}</p>
+                      </div>
                     </div>
                   </div>
+                  <p className="type">{elem.type}</p>
+                  <Link to={`/${elem?.id}`}>
+                    <button>View job</button>
+                  </Link>
                 </div>
-                <p className="type">{elem.type}</p>
-                <Link to={`/${elem?.id}`}>
-                  <button>View job</button>
-                </Link>
-              </div>
-            );
-          })}
-          <Link to="/jobsgrid">
-            <button className="browse">Browse all jobs</button>
-          </Link>
+              ))}
+              <Link to="/jobsgrid">
+                <button className="browse">Browse all jobs</button>
+              </Link>
+            </>
+          )}
         </Grid>
       </Grid>
     </div>

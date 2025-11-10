@@ -62,7 +62,7 @@ export const editJob = createAsyncThunk(
       `https://jobfinder-4jwl.onrender.com/job/${updatedJob.id}`,
       updatedJob
     );
-    console.log(response.data);
+    // console.log(response.data);
     return response.data;
   }
 );

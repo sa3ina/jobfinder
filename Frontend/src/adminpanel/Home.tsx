@@ -96,7 +96,7 @@ function Home() {
         uv: jobApplicationsByDate.map(({ name, uv }) => ({ name, uv })),
       };
       setDataline(newData);
-      console.log(newData);
+      // console.log(newData);
     }
   }, [jobs, employers]);
 
@@ -118,7 +118,7 @@ function Home() {
     }));
     return chartData;
   };
-  console.log(data);
+  // console.log(data);
   const mergedData = [];
   let pvIndex = 0;
   let uvIndex = 0;
@@ -148,7 +148,7 @@ function Home() {
     }
   }
 
-  console.log(mergedData);
+  // console.log(mergedData);
   const sortedData = mergedData.sort(
     (a, b) => new Date(a.name) - new Date(b.name)
   );

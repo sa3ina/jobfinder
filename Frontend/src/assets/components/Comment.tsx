@@ -101,7 +101,7 @@ const Comment = (props: Props) => {
                 comment: "",
               }}
               onSubmit={(values) => {
-                console.log(values);
+                // console.log(values);
                 dispatch(postComment(values));
                 handleClose();
                 enqueueSnackbar("Comment added successfully!", {

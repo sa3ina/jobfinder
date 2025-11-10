@@ -61,7 +61,7 @@ const Login = (props: Props) => {
       enqueueSnackbar("Incorrect email or password. Please try again", {
         variant: "error",
       });
-      console.log("not correct login info");
+      // console.log("not correct login info");
     }
     setSubmitting(false);
   };

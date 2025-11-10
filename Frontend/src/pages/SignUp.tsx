@@ -23,7 +23,7 @@ const SignUp = (props: Props) => {
             email: "",
           }}
           onSubmit={(values) => {
-            console.log(values);
+            // console.log(values);
           }}
         >
           {({ errors, touched }) => (
@@ -46,7 +46,7 @@ const SignUp = (props: Props) => {
                     <p className="normal">Log In</p>
                   </Link>
                 </div>
-              </Form>{" "}
+              </Form>
             </div>
           )}
         </Formik>

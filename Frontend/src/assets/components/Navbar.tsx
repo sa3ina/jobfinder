@@ -50,7 +50,7 @@ const Navbar = (props: Props) => {
     setIsMenuOpen(false);
   };
   const handleOpenMenu = () => {
-    console.log("Opening menu...");
+    // console.log("Opening menu...");
     setIsMenuOpen(true);
     setShouldLog(true);
   };
@@ -89,7 +89,7 @@ const Navbar = (props: Props) => {
           <button
             className="link hamburger"
             onClick={() => handleOpenMenu()}
-            onMouseDown={() => console.log("Button clicked!")}
+            // onMouseDown={() => console.log("Button clicked!")}
           >
             <MenuIcon />
           </button>

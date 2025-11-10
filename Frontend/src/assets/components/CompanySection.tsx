@@ -1,6 +1,7 @@
 //@ts-nocheck
 import React, { useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
+import CircularProgress from "@mui/material/CircularProgress";
 import { Link } from "react-router-dom";
 import type { RootState } from "../../redux/store";
 import { useSelector, useDispatch } from "react-redux";
@@ -9,25 +10,48 @@ import { fetchJobs } from "../../redux/slices/JobsSlice";
 const CompanySection = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
   const dispatch = useDispatch();
+  const { jobs, loading, error } = useSelector(
+    (state: RootState) => state.jobs
+  );
 
   useEffect(() => {
     dispatch(fetchJobs());
   }, [dispatch]);
-  const { jobs, loading, error } = useSelector(
-    (state: RootState) => state.jobs
-  );
+
   useEffect(() => {
     const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      setScrollPosition(scrollPosition);
+      const scrollY = window.scrollY;
+      setScrollPosition(scrollY);
     };
 
     window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // ✨ Loading vəziyyəti
+  if (loading) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "400px",
+          backgroundColor: "black",
+        }}
+      >
+        <CircularProgress />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <p style={{ textAlign: "center", color: "red", padding: "40px" }}>
+        Failed to load company data 😢
+      </p>
+    );
+  }
 
   return (
     <div className="companysection">
@@ -37,6 +61,7 @@ const CompanySection = () => {
           <button>View all</button>
         </Link>
       </div>
+
       <Grid
         container
         className="findcompany"
@@ -73,7 +98,7 @@ const CompanySection = () => {
                 <p className="type">Job position</p>
                 <div className="browsejob">
                   <Link to={`/${elem?.id}`} className="link">
-                    <p>Browse job </p>
+                    <p>Browse job</p>
                   </Link>
                   <img
                     src="https://assets-global.website-files.com/63b2816edd90444c9df54d80/63ddf30d1693d1f9dae4820f_arrow-right-royal-blue.svg"
@@ -85,6 +110,7 @@ const CompanySection = () => {
           </Grid>
         ))}
       </Grid>
+
       <Grid
         container
         className="findcompany2"
@@ -121,7 +147,7 @@ const CompanySection = () => {
                 <p className="type">Job position</p>
                 <div className="browsejob">
                   <Link to={`/${elem?.id}`} className="link">
-                    <p>Browse job </p>
+                    <p>Browse job</p>
                   </Link>
                   <img
                     src="https://assets-global.website-files.com/63b2816edd90444c9df54d80/63ddf30d1693d1f9dae4820f_arrow-right-royal-blue.svg"
