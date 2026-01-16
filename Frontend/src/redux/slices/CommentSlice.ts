@@ -20,20 +20,20 @@ const initialState: commentState = {
   loading: false,
   error: null,
 };
+
+const API_URL = import.meta.env.VITE_API_URL;
+
 export const fetchComment = createAsyncThunk(
   "get/commentinfo",
   async (): Promise<comment[]> => {
-    const response = await axios("https://jobfinder-4jwl.onrender.com/comment");
+    const response = await axios.get(`${API_URL}/comment/`);
     return await response.data;
   }
 );
 export const postComment = createAsyncThunk(
   "user/postComment",
   async (newComment) => {
-    const posted = await axios.post(
-      `https://jobfinder-4jwl.onrender.com/comment/`,
-      newComment
-    );
+    const posted = await axios.post(`${API_URL}/comment/`, newComment);
     return posted.data;
   }
 );
@@ -64,8 +64,5 @@ export const CommentSlice = createSlice({
     });
   },
 });
-
-// Action creators are generated for each case reducer function
-// export const { increment } = productSlice.actions;
 
 export default CommentSlice.reducer;

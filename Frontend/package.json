@@ -20,6 +20,7 @@
     "@mui/styled-engine-sc": "^6.0.0-alpha.14",
     "@reduxjs/toolkit": "^2.1.0",
     "axios": "^1.6.7",
+    "dotenv": "^17.2.3",
     "file-saver": "^2.0.5",
     "firebase": "^10.8.0",
     "formik": "^2.4.5",

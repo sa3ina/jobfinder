@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
+require("dotenv").config();
 mongoose
-  .connect(
-    "mongodb+srv://bd6zv16m3:job@jobhunt.6acsouf.mongodb.net/?retryWrites=true&w=majority"
-  )
+  .connect(process.env.MONGO_URI)
   .then(() => console.log("connected mongodb"))
   .catch((err) => console.log("err", err));

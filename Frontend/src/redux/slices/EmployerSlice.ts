@@ -22,20 +22,18 @@ const initialState: employerState = {
   loading: false,
   error: null,
 };
+
+const API_URL = import.meta.env.VITE_API_URL;
+
 export const fetchDataa = createAsyncThunk(
   "get/employerinfo",
   async (): Promise<employer[]> => {
-    const response = await axios(
-      "https://jobfinder-4jwl.onrender.com/employer"
-    );
+    const response = await axios.get(`${API_URL}/employer`);
     return await response.data;
   }
 );
 export const postData = createAsyncThunk("user/postData", async (newEmp) => {
-  const posted = await axios.post(
-    `https://jobfinder-4jwl.onrender.com/employer/`,
-    newEmp
-  );
+  const posted = await axios.post(`${API_URL}/employer/`, newEmp);
   return posted.data;
 });
 import { RootState } from "../store";
@@ -44,9 +42,7 @@ export const applyForJob = createAsyncThunk(
   "employers/applyforjob",
   async (payload) => {
     try {
-      const employersResponse = await axios.get(
-        "https://jobfinder-4jwl.onrender.com/employer"
-      );
+      const employersResponse = await axios.get(`${API_URL}/employer`);
       const employers = employersResponse.data;
       // console.log("Fetched employers:", employers);
 
@@ -70,12 +66,9 @@ export const applyForJob = createAsyncThunk(
       });
       await Promise.all(
         updatedEmployers.map(async (employer) => {
-          await axios.patch(
-            `https://jobfinder-4jwl.onrender.com/employer/${employer.id}`,
-            {
-              notifications: employer.notifications,
-            }
-          );
+          await axios.patch(`${API_URL}/employer/${employer.id}`, {
+            notifications: employer.notifications,
+          });
         })
       );
 
@@ -138,9 +131,7 @@ export const askForInterview = createAsyncThunk(
     try {
       // console.log("Payload:", payload);
 
-      const employers = await axios.get(
-        "https://jobfinder-4jwl.onrender.com/employer"
-      );
+      const employers = await axios.get(`${API_URL}/employer`);
 
       const updatedEmployers = employers.data.map((employer) => {
         // console.log("Employer:", employer);
@@ -169,12 +160,9 @@ export const askForInterview = createAsyncThunk(
       });
       await Promise.all(
         updatedEmployers.map(async (employer) => {
-          await axios.patch(
-            `https://jobfinder-4jwl.onrender.com/employer/${employer.id}`,
-            {
-              notifications: employer.notifications,
-            }
-          );
+          await axios.patch(`${API_URL}/employer/${employer.id}`, {
+            notifications: employer.notifications,
+          });
         })
       );
       return updatedEmployers;
@@ -189,9 +177,7 @@ export const rejectJobseeker = createAsyncThunk(
     try {
       // console.log("Payload:", payload);
 
-      const employers = await axios.get(
-        "https://jobfinder-4jwl.onrender.com/employer"
-      );
+      const employers = await axios.get(`${API_URL}/employer`);
 
       const updatedEmployers = employers.data.map((employer) => {
         // console.log("Employer:", employer);
@@ -220,12 +206,9 @@ export const rejectJobseeker = createAsyncThunk(
       });
       await Promise.all(
         updatedEmployers.map(async (employer) => {
-          await axios.patch(
-            `https://jobfinder-4jwl.onrender.com/${employer.id}`,
-            {
-              notifications: employer.notifications,
-            }
-          );
+          await axios.patch(`${API_URL}/employer/${employer.id}`, {
+            notifications: employer.notifications,
+          });
         })
       );
       return updatedEmployers;
@@ -240,9 +223,7 @@ export const hireJobseeker = createAsyncThunk(
     try {
       // console.log("Payload:", payload);
 
-      const employers = await axios.get(
-        "https://jobfinder-4jwl.onrender.com/employer"
-      );
+      const employers = await axios.get(`${API_URL}/employer`);
 
       const updatedEmployers = employers.data.map((employer) => {
         // console.log("Employer:", employer);
@@ -271,12 +252,9 @@ export const hireJobseeker = createAsyncThunk(
       });
       await Promise.all(
         updatedEmployers.map(async (employer) => {
-          await axios.patch(
-            `https://jobfinder-4jwl.onrender.com/employer/${employer.id}`,
-            {
-              notifications: employer.notifications,
-            }
-          );
+          await axios.patch(`${API_URL}/employer/${employer.id}`, {
+            notifications: employer.notifications,
+          });
         })
       );
       return updatedEmployers;
@@ -353,8 +331,5 @@ export const EmployerSlice = createSlice({
       });
   },
 });
-
-// Action creators are generated for each case reducer function
-// export const { increment } = productSlice.actions;
 
 export default EmployerSlice.reducer;

@@ -21,10 +21,13 @@ const initialState: adminState = {
   loading: false,
   error: null,
 };
+
+const API_URL = import.meta.env.VITE_API_URL;
+
 export const fetchAdmin = createAsyncThunk(
   "get/admininfo",
   async (): Promise<admin[]> => {
-    const response = await axios("https://jobfinder-4jwl.onrender.com/admin");
+    const response = await axios.get(`${API_URL}/admin`);
     return await response.data;
   }
 );
@@ -46,8 +49,5 @@ export const AdminSlice = createSlice({
     });
   },
 });
-
-// Action creators are generated for each case reducer function
-// export const { increment } = productSlice.actions;
 
 export default AdminSlice.reducer;

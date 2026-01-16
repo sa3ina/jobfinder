@@ -29,21 +29,18 @@ const initialState: jobseekerState = {
   error: null,
 };
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export const fetchData = createAsyncThunk(
   "get/jobseekerinfo",
   async (): Promise<jobseeker[]> => {
-    const response = await axios(
-      "https://jobfinder-4jwl.onrender.com/jobseeker"
-    );
+    const response = await axios.get(`${API_URL}/jobseeker`);
     return await response.data;
   }
 );
 
 export const postData = createAsyncThunk("user/postData", async (newPers) => {
-  const posted = await axios.post(
-    `https://jobfinder-4jwl.onrender.com/jobseeker/`,
-    newPers
-  );
+  const posted = await axios.post(`${API_URL}/jobseeker/`, newPers);
   return posted.data;
 });
 
@@ -74,8 +71,5 @@ export const JobseekerSlice = createSlice({
     });
   },
 });
-
-// Action creators are generated for each case reducer function
-// export const { increment } = productSlice.actions;
 
 export default JobseekerSlice.reducer;

@@ -26,10 +26,13 @@ const initialState: PhotosState = {
   loading: false,
   error: null,
 };
+
+const API_URL = import.meta.env.VITE_API_URL;
+
 export const fetchPhotos = createAsyncThunk(
   "get/photoinfo",
   async (): Promise<Photo[]> => {
-    const response = await axios("https://jobfinder-4jwl.onrender.com/photos");
+    const response = await axios(`${API_URL}/photos`);
     return response.data.users;
   }
 );
