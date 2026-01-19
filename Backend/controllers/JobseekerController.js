@@ -4,8 +4,24 @@ const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = require("../middleware/auth");
 
 const getall = async (req, res) => {
-  const posts = await Model.find().select("-password");
-  res.send(posts);
+  try {
+    const posts = await Model.find().select("-password");
+    res.send(posts);
+  } catch (err) {
+    console.error("Error fetching jobseekers:", err);
+    // Fallback: try without select in case of schema issues
+    try {
+      const posts = await Model.find();
+      const safePosts = posts.map(post => {
+        const safePost = post.toObject();
+        delete safePost.password;
+        return safePost;
+      });
+      res.send(safePosts);
+    } catch (fallbackErr) {
+      res.status(500).json({ message: "Error fetching jobseekers" });
+    }
+  }
 };
 
 const getbyId = async (req, res) => {

@@ -1,7 +1,12 @@
 const Model = require("../models/JobsModel");
 const getall = async (req, res) => {
-  const posts = await Model.find();
-  res.send(posts);
+  try {
+    const posts = await Model.find();
+    res.send(posts);
+  } catch (err) {
+    console.error("Error fetching jobs:", err);
+    res.status(500).json({ message: "Error fetching jobs" });
+  }
 };
 const getbyId = async (req, res) => {
   const posts = await Model.findOne({ id: req.params.id });
