@@ -26,7 +26,7 @@ const ProfileJobSeeker = (props: Props) => {
   const { enqueueSnackbar } = useSnackbar();
 
   const { jobseekers, loading, error } = useSelector(
-    (state: RootState) => state.jobseekers
+    (state: RootState) => state.jobseekers,
   );
   const { jobs } = useSelector((state: RootState) => state.jobs);
   const { employers } = useSelector((state: RootState) => state.employers);
@@ -37,7 +37,7 @@ const ProfileJobSeeker = (props: Props) => {
     dispatch(fetchData());
     dispatch(fetchJobs());
     dispatch(fetchPhotos());
-  }, [dispatch, photos]);
+  }, [dispatch]);
   const navigate = useNavigate();
   const login = JSON.parse(localStorage.getItem("login") || "{}");
   const authToken = localStorage.getItem("authToken");
@@ -68,7 +68,7 @@ const ProfileJobSeeker = (props: Props) => {
     try {
       const response = await axios.post(
         "https://jobfinder-4jwl.onrender.com/photos",
-        formData
+        formData,
       );
       // console.log("Response:", response.data);
       if (response.data) {
@@ -171,7 +171,7 @@ const ProfileJobSeeker = (props: Props) => {
                     employer.notifications.map((notification) => {
                       if (notification.jobSeekerEmail === userInfo?.email) {
                         const job = jobs.find(
-                          (job) => job.id === notification.jobId
+                          (job) => job.id === notification.jobId,
                         );
                         if (job) {
                           return (
@@ -197,7 +197,7 @@ const ProfileJobSeeker = (props: Props) => {
                         }
                       }
                       return null;
-                    })
+                    }),
                   )}
                 </TableBody>
               </Table>
