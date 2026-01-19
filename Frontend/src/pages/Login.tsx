@@ -1,15 +1,12 @@
 //@ts-nocheck
-import React, { useState, useEffect } from "react";
+//@ts-nocheck
+import React, { useEffect } from "react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { Link } from "react-router-dom";
-import type { RootState } from "../redux/store";
-import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { fetchData } from "../redux/slices/JobseekerSlice";
-import { fetchDataa } from "../redux/slices/EmployerSlice";
-import { fetchAdmin } from "../redux/slices/AdminSlice";
-import { SnackbarProvider, VariantType, useSnackbar } from "notistack";
+import axios from "axios";
+import { useSnackbar } from "notistack";
 
 type Props = {};
 
@@ -19,63 +16,56 @@ const Login = (props: Props) => {
   }, []);
 
   const navigate = useNavigate();
-  const { employers, loading, error } = useSelector(
-    (state: RootState) => state.employers
-  );
-  const { jobseekers } = useSelector((state: RootState) => state.jobseekers);
-  const { admins } = useSelector((state: RootState) => state.admins);
   const { enqueueSnackbar } = useSnackbar();
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchData());
-    dispatch(fetchDataa());
-    dispatch(fetchAdmin());
-  }, [dispatch]);
-  const handleSubmit = async (values, { setSubmitting }) => {
-    let findJobseeker = jobseekers.find(
-      (elem) => elem.email === values.email && elem.password === values.password
-    );
-    let findEmployer = employers.find(
-      (elem) => elem.email === values.email && elem.password === values.password
-    );
-    let findAdmin = admins.find(
-      (elem) => elem.email === values.email && elem.password === values.password
-    );
+  const API_URL = import.meta.env.VITE_API_URL;
 
-    if (findJobseeker || findEmployer || findAdmin) {
-      if (findJobseeker) {
-        localStorage.setItem("login", JSON.stringify(findJobseeker));
-        localStorage.setItem("userRole", "jobseeker");
-        await navigate("/");
-      } else if (findEmployer) {
-        localStorage.setItem("login", JSON.stringify(findEmployer));
-        localStorage.setItem("userRole", "employer");
-        await navigate("/");
-      } else if (findAdmin) {
-        localStorage.setItem("login", JSON.stringify(findAdmin));
-        localStorage.setItem("userRole", "admin");
-        await navigate("/admin");
+  const handleSubmit = async (values, { setSubmitting }) => {
+    try {
+      // try each role-specific login endpoint
+      const endpoints = [
+        { url: `${API_URL}/jobseeker/login`, role: "jobseeker", redirect: "/" },
+        { url: `${API_URL}/employer/login`, role: "employer", redirect: "/" },
+        { url: `${API_URL}/admin/login`, role: "admin", redirect: "/admin" },
+      ];
+
+      let success = false;
+
+      for (const endpoint of endpoints) {
+        if (success) break;
+        try {
+          const response = await axios.post(endpoint.url, {
+            email: values.email,
+            password: values.password,
+          });
+          const { user, token } = response.data;
+          localStorage.setItem("login", JSON.stringify(user));
+          localStorage.setItem("userRole", endpoint.role);
+          localStorage.setItem("authToken", token);
+          await navigate(endpoint.redirect);
+          window.location.reload();
+          success = true;
+        } catch (err) {
+          // ignore and try next endpoint
+        }
       }
-      window.location.reload();
-    } else {
-      enqueueSnackbar("Incorrect email or password. Please try again", {
+
+      if (!success) {
+        enqueueSnackbar("Incorrect email or password. Please try again", {
+          variant: "error",
+        });
+      }
+    } catch (error) {
+      enqueueSnackbar("Login failed. Please try again later.", {
         variant: "error",
       });
-      // console.log("not correct login info");
+    } finally {
+      setSubmitting(false);
     }
-    setSubmitting(false);
   };
 
   const SignupSchema = Yup.object().shape({
-    firstName: Yup.string()
-      .min(2, "Too Short!")
-      .max(50, "Too Long!")
-      .required("Required"),
-    lastName: Yup.string()
-      .min(2, "Too Short!")
-      .max(50, "Too Long!")
-      .required("Required"),
     email: Yup.string().email("Invalid email").required("Required"),
+    password: Yup.string().required("Password is required"),
   });
   return (
     <div className="login">
@@ -87,7 +77,7 @@ const Login = (props: Props) => {
             email: "",
             password: "",
           }}
-          // validationSchema={SignupSchema}
+          validationSchema={SignupSchema}
           onSubmit={handleSubmit}
         >
           {({ errors, touched }) => (

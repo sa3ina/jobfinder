@@ -8,7 +8,6 @@ interface admin {
   firstname: String;
   lastname: String;
   email: String;
-  password: String;
 }
 
 interface adminState {

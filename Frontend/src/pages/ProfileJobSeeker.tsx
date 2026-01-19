@@ -40,6 +40,7 @@ const ProfileJobSeeker = (props: Props) => {
   }, [dispatch, photos]);
   const navigate = useNavigate();
   const login = JSON.parse(localStorage.getItem("login") || "{}");
+  const authToken = localStorage.getItem("authToken");
   const id = login.id;
   const userInfo = jobseekers.find((elem) => elem.id === id);
   jobs.map((elem) => {

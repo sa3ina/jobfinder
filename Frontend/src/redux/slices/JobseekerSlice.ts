@@ -14,7 +14,6 @@ interface jobseeker {
   remote: Boolean;
   about: String;
   experience: String;
-  password: String;
   cv: String;
 }
 

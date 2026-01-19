@@ -8,7 +8,6 @@ interface employer {
   firstname: String;
   lastname: String;
   email: String;
-  password: String;
   notifications: Array<Object>;
 }
 

@@ -30,6 +30,7 @@ const Navbar = (props: Props) => {
   );
   const { jobseekers } = useSelector((state: RootState) => state.jobseekers);
   const login = JSON.parse(localStorage.getItem("login") || "{}");
+  const authToken = localStorage.getItem("authToken");
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchDataa());
@@ -256,7 +257,7 @@ const Navbar = (props: Props) => {
           <Link to="/companies" className="link">
             <p>Companies</p>
           </Link>
-          {localStorage.getItem("login") ? (
+          {authToken ? (
             <Link
               to={isJobseeker ? "/profilejobseeker" : "/profilemployer"}
               className="link"
